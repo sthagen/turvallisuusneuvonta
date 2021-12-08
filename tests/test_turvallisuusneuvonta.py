@@ -7,7 +7,7 @@ import turvallisuusneuvonta.turvallisuusneuvonta as tu
 
 def test_tu_main():
     inp = str(pathlib.Path('tests', 'fixtures', 'empty', 'advisory.json'))
-    assert tu.main(['verify', inp]) == 0
+    assert tu.main(['verify', inp]) == 1
 
 
 def test_tu_verify_request_too_few():
@@ -20,4 +20,4 @@ def test_tu_verify_request_unknown_command():
 
 def test_tu_verify_request_falsy_input():
     argv = ['verify', '']
-    assert tu.verify_request(argv) == (2, 'input missing', [''])
+    assert tu.verify_request(argv) == (2, 'configuration missing', [''])

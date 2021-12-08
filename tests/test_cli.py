@@ -10,9 +10,9 @@ import turvallisuusneuvonta.cli as cli
 
 def test_main_legacy_ok(capsys):
     inp = str(pathlib.Path('tests', 'fixtures', 'empty', 'advisory.json'))
-    assert cli.main(['verify', inp]) == 0
+    assert cli.main(['verify', inp]) == 1
     out, err = capsys.readouterr()
-    assert 'whatever is' in out.lower()
+    assert 'configuration is' in out.lower()
     assert not err
 
 
@@ -28,7 +28,7 @@ def test_version_ok(capsys):
 def test_now_ok(capsys):
     in_path = pathlib.Path('tests', 'fixtures', 'empty', 'advisory.json')
     with pytest.raises(SystemExit) as exec_info:
-        cli.now(conf=in_path)
+        cli.verify(conf=in_path)
         assert exec_info.value.code == 0
         out, err = capsys.readouterr()
         assert 'would verify advisory' in out.lower()
@@ -38,7 +38,7 @@ def test_now_ok(capsys):
 def test_translate_non_existing_html(capsys):
     in_path = pathlib.Path('does', 'not', 'exist', 'hypothetical.json')
     with pytest.raises(SystemExit) as exec_info:
-        cli.now(conf=in_path)
+        cli.verify(conf=in_path)
         assert exec_info.value.code == 1
         out, err = capsys.readouterr()
         assert 'source' in out.lower()
