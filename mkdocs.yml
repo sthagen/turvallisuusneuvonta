@@ -1,5 +1,5 @@
 site_name: Turvallisuusneuvonta
-site_description: Security advisory (Finnish: turvallisuusneuvonta) audit tool.
+site_description: "Security advisory (Finnish: turvallisuusneuvonta) audit tool."
 
 theme:
   name: 'material'
