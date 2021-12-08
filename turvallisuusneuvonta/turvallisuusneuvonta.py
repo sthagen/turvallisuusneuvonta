@@ -33,7 +33,11 @@ def level_zero(doc):
         if not document.get(prop):
             return 1, f'missing document property ({prop})'
 
-    return 1, ''
+    csaf_version = document['csaf_version']
+    if not csaf_version or csaf_version != '2.0':
+        return 1, f'wrong document property csaf_version value ({csaf_version})'
+
+    return 0, ''
 
 
 def reader(path: str) -> Iterator[str]:
