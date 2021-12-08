@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=expression-not-assigned,line-too-long
 """Working hours (Danish arbejdstimer) or not? API."""
-import datetime as dti
 import json
 import os
 import pathlib
 import sys
-from typing import List, Optional, Tuple, Union
+from typing import Iterator, List, Optional, Tuple, Union
 
 DEBUG_VAR = 'TURVALLISUUSNEUVONTA_DEBUG'
 DEBUG = os.getenv(DEBUG_VAR)
@@ -23,14 +22,11 @@ DISPATCH = {
 }
 
 
-def weekday() -> int:
-    """Return current weekday."""
-    return dti.date.today().isoweekday()
-
-
-def no_weekend(day_number: int) -> bool:
-    """Return if day number is weekend."""
-    return day_number < 6
+def reader(path: str) -> Iterator[str]:
+    """Context wrapper / generator to read the lines."""
+    with open(pathlib.Path(path), 'rt', encoding=ENCODING) as handle:
+        for line in handle:
+            yield line
 
 
 def verify_request(argv: Optional[List[str]]) -> Tuple[int, str, List[str]]:
@@ -71,20 +67,18 @@ def main(argv: Union[List[str], None] = None) -> int:
     with open(config, 'rt', encoding=ENCODING) as handle:
         configuration = json.load(handle)
 
-    print(f'configuration is ({configuration})')
-    week_day = weekday()
-    work_day = no_weekend(week_day)
-    if work_day:
-        print(f'Today ({dti.date.today()}) is not a weekend')
-    else:
-        print('Today is weekend.')
+    print(f'using configuration ({configuration})')
+    source = sys.stdin if not inp else reader(inp)
+    data = ''.join(line for line in source)
+    try:
+        doc = json.loads(data)
+    except RuntimeError:
+        print('advisory is no valid JSON')
         return 1
 
-    hour = dti.datetime.now().hour
-    if 6 < hour < 17:
-        print(f'At this hour ({hour}) is work time')
-    else:
-        print(f'No worktime at hour({hour}).')
+    if not doc:
+        print('advisory is empty')
         return 1
 
+    print('OK')
     return 0
