@@ -40,6 +40,14 @@ def callback(
 
 @app.command('verify')
 def verify(
+    source: str = typer.Argument(tu.STDIN),
+    inp: str = typer.Option(
+        '',
+        '-i',
+        '--input',
+        help='Path to input file (default is reading from standard in)',
+        metavar='<sourcepath>',
+    ),
     conf: str = typer.Option(
         '',
         '-c',
@@ -52,8 +60,9 @@ def verify(
     Answer the question if now is a working hour.
     """
     command = 'verify'
+    incoming = inp if inp else (source if source != tu.STDIN else '')
     config = conf if conf else pathlib.Path.home() / tu.DEFAULT_CONFIG_NAME
-    action = [command, str(config)]
+    action = [command, str(incoming), str(config)]
     return sys.exit(tu.main(action))
 
 

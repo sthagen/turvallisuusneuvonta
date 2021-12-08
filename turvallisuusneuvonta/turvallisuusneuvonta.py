@@ -14,8 +14,13 @@ DEBUG = os.getenv(DEBUG_VAR)
 ENCODING = 'utf-8'
 ENCODING_ERRORS_POLICY = 'ignore'
 
-
 DEFAULT_CONFIG_NAME = '.turvallisuusneuvonta.json'
+
+STDIN, STDOUT = 'STDIN', 'STDOUT'
+DISPATCH = {
+    STDIN: sys.stdin,
+    STDOUT: sys.stdout,
+}
 
 
 def weekday() -> int:
@@ -30,13 +35,17 @@ def no_weekend(day_number: int) -> bool:
 
 def verify_request(argv: Optional[List[str]]) -> Tuple[int, str, List[str]]:
     """Fail with grace."""
-    if not argv or len(argv) != 2:
+    if not argv or len(argv) != 3:
         return 2, 'received wrong number of arguments', ['']
 
-    command, config = argv
+    command, inp, config = argv
 
     if command not in ('verify'):
         return 2, 'received unknown command', ['']
+
+    if inp:
+        if not pathlib.Path(str(inp)).is_file():
+            return 1, 'source is no file', ['']
 
     if not config:
         return 2, 'configuration missing', ['']
@@ -57,7 +66,7 @@ def main(argv: Union[List[str], None] = None) -> int:
         print(message, file=sys.stderr)
         return error
 
-    command, config = strings
+    command, inp, config = strings
 
     with open(config, 'rt', encoding=ENCODING) as handle:
         configuration = json.load(handle)
