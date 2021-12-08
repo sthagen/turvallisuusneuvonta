@@ -5,7 +5,7 @@ import json
 import os
 import pathlib
 import sys
-from typing import Iterator, List, Optional, Tuple, Union
+from typing import Iterator, List, Optional, Tuple, Union, no_type_check
 
 DEBUG_VAR = 'TURVALLISUUSNEUVONTA_DEBUG'
 DEBUG = os.getenv(DEBUG_VAR)
@@ -20,6 +20,20 @@ DISPATCH = {
     STDIN: sys.stdin,
     STDOUT: sys.stdout,
 }
+
+
+@no_type_check
+def level_zero(doc):
+    """Most superficial verification."""
+    if not doc.get('document'):
+        return 1, 'missing document property'
+
+    document = doc['document']
+    for prop in ('csaf_version', 'publisher', 'title', 'tracking', 'status', 'version', 'type'):
+        if not document.get(prop):
+            return 1, f'missing document property ({prop})'
+
+    return 1, ''
 
 
 def reader(path: str) -> Iterator[str]:
@@ -79,6 +93,11 @@ def main(argv: Union[List[str], None] = None) -> int:
     if not doc:
         print('advisory is empty')
         return 1
+
+    error, message = level_zero(doc)
+    if error:
+        print(message, file=sys.stderr)
+        return error
 
     print('OK')
     return 0
