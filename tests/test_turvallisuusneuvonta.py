@@ -11,7 +11,7 @@ def test_tu_main():
 
 
 def test_tu_verify_request_too_few():
-    assert at.verify_request([1]) == (2, 'received wrong number of arguments', [''])
+    assert tu.verify_request([1]) == (2, 'received wrong number of arguments', [''])
 
 
 def test_tu_verify_request_unknown_command():
@@ -21,4 +21,3 @@ def test_tu_verify_request_unknown_command():
 def test_tu_verify_request_falsy_input():
     argv = ['verify', '']
     assert tu.verify_request(argv) == (2, 'input missing', [''])
-
