@@ -10,10 +10,10 @@ import turvallisuusneuvonta.cli as cli
 
 def test_main_legacy_ok(capsys):
     inp = str(pathlib.Path('tests', 'fixtures', 'empty', 'advisory.json'))
-    assert cli.main(['verify', inp]) == 1
+    assert cli.main(['verify', inp, '']) == 2
     out, err = capsys.readouterr()
-    assert 'configuration is' in out.lower()
-    assert not err
+    assert not out
+    assert 'configuration missing' in err.lower()
 
 
 def test_version_ok(capsys):
