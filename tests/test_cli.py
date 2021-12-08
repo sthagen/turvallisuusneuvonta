@@ -44,4 +44,3 @@ def test_translate_non_existing_html(capsys):
         assert 'source' in out.lower()
         assert 'is no file' in out.lower()
         assert not err
-
