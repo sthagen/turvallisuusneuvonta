@@ -47,16 +47,27 @@ def reader(path: str) -> Iterator[str]:
             yield line
 
 
-def peek(path: str) -> str:
+def peek(path: pathlib.Path) -> str:
     """Peek at format of file."""
-    a_path = pathlib.Path(path)
-    if a_path.stat().st_size < 42:
+    if path.stat().st_size < 42:
         return 'TOO_SHORT'
-    with open(a_path, 'rt', encoding=ENCODING) as handle:
+    with open(path, 'rt', encoding=ENCODING) as handle:
         sample = handle.read(4)
     if sample.strip().startswith('{'):
         return 'JSON'
     if sample.strip().startswith('<'):
+        return 'XML'
+    return 'UNKNOWN'
+
+
+def what(data: str) -> str:
+    """Determine trivial format of data."""
+    if len(data) < 42:
+        return 'TOO_SHORT'
+    sample = data[:4].strip()
+    if sample.startswith('{'):
+        return 'JSON'
+    if sample.startswith('<'):
         return 'XML'
     return 'UNKNOWN'
 
@@ -102,20 +113,30 @@ def main(argv: Union[List[str], None] = None) -> int:
     print(f'using configuration ({configuration})')
     source = sys.stdin if not inp else reader(inp)
     data = ''.join(line for line in source)
-    try:
-        doc = json.loads(data)
-    except RuntimeError:
-        print('advisory is no valid JSON')
+
+    guess = what(data)
+
+    if guess == 'TOO_SHORT':
+        print('advisory is too short to be valid')
         return 1
 
-    if not doc:
-        print('advisory is empty')
+    if guess == 'UNKNOWN':
+        print('advisory is of unknown format')
         return 1
 
-    error, message = level_zero(doc)
-    if error:
-        print(message, file=sys.stderr)
-        return error
+    if guess == 'JSON':
+        try:
+            doc = json.loads(data)
+        except RuntimeError:
+            print('advisory is no valid JSON')
+            return 1
 
-    print('OK')
-    return 0
+        error, message = level_zero(doc)
+        if error:
+            print(message, file=sys.stderr)
+            return error
+        print('OK')
+        return 0
+
+    print('advisory may be XML - not yet implemented')
+    return 1
