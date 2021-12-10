@@ -41,3 +41,8 @@ def test_what_json():
 
 def test_what_xml():
     assert tu.what(' ' * 41 + '<') == 'XML'
+
+
+def test_reader_empty():
+    inp = str(pathlib.Path('tests', 'fixtures', 'empty', 'advisory.json'))
+    assert next(tu.reader(inp)).strip() == '{}'

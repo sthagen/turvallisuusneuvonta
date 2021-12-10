@@ -64,7 +64,7 @@ def what(data: str) -> str:
     """Determine trivial format of data."""
     if len(data) < 42:
         return 'TOO_SHORT'
-    sample = data[:4].strip()
+    sample = data[:42].strip()
     if sample.startswith('{'):
         return 'JSON'
     if sample.startswith('<'):
