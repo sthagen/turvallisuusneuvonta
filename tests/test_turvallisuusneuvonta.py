@@ -46,3 +46,8 @@ def test_what_xml():
 def test_reader_empty():
     inp = str(pathlib.Path('tests', 'fixtures', 'empty', 'advisory.json'))
     assert next(tu.reader(inp)).strip() == '{}'
+
+
+def test_peek_too_short():
+    inp = pathlib.Path('tests', 'fixtures', 'empty', 'advisory.json')
+    assert tu.peek(inp) == 'TOO_SHORT'
