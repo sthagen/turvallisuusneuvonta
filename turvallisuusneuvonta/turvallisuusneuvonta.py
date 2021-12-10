@@ -47,6 +47,20 @@ def reader(path: str) -> Iterator[str]:
             yield line
 
 
+def peek(path: str) -> str:
+    """Peek at format of file."""
+    a_path = pathlib.Path(path)
+    if a_path.stat().st_size < 42:
+        return 'TOO_SHORT'
+    with open(a_path, 'rt', encoding=ENCODING) as handle:
+        sample = handle.read(4)
+    if sample.strip().startswith('{'):
+        return 'JSON'
+    if sample.strip().startswith('<'):
+        return 'XML'
+    return 'UNKNOWN'
+
+
 def verify_request(argv: Optional[List[str]]) -> Tuple[int, str, List[str]]:
     """Fail with grace."""
     if not argv or len(argv) != 3:
