@@ -23,5 +23,9 @@ def test_tu_verify_request_falsy_input():
     assert tu.verify_request(argv) == (2, 'configuration missing', [''])
 
 
-def test_what():
+def test_what_empty():
     assert tu.what('') == 'TOO_SHORT'
+
+
+def test_what_too_short():
+    assert tu.what('1' * 41) == 'TOO_SHORT'
