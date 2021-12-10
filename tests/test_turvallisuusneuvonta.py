@@ -29,3 +29,7 @@ def test_what_empty():
 
 def test_what_too_short():
     assert tu.what('1' * 41) == 'TOO_SHORT'
+
+
+def test_what_unknown():
+    assert tu.what('42' * 21) == 'UNKNOWN'
