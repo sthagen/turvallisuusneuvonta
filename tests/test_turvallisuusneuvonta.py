@@ -21,3 +21,7 @@ def test_tu_verify_request_unknown_command():
 def test_tu_verify_request_falsy_input():
     argv = ['verify', '', '']
     assert tu.verify_request(argv) == (2, 'configuration missing', [''])
+
+
+def test_what():
+    assert tu.what('') == 'TOO_SHORT'
