@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=expression-not-assigned,line-too-long
-"""Working hours (Danish arbejdstimer) or not? API."""
+"""Security advisory (Finnish: turvallisuusneuvonta) audit tool. API."""
 import json
 import os
 import pathlib
