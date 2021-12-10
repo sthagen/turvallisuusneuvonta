@@ -138,5 +138,10 @@ def main(argv: Union[List[str], None] = None) -> int:
         print('OK')
         return 0
 
-    print('advisory may be XML - not yet implemented')
-    return 1
+    print('advisory may be XML')
+    if 'DocumentTitle>' not in data:
+        print('advisory is no valid CVRF')
+        return 1
+
+    print('advisory may be valid CVRF')
+    return 0
