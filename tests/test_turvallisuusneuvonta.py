@@ -37,3 +37,7 @@ def test_what_unknown():
 
 def test_what_json():
     assert tu.what(' ' * 41 + '{') == 'JSON'
+
+
+def test_what_xml():
+    assert tu.what(' ' * 41 + '<') == 'XML'
