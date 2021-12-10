@@ -33,3 +33,7 @@ def test_what_too_short():
 
 def test_what_unknown():
     assert tu.what('42' * 21) == 'UNKNOWN'
+
+
+def test_what_json():
+    assert tu.what(' ' * 41 + '{') == 'JSON'
