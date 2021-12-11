@@ -2,7 +2,8 @@
 
 ## 2021.12.9
 
-* Added JMESPath library for validation
+* Added merely level zero existence tests on document properties 
+* Migrated to JMESPath library for validation
 * Migrated to faster JSON library (orjson)
 * Better test coverage
 
