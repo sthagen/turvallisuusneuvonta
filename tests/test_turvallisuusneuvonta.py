@@ -86,3 +86,10 @@ def test_level_zero_document_missing_csaf_version():
     parent, prop = 'document', 'csaf_version'
     del document_missing_csaf_version[parent][prop]
     assert tu.level_zero(document_missing_csaf_version) == (1, f'missing {parent} property ({prop})')
+
+
+def test_level_zero_document_missing_publisher():
+    document_missing_publisher = copy.deepcopy(SPAM)
+    parent, prop = 'document', 'publisher'
+    del document_missing_publisher[parent][prop]
+    assert tu.level_zero(document_missing_publisher) == (1, f'missing {parent} property ({prop})')
