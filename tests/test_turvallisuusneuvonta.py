@@ -4,6 +4,7 @@ import copy
 import pathlib
 
 import orjson
+import pytest
 
 import turvallisuusneuvonta.turvallisuusneuvonta as tu
 
@@ -81,15 +82,9 @@ def test_level_zero_csaf_spam_object():
     assert tu.level_zero(SPAM) == (0, '')
 
 
-def test_level_zero_document_missing_csaf_version():
-    document_missing_csaf_version = copy.deepcopy(SPAM)
-    parent, prop = 'document', 'csaf_version'
-    del document_missing_csaf_version[parent][prop]
-    assert tu.level_zero(document_missing_csaf_version) == (1, f'missing {parent} property ({prop})')
-
-
-def test_level_zero_document_missing_publisher():
+@pytest.mark.parametrize('prop', ['csaf_version', 'publisher', 'title', 'tracking', 'status', 'version', 'type'])
+def test_level_zero_document_missing_mandatory_key(prop):
     document_missing_publisher = copy.deepcopy(SPAM)
-    parent, prop = 'document', 'publisher'
+    parent = 'document'
     del document_missing_publisher[parent][prop]
     assert tu.level_zero(document_missing_publisher) == (1, f'missing {parent} property ({prop})')
