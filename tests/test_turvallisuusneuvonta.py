@@ -55,3 +55,7 @@ def test_peek_too_short():
 
 def test_verify_json_empty():
     assert tu.verify_json('') == (1, 'advisory is no valid JSON', [])
+
+
+def test_verify_json_empty_object():
+    assert tu.verify_json('{}') == (1, 'missing document property', [])
