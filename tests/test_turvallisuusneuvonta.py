@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=line-too-long,missing-docstring,reimported,unused-import,unused-variable
+import copy
 import pathlib
 
 import orjson
@@ -78,3 +79,10 @@ def test_verify_json_csaf_spam_object():
 
 def test_level_zero_csaf_spam_object():
     assert tu.level_zero(SPAM) == (0, '')
+
+
+def test_level_zero_document_missing_csaf_version():
+    document_missing_csaf_version = copy.deepcopy(SPAM)
+    parent, prop = 'document', 'csaf_version'
+    del document_missing_csaf_version[parent][prop]
+    assert tu.level_zero(document_missing_csaf_version) == (1, f'missing {parent} property ({prop})')
