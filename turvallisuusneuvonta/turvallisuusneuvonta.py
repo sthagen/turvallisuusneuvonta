@@ -38,14 +38,15 @@ def level_zero(doc):
     if not doc.get('document'):
         return 1, 'missing document property'
 
-    document = doc['document']
+    parent = 'document'
     for prop in ('csaf_version', 'publisher', 'title', 'tracking', 'status', 'version', 'type'):
-        if not document.get(prop):
-            return 1, f'missing document property ({prop})'
+        if not jmespath.search(f'{parent}.{prop}', doc):
+            return 1, f'missing {parent} property ({prop})'
 
-    csaf_version = jmespath.search('document.csaf_version', doc)
+    prop = 'csaf_version'
+    csaf_version = jmespath.search(f'{parent}.{prop}', doc)
     if not csaf_version or csaf_version != '2.0':
-        return 1, f'wrong document property csaf_version value ({csaf_version})'
+        return 1, f'wrong {parent} property {prop} value ({csaf_version})'
 
     return 0, ''
 
