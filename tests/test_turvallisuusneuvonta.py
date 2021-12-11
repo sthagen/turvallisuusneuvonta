@@ -4,6 +4,32 @@ import pathlib
 
 import turvallisuusneuvonta.turvallisuusneuvonta as tu
 
+SPAM = {
+    'document': {
+        'csaf_version': '2.0',
+        'publisher': ' ',
+        'title': ' ',
+        'tracking': ' ',
+        'status': ' ',
+        'version': ' ',
+        'type': ' ',
+    }
+}
+
+SPAM_JSON = """\
+{
+  "document": {
+    "csaf_version": "2.0",
+    "publisher": " ",
+    "title": " ",
+    "tracking": " ",
+    "status": " ",
+    "version": " ",
+    "type": " "
+  }
+}
+"""
+
 
 def test_tu_main():
     inp = str(pathlib.Path('tests', 'fixtures', 'empty', 'advisory.json'))
@@ -59,3 +85,11 @@ def test_verify_json_empty():
 
 def test_verify_json_empty_object():
     assert tu.verify_json('{}') == (1, 'missing document property', [])
+
+
+def test_verify_json_csaf_spam_object():
+    assert tu.verify_json(SPAM_JSON) == (0, 'OK', [])
+
+
+def test_level_zero_csaf_spam_object():
+    assert tu.level_zero(SPAM) == (0, '')
