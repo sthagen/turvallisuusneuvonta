@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=expression-not-assigned,line-too-long
 """Security advisory (Finnish: turvallisuusneuvonta) audit tool. API."""
-import json
 import os
 import pathlib
 import sys
 from typing import Iterator, List, Optional, Tuple, Union, no_type_check
+
+import orjson
 
 DEBUG_VAR = 'TURVALLISUUSNEUVONTA_DEBUG'
 DEBUG = os.getenv(DEBUG_VAR)
@@ -79,7 +80,7 @@ def verify_request(argv: Optional[List[str]]) -> Tuple[int, str, List[str]]:
 
     command, inp, config = argv
 
-    if command not in ('verify'):
+    if command not in ('verify',):
         return 2, 'received unknown command', ['']
 
     if inp:
@@ -107,8 +108,8 @@ def main(argv: Union[List[str], None] = None) -> int:
 
     command, inp, config = strings
 
-    with open(config, 'rt', encoding=ENCODING) as handle:
-        configuration = json.load(handle)
+    with open(config, 'rb') as handle:
+        configuration = orjson.loads(handle.read())
 
     print(f'using configuration ({configuration})')
     source = sys.stdin if not inp else reader(inp)
@@ -126,7 +127,7 @@ def main(argv: Union[List[str], None] = None) -> int:
 
     if guess == 'JSON':
         try:
-            doc = json.loads(data)
+            doc = orjson.loads(data)
         except RuntimeError:
             print('advisory is no valid JSON')
             return 1
