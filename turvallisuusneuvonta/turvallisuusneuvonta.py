@@ -12,6 +12,7 @@ import pathlib
 import sys
 from typing import Iterator, List, Optional, Tuple, Union, no_type_check
 
+import jmespath
 import orjson
 
 DEBUG_VAR = 'TURVALLISUUSNEUVONTA_DEBUG'
@@ -42,7 +43,7 @@ def level_zero(doc):
         if not document.get(prop):
             return 1, f'missing document property ({prop})'
 
-    csaf_version = document['csaf_version']
+    csaf_version = jmespath.search('document.csaf_version', doc)
     if not csaf_version or csaf_version != '2.0':
         return 1, f'wrong document property csaf_version value ({csaf_version})'
 
