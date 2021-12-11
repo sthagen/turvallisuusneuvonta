@@ -43,10 +43,12 @@ def level_zero(doc):
         if not jmespath.search(f'{parent}.{prop}', doc):
             return 1, f'missing {parent} property ({prop})'
 
+    parent = 'document'
     prop = 'category'
     if not jmespath.search(f'{parent}.{prop}', doc).strip():
         print(f'warning - {parent} property {prop} value is space-only')
 
+    parent = 'document'
     prop = 'csaf_version'
     csaf_version = jmespath.search(f'{parent}.{prop}', doc)
     if not csaf_version or csaf_version != '2.0':
@@ -57,6 +59,11 @@ def level_zero(doc):
     for prop in ('category', 'name', 'namespace'):
         if not jmespath.search(f'{parent}.{prop}', doc):
             return 1, f'missing {parent} property ({prop})'
+
+    parent = 'document'
+    prop = 'title'
+    if not jmespath.search(f'{parent}.{prop}', doc).strip():
+        print(f'warning - {parent} property {prop} value is space-only')
 
     return 0, ''
 
