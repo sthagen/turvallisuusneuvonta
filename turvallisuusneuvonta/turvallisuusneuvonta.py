@@ -1,6 +1,12 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=expression-not-assigned,line-too-long
-"""Security advisory (Finnish: turvallisuusneuvonta) audit tool. API."""
+"""Security advisory (Finnish: turvallisuusneuvonta) audit tool. API.
+
+Minimal length of CSAF (spam) JSON is 116 bytes:
+0        1         2         3         4         5         6         7         8         9         10        11
+12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456
+{"document":{"csaf_version":"2.0","publisher":" ","title":" ","tracking":" ","status":" ","version":" ","type":" "}}
+"""
 import os
 import pathlib
 import sys
@@ -21,6 +27,8 @@ DISPATCH = {
     STDIN: sys.stdin,
     STDOUT: sys.stdout,
 }
+
+CSAF_MIN_BYTES = 116
 
 
 @no_type_check
@@ -48,24 +56,11 @@ def reader(path: str) -> Iterator[str]:
             yield line
 
 
-def peek(path: pathlib.Path) -> str:
-    """Peek at format of file."""
-    if path.stat().st_size < 42:
-        return 'TOO_SHORT'
-    with open(path, 'rt', encoding=ENCODING) as handle:
-        sample = handle.read(4)
-    if sample.strip().startswith('{'):
-        return 'JSON'
-    if sample.strip().startswith('<'):
-        return 'XML'
-    return 'UNKNOWN'
-
-
-def what(data: str) -> str:
+def peek(data: str) -> str:
     """Determine trivial format of data."""
-    if len(data) < 42:
+    if len(data) < CSAF_MIN_BYTES:
         return 'TOO_SHORT'
-    sample = data[:42].strip()
+    sample = data[:CSAF_MIN_BYTES].strip()
     if sample.startswith('{'):
         return 'JSON'
     if sample.startswith('<'):
@@ -128,7 +123,7 @@ def main(argv: Union[List[str], None] = None) -> int:
     source = sys.stdin if not inp else reader(inp)
     data = ''.join(line for line in source)
 
-    guess = what(data)
+    guess = peek(data)
 
     if guess == 'TOO_SHORT':
         print('advisory is too short to be valid')

@@ -40,33 +40,28 @@ def test_tu_verify_request_falsy_input():
 
 
 def test_what_empty():
-    assert tu.what('') == 'TOO_SHORT'
+    assert tu.peek('') == 'TOO_SHORT'
 
 
 def test_what_too_short():
-    assert tu.what('1' * 41) == 'TOO_SHORT'
+    assert tu.peek('1' * (tu.CSAF_MIN_BYTES - 1)) == 'TOO_SHORT'
 
 
 def test_what_unknown():
-    assert tu.what('42' * 21) == 'UNKNOWN'
+    assert tu.peek('1' * tu.CSAF_MIN_BYTES) == 'UNKNOWN'
 
 
 def test_what_json():
-    assert tu.what(' ' * 41 + '{') == 'JSON'
+    assert tu.peek(' ' * (tu.CSAF_MIN_BYTES - 1) + '{') == 'JSON'
 
 
 def test_what_xml():
-    assert tu.what(' ' * 41 + '<') == 'XML'
+    assert tu.peek(' ' * (tu.CSAF_MIN_BYTES - 1) + '<') == 'XML'
 
 
 def test_reader_empty():
     inp = str(pathlib.Path('tests', 'fixtures', 'empty', 'advisory.json'))
     assert next(tu.reader(inp)).strip() == '{}'
-
-
-def test_peek_too_short():
-    inp = pathlib.Path('tests', 'fixtures', 'empty', 'advisory.json')
-    assert tu.peek(inp) == 'TOO_SHORT'
 
 
 def test_verify_json_empty():
