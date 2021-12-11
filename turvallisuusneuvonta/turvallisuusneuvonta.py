@@ -3,9 +3,9 @@
 """Security advisory (Finnish: turvallisuusneuvonta) audit tool. API.
 
 Minimal length of CSAF (spam) JSON is 116 bytes:
-0        1         2         3         4         5         6         7         8         9         10        11
-12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456
-{"document":{"csaf_version":"2.0","publisher":" ","title":" ","tracking":" ","status":" ","version":" ","type":" "}}
+0        1         2         3         4         5         6         7         8         9
+123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123
+{"document":{"category":" ","csaf_version":"2.0","publisher":" ","title":" ","tracking":{}}}}
 """
 import os
 import pathlib
@@ -29,7 +29,7 @@ DISPATCH = {
     STDOUT: sys.stdout,
 }
 
-CSAF_MIN_BYTES = 116
+CSAF_MIN_BYTES = 93
 
 
 @no_type_check
@@ -39,7 +39,7 @@ def level_zero(doc):
         return 1, 'missing document property'
 
     parent = 'document'
-    for prop in ('csaf_version', 'publisher', 'title', 'tracking', 'status', 'version', 'type'):
+    for prop in ('category', 'csaf_version', 'publisher', 'title', 'tracking'):
         if not jmespath.search(f'{parent}.{prop}', doc):
             return 1, f'missing {parent} property ({prop})'
 
