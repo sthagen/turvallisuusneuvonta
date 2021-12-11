@@ -43,10 +43,20 @@ def level_zero(doc):
         if not jmespath.search(f'{parent}.{prop}', doc):
             return 1, f'missing {parent} property ({prop})'
 
+    prop = 'category'
+    if not jmespath.search(f'{parent}.{prop}', doc).strip():
+        print(f'warning - {parent} property {prop} value is space-only')
+
     prop = 'csaf_version'
     csaf_version = jmespath.search(f'{parent}.{prop}', doc)
     if not csaf_version or csaf_version != '2.0':
         return 1, f'wrong {parent} property {prop} value ({csaf_version})'
+
+    # Publisher (publisher) is object requires ('category', 'name', 'namespace')
+    parent = 'document.publisher'
+    for prop in ('category', 'name', 'namespace'):
+        if not jmespath.search(f'{parent}.{prop}', doc):
+            return 1, f'missing {parent} property ({prop})'
 
     return 0, ''
 
