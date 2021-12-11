@@ -17,13 +17,20 @@ Commands:
   version  Display the turvallisuusneuvonta version and exit
 ```
 
+Asking for the version:
+
+```console
+$ turvallisuusneuvonta version
+Security advisory (Finnish: turvallisuusneuvonta) audit tool. version 2021.12.9
+```
+
 Minimal verification (WIP):
 
 Empty object:
 ```console
 $ turvallisuusneuvonta verify tests/fixtures/empty/advisory.json || echo "FAIL"
 using configuration ({})
-advisory is empty
+advisory is too short to be valid
 FAIL
 ```
 Failing top level mandatory elements:
