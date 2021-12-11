@@ -4,8 +4,8 @@
 
 Minimal length of CSAF (spam) JSON is 116 bytes:
 0        1         2         3         4         5         6         7         8         9
-123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123
-{"document":{"category":" ","csaf_version":"2.0","publisher":" ","title":" ","tracking":{}}}}
+12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012
+{"document":{"category":" ","csaf_version":"2.0","publisher":{},"title":" ","tracking":{}}}}
 """
 import os
 import pathlib
@@ -29,7 +29,7 @@ DISPATCH = {
     STDOUT: sys.stdout,
 }
 
-CSAF_MIN_BYTES = 93
+CSAF_MIN_BYTES = 92
 
 
 @no_type_check
@@ -91,7 +91,7 @@ def verify_request(argv: Optional[List[str]]) -> Tuple[int, str, List[str]]:
     if not config_path.is_file():
         return 1, f'config ({config_path}) is no file', ['']
     if not ''.join(config_path.suffixes).lower().endswith('.json'):
-        return 1, 'config has not .json extension', ['']
+        return 1, 'config has no .json extension', ['']
 
     return 0, '', argv
 
