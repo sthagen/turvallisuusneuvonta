@@ -88,3 +88,14 @@ def test_level_zero_document_missing_mandatory_key(prop):
     parent = 'document'
     del document_missing_publisher[parent][prop]
     assert tu.level_zero(document_missing_publisher) == (1, f'missing {parent} property ({prop})')
+
+
+@pytest.mark.parametrize('version', ['', '1', '2', '2.', '2.00', '2_0', '2.0.', '2.0.0'])
+def test_level_zero_document_wrong_csaf_version_values(version):
+    document_missing_publisher = copy.deepcopy(SPAM)
+    parent, prop = 'document', 'csaf_version'
+    document_missing_publisher[parent][prop] = version
+    message = f'wrong {parent} property {prop} value ({version})'
+    if not version:
+        message = f'missing {parent} property ({prop})'
+    assert tu.level_zero(document_missing_publisher) == (1, message)
