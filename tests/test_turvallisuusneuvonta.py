@@ -51,3 +51,7 @@ def test_reader_empty():
 def test_peek_too_short():
     inp = pathlib.Path('tests', 'fixtures', 'empty', 'advisory.json')
     assert tu.peek(inp) == 'TOO_SHORT'
+
+
+def test_verify_json_empty():
+    assert tu.verify_json('') == (1, 'advisory is no valid JSON', [])

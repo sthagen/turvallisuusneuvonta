@@ -103,7 +103,7 @@ def verify_json(data: str) -> Tuple[int, str, List[str]]:
     """Verify the JSON as CSAF."""
     try:
         doc = orjson.loads(data)
-    except RuntimeError:
+    except orjson.JSONDecodeError:
         return 1, 'advisory is no valid JSON', []
 
     error, message = level_zero(doc)
