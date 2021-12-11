@@ -10,13 +10,11 @@ import turvallisuusneuvonta.turvallisuusneuvonta as tu
 
 SPAM = {
     'document': {
+        'category': ' ',
         'csaf_version': '2.0',
         'publisher': ' ',
         'title': ' ',
         'tracking': ' ',
-        'status': ' ',
-        'version': ' ',
-        'type': ' ',
     }
 }
 
@@ -82,7 +80,7 @@ def test_level_zero_csaf_spam_object():
     assert tu.level_zero(SPAM) == (0, '')
 
 
-@pytest.mark.parametrize('prop', ['csaf_version', 'publisher', 'title', 'tracking', 'status', 'version', 'type'])
+@pytest.mark.parametrize('prop', ['category', 'csaf_version', 'publisher', 'title', 'tracking'])
 def test_level_zero_document_missing_mandatory_key(prop):
     document_missing_publisher = copy.deepcopy(SPAM)
     parent = 'document'
