@@ -73,11 +73,13 @@ def test_verify_json_empty_object():
 
 
 def test_verify_json_csaf_spam_object():
-    assert tu.verify_json(SPAM_JSON) == (0, 'OK', [])
+    message = 'missing document.publisher property (category)'
+    assert tu.verify_json(SPAM_JSON) == (1, message, [])
 
 
 def test_level_zero_csaf_spam_object():
-    assert tu.level_zero(SPAM) == (0, '')
+    message = 'missing document.publisher property (category)'
+    assert tu.level_zero(SPAM) == (1, message)
 
 
 @pytest.mark.parametrize('prop', ['category', 'csaf_version', 'publisher', 'title', 'tracking'])
