@@ -2,6 +2,8 @@
 # pylint: disable=line-too-long,missing-docstring,reimported,unused-import,unused-variable
 import pathlib
 
+import orjson
+
 import turvallisuusneuvonta.turvallisuusneuvonta as tu
 
 SPAM = {
@@ -16,19 +18,7 @@ SPAM = {
     }
 }
 
-SPAM_JSON = """\
-{
-  "document": {
-    "csaf_version": "2.0",
-    "publisher": " ",
-    "title": " ",
-    "tracking": " ",
-    "status": " ",
-    "version": " ",
-    "type": " "
-  }
-}
-"""
+SPAM_JSON = orjson.dumps(SPAM)
 
 
 def test_tu_main():
