@@ -99,6 +99,19 @@ def verify_request(argv: Optional[List[str]]) -> Tuple[int, str, List[str]]:
     return 0, '', argv
 
 
+def verify_json(data: str) -> Tuple[int, str, List[str]]:
+    """Verify the JSON as CSAF."""
+    try:
+        doc = orjson.loads(data)
+    except RuntimeError:
+        return 1, 'advisory is no valid JSON', []
+
+    error, message = level_zero(doc)
+    if error:
+        return error, message, []
+    return 0, 'OK', []
+
+
 def main(argv: Union[List[str], None] = None) -> int:
     """Drive the lookup."""
     error, message, strings = verify_request(argv)
@@ -126,16 +139,11 @@ def main(argv: Union[List[str], None] = None) -> int:
         return 1
 
     if guess == 'JSON':
-        try:
-            doc = orjson.loads(data)
-        except RuntimeError:
-            print('advisory is no valid JSON')
-            return 1
-
-        error, message = level_zero(doc)
+        error, message, strings = verify_json(data)
         if error:
             print(message, file=sys.stderr)
             return error
+        # Later post process the business rules (spec tests) here
         print('OK')
         return 0
 
