@@ -2,6 +2,7 @@
 
 ## 2021.12.10
 
+* Added lazr.uri dependency for URI verification
 * Added further CSAF existence verification rules
 * Better test coverage
 
