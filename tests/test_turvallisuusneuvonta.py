@@ -99,7 +99,7 @@ def test_level_zero_document_wrong_csaf_version_values(version):
     document_missing_publisher = copy.deepcopy(SPAM)
     parent, prop = 'document', 'csaf_version'
     document_missing_publisher[parent][prop] = version
-    message = f'wrong {parent} property {prop} value ({version})'
+    message = f'property {parent}.{prop} present but ({version}) not matching CSAF version 2.0'
     if not version:
         message = f'missing {parent} property ({prop})'
     assert tu.level_zero(document_missing_publisher) == (1, message)
