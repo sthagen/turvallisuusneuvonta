@@ -67,6 +67,12 @@ def document_optional_acknowledgments(values):
                 return 1, f'optional {jp} property {what} present but no array'
             if not len(seq):
                 return 1, f'optional {jp} property {what} present but empty'
+            for ndx, text in enumerate(seq):
+                jpn = f'{jp}[{ndx}]'
+                if not isinstance(text, str):
+                    return 1, f'optional {jpn} property {what} entry present but no text'
+                if not len(text):
+                    return 1, f'optional {jpn} property {what} entry present but empty'
 
         for what in ('organization', 'summary'):
             if what not in ack_found_props:
