@@ -1,5 +1,10 @@
 # Change History
 
+## 2021.12.10
+
+* Added further CSAF existence verification rules
+* Better test coverage
+
 ## 2021.12.9
 
 * Added merely level zero existence tests on document properties 
