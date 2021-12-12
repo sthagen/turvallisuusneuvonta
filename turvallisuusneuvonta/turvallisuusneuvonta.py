@@ -15,6 +15,7 @@ from typing import Iterator, List, Optional, Tuple, Union, no_type_check
 
 import jmespath
 import orjson
+from langcodes import tag_is_valid
 from lazr.uri import URI, InvalidURIError  # type: ignore
 
 DEBUG_VAR = 'TURVALLISUUSNEUVONTA_DEBUG'
@@ -172,6 +173,21 @@ def document_csaf_version(value):
 
 
 @no_type_check
+def document_lang(value):
+    """Verify value of document/lang follow rules."""
+    parent, prop = 'document', 'lang'
+    jp = f'property {parent}.{prop}'
+    if not isinstance(value, str):
+        return 1, f'{jp} present but no text'
+    if not value:
+        return 1, f'{jp} present but empty'
+    if not tag_is_valid(value):
+        return 1, f'{jp} present but ({value}) is no valid language tag'
+
+    return 0, ''
+
+
+@no_type_check
 def document_optional(document):
     """Verify optional properties of document if present follow rules."""
     norm_props = ('category', 'csaf_version', 'publisher', 'title', 'tracking')
@@ -226,6 +242,13 @@ def verify_document(document):
     error, message = document_csaf_version(csaf_version)
     if error:
         return error, message
+
+    prop = 'lang'
+    lang = jmespath.search(f'{prop}', document)
+    if lang is not None:
+        error, message = document_lang(lang)
+        if error:
+            return error, message
 
     # Publisher (publisher) is object requires ('category', 'name', 'namespace')
     parent = 'document.publisher'
