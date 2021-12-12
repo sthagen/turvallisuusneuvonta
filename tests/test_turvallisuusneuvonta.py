@@ -132,6 +132,24 @@ def test_document_optional_csaf_example_com_123_wrong_acknowledgments_names(valu
     assert tu.document_optional(document) == (1, message)
 
 
+@pytest.mark.parametrize(
+    'values, what',
+    [
+        ([''], '[0][0] property names entry present but empty'),
+        (['ok', ''], '[0][1] property names entry present but empty'),
+        ([{}], '[0][0] property names entry present but no text'),
+        ([{'en': 'try'}], '[0][0] property names entry present but no text'),
+    ],
+)
+def test_document_optional_csaf_example_com_123_wrong_acknowledgments_names_entries(values, what):
+    document = copy.deepcopy(CSAF_WITH_DOCUMENTS['document'])
+    prop = 'acknowledgments'
+    aspect = 'names'
+    document[prop][0][aspect] = values
+    message = f'optional properties of document.{prop}{what}'
+    assert tu.document_optional(document) == (1, message)
+
+
 @pytest.mark.parametrize('values', ['', 'a string', [], {}, {'en': 'try'}])
 def test_document_optional_csaf_example_com_123_wrong_acknowledgments_urls(values):
     document = copy.deepcopy(CSAF_WITH_DOCUMENTS['document'])
@@ -140,6 +158,24 @@ def test_document_optional_csaf_example_com_123_wrong_acknowledgments_urls(value
     document[prop][0][aspect] = values
     message = f'optional properties of document.acknowledgments[0] property {aspect} present but '
     message += 'empty' if isinstance(values, list) else 'no array'
+    assert tu.document_optional(document) == (1, message)
+
+
+@pytest.mark.parametrize(
+    'values, what',
+    [
+        ([''], '[0][0] property urls entry present but empty'),
+        (['ok', ''], '[0][1] property urls entry present but empty'),
+        ([{}], '[0][0] property urls entry present but no text'),
+        ([{'en': 'try'}], '[0][0] property urls entry present but no text'),
+    ],
+)
+def test_document_optional_csaf_example_com_123_wrong_acknowledgments_urls_entries(values, what):
+    document = copy.deepcopy(CSAF_WITH_DOCUMENTS['document'])
+    prop = 'acknowledgments'
+    aspect = 'urls'
+    document[prop][0][aspect] = values
+    message = f'optional properties of document.{prop}{what}'
     assert tu.document_optional(document) == (1, message)
 
 
