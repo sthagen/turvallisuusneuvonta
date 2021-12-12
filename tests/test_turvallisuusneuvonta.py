@@ -111,6 +111,12 @@ def test_document_optional_csaf_example_com_123():
     assert tu.document_optional(document) == (0, message)
 
 
+def test_document_aggregate_severity_csaf_example_com_123():
+    document = copy.deepcopy(CSAF_WITH_DOCUMENTS['document'])
+    message = 'NotImplemented'
+    assert tu.document_optional(document['aggregate_severity']) == (0, message)
+
+
 @pytest.mark.parametrize('values', ['', 'a string', [], {}, {'en': 'try'}])
 def test_document_optional_csaf_example_com_123_wrong_acknowledgments(values):
     document = copy.deepcopy(CSAF_WITH_DOCUMENTS['document'])
