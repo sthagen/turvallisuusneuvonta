@@ -92,6 +92,57 @@ def document_optional_acknowledgments(values):
 
 
 @no_type_check
+def document_aggregate_severity(value):
+    """Verify properties of document/aggregate_severity present follow rules."""
+    parent, prop = 'document', 'aggregate_severity'
+    jp = f'{parent}.{prop}'
+    if not isinstance(value, dict):
+        return 1, f'optional property {jp} present but no object'
+    if not value:
+        return 1, f'optional property {jp} present but empty'
+    agg_norm_props = ('text',)
+    agg_opt_props = ('namespace',)
+    agg_known_props = {el for el in chain(agg_norm_props, agg_opt_props)}
+    min_props, max_props = 1, len(agg_known_props)
+    agg_found_props = {el for el in value}
+    if agg_found_props <= agg_known_props:
+        print(f'set of {jp} properties only contains known properties')
+    if agg_found_props < agg_known_props:
+        print(f'set of {jp} properties is a proper subset of the known properties')
+    nr_distinct_found_props = len(agg_found_props)
+    if nr_distinct_found_props < min_props:
+        return 1, f'found too few properties ({nr_distinct_found_props}) for {jp}'
+    if max_props < nr_distinct_found_props:
+        return 1, f'found too many properties ({nr_distinct_found_props}) for {jp}'
+
+    sub = 'text'
+    jps = f'property {parent}.{prop}.{sub}'
+    entry = value.get(sub)
+    if entry is None:
+        return 1, f'mandatory {jps} not present'
+    if not isinstance(entry, str):
+        return 1, f'mandatory {jps} present but no text'
+    if not entry:
+        return 1, f'mandatory {jps} present but empty'
+
+    sub = 'namespace'
+    jps = f'optional property {parent}.{prop}.{sub}'
+    entry = value.get(sub)
+    if entry is None:
+        return 0, ''
+    if not isinstance(entry, str):
+        return 1, f'{jps} present but no text'
+    if not entry:
+        return 1, f'mandatory {jps} present but empty'
+    try:
+        _ = URI(entry)
+    except InvalidURIError as err:
+        return 1, f'{jps} present but invalid as URI({err})'
+
+    return 0, ''
+
+
+@no_type_check
 def document_optional(document):
     """Verify optional properties of document if present follow rules."""
     norm_props = ('category', 'csaf_version', 'publisher', 'title', 'tracking')
@@ -107,6 +158,12 @@ def document_optional(document):
     prop = 'acknowledgments'
     if opt_map[prop] is not None:
         error, message = document_optional_acknowledgments(opt_map[prop])
+        if error:
+            return error, message
+
+    prop = 'aggregate_severity'
+    if opt_map[prop] is not None:
+        error, message = document_aggregate_severity(opt_map[prop])
         if error:
             return error, message
 
