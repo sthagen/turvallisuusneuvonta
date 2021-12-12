@@ -143,6 +143,19 @@ def document_aggregate_severity(value):
 
 
 @no_type_check
+def document_category(value):
+    """Verify value of document/category follow rules."""
+    parent, prop = 'document', 'category'
+    jp = f'property {parent}.{prop}'
+    if not isinstance(value, str):
+        return 1, f'{jp} present but no object'
+    if not value:
+        return 1, f'{jp} present but empty'
+
+    return 0, ''
+
+
+@no_type_check
 def document_optional(document):
     """Verify optional properties of document if present follow rules."""
     norm_props = ('category', 'csaf_version', 'publisher', 'title', 'tracking')
@@ -188,6 +201,9 @@ def verify_document(document):
     prop = 'category'
     if not jmespath.search(f'{prop}', document).strip():
         print(f'warning - {parent} property {prop} value is space-only')
+    error, message = document_category(document[prop])
+    if error:
+        return error, message
 
     parent = 'document'
     prop = 'csaf_version'
