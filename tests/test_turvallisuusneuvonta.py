@@ -106,5 +106,14 @@ def test_level_zero_document_wrong_csaf_version_values(version):
 
 
 def test_document_optional_csaf_example_com_123():
+    document = copy.deepcopy(CSAF_WITH_DOCUMENTS['document'])
     message = 'NotImplemented'
-    assert tu.document_optional(CSAF_WITH_DOCUMENTS['document']) == (0, message)
+    assert tu.document_optional(document) == (0, message)
+
+
+def test_document_optional_csaf_example_com_123_empty_acknowledgments():
+    document = copy.deepcopy(CSAF_WITH_DOCUMENTS['document'])
+    prop = 'acknowledgments'
+    document[prop] = 'a string'
+    message = 'optional document property acknowledgments present but no array'
+    assert tu.document_optional(document) == (1, message)
