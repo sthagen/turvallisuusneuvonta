@@ -20,6 +20,10 @@ SPAM = {
 
 SPAM_JSON = orjson.dumps(SPAM)
 
+CSAF_EXAMPLE_COM_123_PATH = pathlib.Path('tests', 'fixtures', 'example-com', 'example-com-123.json')
+with open(CSAF_EXAMPLE_COM_123_PATH, 'rb') as handle:
+    CSAF_WITH_DOCUMENTS = orjson.loads(handle.read())
+
 
 def test_tu_main():
     inp = str(pathlib.Path('tests', 'fixtures', 'empty', 'advisory.json'))
@@ -99,3 +103,8 @@ def test_level_zero_document_wrong_csaf_version_values(version):
     if not version:
         message = f'missing {parent} property ({prop})'
     assert tu.level_zero(document_missing_publisher) == (1, message)
+
+
+def test_document_optional_csaf_example_com_123():
+    message = 'NotImplemented'
+    assert tu.document_optional(CSAF_WITH_DOCUMENTS['document']) == (0, message)
