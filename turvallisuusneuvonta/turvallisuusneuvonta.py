@@ -177,46 +177,56 @@ def document_optional(document):
 
 
 @no_type_check
-def level_zero(csaf_doc):
-    """Most superficial verification."""
-    if not csaf_doc.get('document'):
-        return 1, 'missing document property'
-
+def verify_document(document):
+    """Root of /document member verifier"""
     parent = 'document'
     for prop in ('category', 'csaf_version', 'publisher', 'title', 'tracking'):
-        if not jmespath.search(f'{parent}.{prop}', csaf_doc):
+        if not jmespath.search(f'{prop}', document):
             return 1, f'missing {parent} property ({prop})'
 
     parent = 'document'
     prop = 'category'
-    if not jmespath.search(f'{parent}.{prop}', csaf_doc).strip():
+    if not jmespath.search(f'{prop}', document).strip():
         print(f'warning - {parent} property {prop} value is space-only')
 
     parent = 'document'
     prop = 'csaf_version'
-    csaf_version = jmespath.search(f'{parent}.{prop}', csaf_doc)
+    csaf_version = jmespath.search(f'{prop}', document)
     if not csaf_version or csaf_version != '2.0':
         return 1, f'wrong {parent} property {prop} value ({csaf_version})'
 
     # Publisher (publisher) is object requires ('category', 'name', 'namespace')
     parent = 'document.publisher'
     for prop in ('category', 'name', 'namespace'):
-        if not jmespath.search(f'{parent}.{prop}', csaf_doc):
+        if not jmespath.search(f'publisher.{prop}', document):
             return 1, f'missing {parent} property ({prop})'
 
     parent = 'document'
     prop = 'title'
-    if not jmespath.search(f'{parent}.{prop}', csaf_doc).strip():
+    if not jmespath.search(f'{prop}', document).strip():
         print(f'warning - {parent} property {prop} value is space-only')
 
     # Tracking (tracking) is object requires:
     # ('current_release_date', 'id', 'initial_release_date', 'revision_history', 'status', 'version')
     parent = 'document.tracking'
     for prop in ('current_release_date', 'id', 'initial_release_date', 'revision_history', 'status', 'version'):
-        if not jmespath.search(f'{parent}.{prop}', csaf_doc):
+        if not jmespath.search(f'{prop}', document):
             return 1, f'missing {parent} property ({prop})'
 
-    return document_optional(csaf_doc['document'])
+    return document_optional(document)
+
+
+@no_type_check
+def level_zero(csaf_doc):
+    """Most superficial verification."""
+    if not csaf_doc.get('document'):
+        return 1, 'missing document property'
+
+    error, message = verify_document(csaf_doc['document'])
+    if error:
+        return error, message
+
+    return 0, ''
 
 
 def reader(path: str) -> Iterator[str]:
