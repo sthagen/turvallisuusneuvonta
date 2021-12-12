@@ -165,7 +165,8 @@ def test_document_optional_csaf_example_com_123_wrong_acknowledgments_urls(value
     'values, what',
     [
         ([''], '[0][0] property urls entry present but empty'),
-        (['ok', ''], '[0][1] property urls entry present but empty'),
+        (['https://example.com', ''], '[0][1] property urls entry present but empty'),
+        (['not ok'], '[0][0] property urls entry present but invalid as URI("not ok" is not a valid URI)'),
         ([{}], '[0][0] property urls entry present but no text'),
         ([{'en': 'try'}], '[0][0] property urls entry present but no text'),
     ],
