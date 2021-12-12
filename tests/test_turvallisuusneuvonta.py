@@ -141,3 +141,14 @@ def test_document_optional_csaf_example_com_123_wrong_acknowledgments_urls(value
     message = f'optional properties of document.acknowledgments[0] property {aspect} present but '
     message += 'empty' if isinstance(values, list) else 'no array'
     assert tu.document_optional(document) == (1, message)
+
+
+@pytest.mark.parametrize('values', ['', [], ['entry'], {}, {'en': 'try'}])
+def test_document_optional_csaf_example_com_123_wrong_acknowledgments_organization(values):
+    document = copy.deepcopy(CSAF_WITH_DOCUMENTS['document'])
+    prop = 'acknowledgments'
+    aspect = 'organization'
+    document[prop][0][aspect] = values
+    message = f'optional properties of document.acknowledgments[0] property {aspect} present but '
+    message += 'empty' if isinstance(values, str) else 'no text'
+    assert tu.document_optional(document) == (1, message)
