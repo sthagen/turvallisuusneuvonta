@@ -43,15 +43,15 @@ def document_optional(document):
     parent = 'document'
     for prop in opt_props:
         value = jmespath.search(f'{prop}', document)
-        if value:
+        if value is not None:
             opt_map[prop] = value
 
     prop = 'acknowledgments'
-    if opt_map[prop]:
+    if opt_map[prop] is not None:
         values = opt_map[prop]
         if not isinstance(values, list):
             return 1, f'optional {parent} property {prop} present but no array'
-        if not len(values):
+        if not values:
             return 1, f'optional {parent} property {prop} present but empty'
         ack_opt_props = ('names', 'organization', 'summary', 'urls')
         min_props, max_props = 1, len(ack_opt_props)

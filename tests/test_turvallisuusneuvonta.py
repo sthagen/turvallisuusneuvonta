@@ -111,9 +111,11 @@ def test_document_optional_csaf_example_com_123():
     assert tu.document_optional(document) == (0, message)
 
 
-def test_document_optional_csaf_example_com_123_empty_acknowledgments():
+@pytest.mark.parametrize('values', ['', 'a string', [], {}, {'en': 'try'}])
+def test_document_optional_csaf_example_com_123_wrong_acknowledgments(values):
     document = copy.deepcopy(CSAF_WITH_DOCUMENTS['document'])
     prop = 'acknowledgments'
-    document[prop] = 'a string'
-    message = 'optional document property acknowledgments present but no array'
+    document[prop] = values
+    message = 'optional document property acknowledgments present but '
+    message += 'empty' if isinstance(values, list) else 'no array'
     assert tu.document_optional(document) == (1, message)
