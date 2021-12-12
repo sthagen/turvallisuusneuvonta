@@ -34,6 +34,52 @@ CSAF_MIN_BYTES = 92
 
 
 @no_type_check
+def document_optional_acknowledgments(values):
+    """Verify optional properties of document/acknowledgments if present follow rules."""
+    parent, prop = 'document', 'acknowledgments'
+    if not isinstance(values, list):
+        return 1, f'optional {parent} property {prop} present but no array'
+    if not values:
+        return 1, f'optional {parent} property {prop} present but empty'
+    ack_opt_props = ('names', 'organization', 'summary', 'urls')
+    min_props, max_props = 1, len(ack_opt_props)
+    ack_known_props = {el for el in ack_opt_props}
+    for pos, value in enumerate(values):
+        jp = f'properties of {parent}.{prop}[{pos}]'
+        # print(pos, value)
+        ack_found_props = {el for el in value}
+        # print(ack_found_props)
+        if ack_found_props <= ack_known_props:
+            print(f'set of {jp} only contains known properties')
+        if ack_found_props < ack_known_props:
+            print(f'set of {jp} is a proper subset of the known properties')
+        nr_distinct_found_props = len(ack_found_props)
+        if nr_distinct_found_props < min_props:
+            return 1, f'found too few properties ({nr_distinct_found_props}) for {jp}'
+        if max_props < nr_distinct_found_props:
+            return 1, f'found too many properties ({nr_distinct_found_props}) for {jp}'
+
+        for what in ('names', 'urls'):
+            if what not in ack_found_props:
+                continue
+            seq = value[what]
+            if not isinstance(seq, list):
+                return 1, f'optional {jp} property {what} present but no array'
+            if not len(seq):
+                return 1, f'optional {jp} property {what} present but empty'
+
+        for what in ('organization', 'summary'):
+            if what not in ack_found_props:
+                continue
+            text = value[what]
+            if not isinstance(text, str):
+                return 1, f'optional {jp} property {what} present but no text'
+            if not len(text):
+                return 1, f'optional {jp} property {what} present but empty'
+    return 0, ''
+
+
+@no_type_check
 def document_optional(document):
     """Verify optional properties of document if present follow rules."""
     norm_props = ('category', 'csaf_version', 'publisher', 'title', 'tracking')
@@ -48,46 +94,9 @@ def document_optional(document):
 
     prop = 'acknowledgments'
     if opt_map[prop] is not None:
-        values = opt_map[prop]
-        if not isinstance(values, list):
-            return 1, f'optional {parent} property {prop} present but no array'
-        if not values:
-            return 1, f'optional {parent} property {prop} present but empty'
-        ack_opt_props = ('names', 'organization', 'summary', 'urls')
-        min_props, max_props = 1, len(ack_opt_props)
-        ack_known_props = {el for el in ack_opt_props}
-        for pos, value in enumerate(values):
-            jp = f'properties of {parent}.{prop}[{pos}]'
-            # print(pos, value)
-            ack_found_props = {el for el in value}
-            # print(ack_found_props)
-            if ack_found_props <= ack_known_props:
-                print(f'set of {jp} only contains known properties')
-            if ack_found_props < ack_known_props:
-                print(f'set of {jp} is a proper subset of the known properties')
-            nr_distinct_found_props = len(ack_found_props)
-            if nr_distinct_found_props < min_props:
-                return 1, f'found too few properties ({nr_distinct_found_props}) for {jp}'
-            if max_props < nr_distinct_found_props:
-                return 1, f'found too many properties ({nr_distinct_found_props}) for {jp}'
-
-            for what in ('names', 'urls'):
-                if what not in ack_found_props:
-                    continue
-                seq = value[what]
-                if not isinstance(seq, list):
-                    return 1, f'optional {jp} property {what} present but no array'
-                if not len(seq):
-                    return 1, f'optional {jp} property {what} present but empty'
-
-            for what in ('organization', 'summary'):
-                if what not in ack_found_props:
-                    continue
-                text = value[what]
-                if not isinstance(text, str):
-                    return 1, f'optional {jp} property {what} present but no text'
-                if not len(text):
-                    return 1, f'optional {jp} property {what} present but empty'
+        error, message = document_optional_acknowledgments(opt_map[prop])
+        if error:
+            return error, message
 
     found_props = {el for el in document}
     if found_props <= known_props:
