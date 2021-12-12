@@ -32,6 +32,7 @@ DISPATCH = {
 }
 
 CSAF_MIN_BYTES = 92
+CSAF_VERSION_STRING = '2.0'
 
 
 @no_type_check
@@ -148,9 +149,24 @@ def document_category(value):
     parent, prop = 'document', 'category'
     jp = f'property {parent}.{prop}'
     if not isinstance(value, str):
-        return 1, f'{jp} present but no object'
+        return 1, f'{jp} present but no text'
     if not value:
         return 1, f'{jp} present but empty'
+
+    return 0, ''
+
+
+@no_type_check
+def document_csaf_version(value):
+    """Verify value of document/csaf_version follow rules."""
+    parent, prop = 'document', 'csaf_version'
+    jp = f'property {parent}.{prop}'
+    if not isinstance(value, str):
+        return 1, f'{jp} present but no text'
+    if not value:
+        return 1, f'{jp} present but empty'
+    if value != CSAF_VERSION_STRING:
+        return 1, f'{jp} present but ({value}) not matching CSAF version 2.0'
 
     return 0, ''
 
@@ -205,11 +221,11 @@ def verify_document(document):
     if error:
         return error, message
 
-    parent = 'document'
     prop = 'csaf_version'
     csaf_version = jmespath.search(f'{prop}', document)
-    if not csaf_version or csaf_version != '2.0':
-        return 1, f'wrong {parent} property {prop} value ({csaf_version})'
+    error, message = document_csaf_version(csaf_version)
+    if error:
+        return error, message
 
     # Publisher (publisher) is object requires ('category', 'name', 'namespace')
     parent = 'document.publisher'
