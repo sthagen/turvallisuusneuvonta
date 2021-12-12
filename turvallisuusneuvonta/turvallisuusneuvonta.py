@@ -15,6 +15,7 @@ from typing import Iterator, List, Optional, Tuple, Union, no_type_check
 
 import jmespath
 import orjson
+from lazr.uri import URI, InvalidURIError  # type: ignore
 
 DEBUG_VAR = 'TURVALLISUUSNEUVONTA_DEBUG'
 DEBUG = os.getenv(DEBUG_VAR)
@@ -73,6 +74,11 @@ def document_optional_acknowledgments(values):
                     return 1, f'optional {jpn} property {what} entry present but no text'
                 if not len(text):
                     return 1, f'optional {jpn} property {what} entry present but empty'
+                if what == 'urls':
+                    try:
+                        _ = URI(text)
+                    except InvalidURIError as err:
+                        return 1, f'optional {jpn} property {what} entry present but invalid as URI({err})'
 
         for what in ('organization', 'summary'):
             if what not in ack_found_props:
