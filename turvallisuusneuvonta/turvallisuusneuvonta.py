@@ -10,6 +10,7 @@ Minimal length of CSAF (spam) JSON is 116 bytes:
 import os
 import pathlib
 import sys
+from itertools import chain
 from typing import Iterator, List, Optional, Tuple, Union, no_type_check
 
 import jmespath
@@ -33,46 +34,75 @@ CSAF_MIN_BYTES = 92
 
 
 @no_type_check
-def level_zero(doc):
+def document_optional(document):
+    """Verify optional properties of document if present follow rules."""
+    norm_props = ('category', 'csaf_version', 'publisher', 'title', 'tracking')
+    opt_props = ('acknowledgments', 'aggregate_severity', 'distribution', 'lang', 'notes', 'references', 'source_lang')
+    known_props = {el for el in chain(norm_props, opt_props)}
+    opt_map = {el: None for el in opt_props}
+    parent = 'document'
+    for prop in opt_props:
+        value = jmespath.search(f'{prop}', document)
+        if value:
+            opt_map[prop] = value
+
+    found_props = {el for el in document}
+    if found_props <= known_props:
+        print(f'set of {parent} properties only contains known properties')
+
+    if found_props < known_props:
+        print(f'set of {parent} properties is a proper subset of the known properties')
+
+    known_only = known_props - found_props
+    found_only = found_props - known_props
+    sym_diff = known_props ^ found_props
+    print(f'known only properties of {parent} are ({sorted(known_only)})')
+    print(f'found only properties of {parent} are ({sorted(found_only)})')
+    print(f'properties of {parent} only either in found or known ({sorted(sym_diff)})')
+    return 0, 'NotImplemented'
+
+
+@no_type_check
+def level_zero(csaf_doc):
     """Most superficial verification."""
-    if not doc.get('document'):
+    if not csaf_doc.get('document'):
         return 1, 'missing document property'
 
     parent = 'document'
     for prop in ('category', 'csaf_version', 'publisher', 'title', 'tracking'):
-        if not jmespath.search(f'{parent}.{prop}', doc):
+        if not jmespath.search(f'{parent}.{prop}', csaf_doc):
             return 1, f'missing {parent} property ({prop})'
 
     parent = 'document'
     prop = 'category'
-    if not jmespath.search(f'{parent}.{prop}', doc).strip():
+    if not jmespath.search(f'{parent}.{prop}', csaf_doc).strip():
         print(f'warning - {parent} property {prop} value is space-only')
 
     parent = 'document'
     prop = 'csaf_version'
-    csaf_version = jmespath.search(f'{parent}.{prop}', doc)
+    csaf_version = jmespath.search(f'{parent}.{prop}', csaf_doc)
     if not csaf_version or csaf_version != '2.0':
         return 1, f'wrong {parent} property {prop} value ({csaf_version})'
 
     # Publisher (publisher) is object requires ('category', 'name', 'namespace')
     parent = 'document.publisher'
     for prop in ('category', 'name', 'namespace'):
-        if not jmespath.search(f'{parent}.{prop}', doc):
+        if not jmespath.search(f'{parent}.{prop}', csaf_doc):
             return 1, f'missing {parent} property ({prop})'
 
     parent = 'document'
     prop = 'title'
-    if not jmespath.search(f'{parent}.{prop}', doc).strip():
+    if not jmespath.search(f'{parent}.{prop}', csaf_doc).strip():
         print(f'warning - {parent} property {prop} value is space-only')
 
     # Tracking (tracking) is object requires:
     # ('current_release_date', 'id', 'initial_release_date', 'revision_history', 'status', 'version')
     parent = 'document.tracking'
     for prop in ('current_release_date', 'id', 'initial_release_date', 'revision_history', 'status', 'version'):
-        if not jmespath.search(f'{parent}.{prop}', doc):
+        if not jmespath.search(f'{parent}.{prop}', csaf_doc):
             return 1, f'missing {parent} property ({prop})'
 
-    return 0, ''
+    return document_optional(csaf_doc['document'])
 
 
 def reader(path: str) -> Iterator[str]:
