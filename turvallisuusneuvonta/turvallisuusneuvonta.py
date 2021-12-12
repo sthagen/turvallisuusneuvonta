@@ -65,12 +65,6 @@ def document_optional(document):
                 print(f'set of {jp} only contains known properties')
             if ack_found_props < ack_known_props:
                 print(f'set of {jp} is a proper subset of the known properties')
-            # ack_known_only = ack_known_props - ack_found_props
-            # ack_found_only = ack_found_props - ack_known_props
-            # ack_sym_diff = ack_known_props ^ ack_found_props
-            # print(f'known only {jp} are ({sorted(ack_known_only)})')
-            # print(f'found only {jp} are ({sorted(ack_found_only)})')
-            # print(f'{jp} only either in found or known ({sorted(ack_sym_diff)})')
             nr_distinct_found_props = len(ack_found_props)
             if nr_distinct_found_props < min_props:
                 return 1, f'found too few properties ({nr_distinct_found_props}) for {jp}'
@@ -100,12 +94,7 @@ def document_optional(document):
         print(f'set of {parent} properties only contains known properties')
     if found_props < known_props:
         print(f'set of {parent} properties is a proper subset of the known properties')
-    # known_only = known_props - found_props
-    # found_only = found_props - known_props
-    # sym_diff = known_props ^ found_props
-    # print(f'known only properties of {parent} are ({sorted(known_only)})')
-    # print(f'found only properties of {parent} are ({sorted(found_only)})')
-    # print(f'properties of {parent} only either in found or known ({sorted(sym_diff)})')
+
     return 0, 'NotImplemented'
 
 
