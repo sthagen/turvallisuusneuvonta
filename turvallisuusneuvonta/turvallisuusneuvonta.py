@@ -263,10 +263,11 @@ def verify_document(document):
 
     # Tracking (tracking) is object requires:
     # ('current_release_date', 'id', 'initial_release_date', 'revision_history', 'status', 'version')
-    parent = 'document.tracking'
-    for prop in ('current_release_date', 'id', 'initial_release_date', 'revision_history', 'status', 'version'):
-        if not jmespath.search(f'{prop}', document):
-            return 1, f'missing {parent} property ({prop})'
+    parent = 'document'
+    prop = 'tracking'
+    for sub in ('current_release_date', 'id', 'initial_release_date', 'revision_history', 'status', 'version'):
+        if jmespath.search(f'{prop}.{sub}', document) is None:
+            return 1, f'missing {parent}.{prop} property ({sub})'
 
     return document_optional(document)
 
