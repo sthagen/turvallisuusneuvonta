@@ -2,6 +2,7 @@
 
 ## 2021.12.10
 
+* Added langcodes dependency for language tag validation
 * Added lazr.uri dependency for URI verification
 * Added further CSAF existence verification rules
 * Better test coverage
