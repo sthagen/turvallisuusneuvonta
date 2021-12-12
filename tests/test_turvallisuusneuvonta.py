@@ -94,15 +94,17 @@ def test_level_zero_document_missing_mandatory_key(prop):
     assert tu.level_zero(document_missing_publisher) == (1, f'missing {parent} property ({prop})')
 
 
-@pytest.mark.parametrize('version', ['', '1', '2', '2.', '2.00', '2_0', '2.0.', '2.0.0'])
+@pytest.mark.parametrize('version', ['', '1', '2', '2.', '2.00', '2_0', '2.0.', '2.0.0', ['2.0'], {'en': 'try'}])
 def test_level_zero_document_wrong_csaf_version_values(version):
     document_missing_publisher = copy.deepcopy(SPAM)
     parent, prop = 'document', 'csaf_version'
     document_missing_publisher[parent][prop] = version
-    message = f'property {parent}.{prop} present but ({version}) not matching CSAF version 2.0'
-    if not version:
-        message = f'missing {parent} property ({prop})'
-    assert tu.level_zero(document_missing_publisher) == (1, message)
+    expectation = (1, f'property {parent}.{prop} present but ({version}) not matching CSAF version 2.0')
+    if version == '':
+        expectation = (1, f'missing {parent} property ({prop})')
+    elif version in (['2.0'], {'en': 'try'}):
+        expectation = (1, f'property {parent}.{prop} present but no text')
+    assert tu.level_zero(document_missing_publisher) == expectation
 
 
 def test_document_optional_csaf_example_com_123():
@@ -115,6 +117,21 @@ def test_document_aggregate_severity_csaf_example_com_123():
     document = copy.deepcopy(CSAF_WITH_DOCUMENTS['document'])
     message = 'NotImplemented'
     assert tu.document_optional(document['aggregate_severity']) == (0, message)
+
+
+@pytest.mark.parametrize('value', ['en', 'fr', 'de', 'de-ch', 'en_EN', 'talking', 'ok', '', [], {}])
+def test_document_optional_csaf_example_com_123_lang(value):
+    parent, prop = 'document', 'lang'
+    document = copy.deepcopy(CSAF_WITH_DOCUMENTS[parent])
+    document[prop] = value
+    expectation = (0, '')
+    if value in ('en_EN', 'talking', 'ok'):
+        expectation = (1, f'property {parent}.{prop} present but ({value}) is no valid language tag')
+    elif value == '':
+        expectation = (1, f'property {parent}.{prop} present but empty')
+    elif value in ([], {}):
+        expectation = (1, f'property {parent}.{prop} present but no text')
+    assert tu.document_lang(document[prop]) == expectation
 
 
 @pytest.mark.parametrize('values', ['', 'a string', [], {}, {'en': 'try'}])
