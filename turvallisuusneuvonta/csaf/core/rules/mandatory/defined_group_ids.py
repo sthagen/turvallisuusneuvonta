@@ -36,6 +36,9 @@ Example 43 which fails the test:
 CSAFGID-1020301 was not defined in the Product Tree.
 """
 
+ID = (6, 1, 4)
+TOPIC = 'Missing Definition of Product Group ID'
+
 PATHS = (
     '/vulnerabilities[]/remediations[]/group_ids',
     '/vulnerabilities[]/threats[]/group_ids',
