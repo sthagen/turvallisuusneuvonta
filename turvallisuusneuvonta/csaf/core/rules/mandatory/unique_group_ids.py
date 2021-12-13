@@ -44,3 +44,7 @@ Example 44 which fails the test:
 
 CSAFGID-1020300 was defined twice.
 """
+
+PATHS = (
+    '/product_tree/product_groups[]/group_id',
+)
