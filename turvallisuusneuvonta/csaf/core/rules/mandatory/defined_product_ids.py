@@ -1,7 +1,9 @@
 """6.1.1 Missing Definition of Product ID
+
 For each element of type /$defs/product_id_t which is not inside a Full Product Name (type: full_product_name_t)
 and therefore reference an element within the product_tree it must be tested that the Full Product Name element
 with the matching product_id exists. The same applies for all items of elements of type /$defs/products_t.
+
 The relevant paths for this test are:
   /product_tree/product_groups[]/product_ids[]
   /product_tree/relationships[]/product_reference
@@ -17,7 +19,9 @@ The relevant paths for this test are:
   /vulnerabilities[]/remediations[]/product_ids[]
   /vulnerabilities[]/scores[]/products[]
   /vulnerabilities[]/threats[]/product_ids[]
+
 Example 40 which fails the test:
+
   "product_tree": {
     "product_groups": [
       {
@@ -29,6 +33,7 @@ Example 40 which fails the test:
       }
     ]
   }
+
 Neither CSAFPID-9080700 nor CSAFPID-9080701 were defined in the product_tree.
 """
 
