@@ -37,6 +37,9 @@ Example 40 which fails the test:
 Neither CSAFPID-9080700 nor CSAFPID-9080701 were defined in the product_tree.
 """
 
+ID = (6, 1, 1)
+TOPIC = 'Missing Definition of Product ID'
+
 PATHS = (
     '/product_tree/product_groups[]/product_ids[]',
     '/product_tree/relationships[]/product_reference',
