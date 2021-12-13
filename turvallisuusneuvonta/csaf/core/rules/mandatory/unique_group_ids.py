@@ -45,6 +45,9 @@ Example 44 which fails the test:
 CSAFGID-1020300 was defined twice.
 """
 
+ID = (6, 1, 5)
+TOPIC = 'Multiple Definition of Product Group ID'
+
 PATHS = (
     '/product_tree/product_groups[]/group_id',
 )
