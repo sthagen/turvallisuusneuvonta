@@ -36,6 +36,9 @@ Example 42 which fails the test:
 CSAFPID-9080701 refers to itself - this is a circular definition.
 """
 
+ID = (6, 1, 3)
+TOPIC = 'Circular Definition of Product ID'
+
 PATHS = (
     '/product_tree/relationships[]/full_product_name/product_id',
 )
