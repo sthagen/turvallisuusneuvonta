@@ -26,6 +26,9 @@ Example 41 which fails the test:
 CSAFPID-9080700 was defined twice.
 """
 
+ID = (6, 1, 2)
+TOPIC = 'Multiple Definition of Product ID'
+
 PATHS = (
     '/product_tree/branches[](/branches[])*/product/product_id',
     '/product_tree/full_product_names[]/product_id',
