@@ -52,6 +52,9 @@ Example 45 which fails the test:
 CSAFPID-9080700 is a member of the two contradicting groups "Affected" and "Not affected".
 """
 
+ID = (6, 1, 6)
+TOPIC = 'Contradicting Product Status'
+
 PATHS = {
     'affected': (
         '/vulnerabilities[]/product_status/first_affected[]',
