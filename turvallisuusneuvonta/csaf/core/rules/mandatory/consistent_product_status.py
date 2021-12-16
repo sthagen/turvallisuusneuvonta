@@ -1,13 +1,14 @@
 """6.1.6 Contradicting Product Status
 
-For each item in /vulnerabilities it must be tested that the same Product ID is not member of contradicting product status groups.
+For each item in /vulnerabilities it must be tested that the same Product ID is not member of contradicting
+product status groups.
 The sets formed by the contradicting groups within one vulnerability item must be pairwise disjoint.
 
 Contradiction groups are:
 
 Affected:
 
-* /vulnerabilities[]/product_status/first_affected[]  
+* /vulnerabilities[]/product_status/first_affected[]
 * /vulnerabilities[]/product_status/known_affected[]
 * /vulnerabilities[]/product_status/last_affected[]
 
@@ -24,7 +25,8 @@ Under investigation:
 
 * /vulnerabilities[]/product_status/under_investigation[]
 
-Note: An issuer might recommend (/vulnerabilities[]/product_status/recommended) a product version from any group - also from the affected group, i.e. if it was discoveres that fixed versions introduce a more severe vulnerability.
+Note: An issuer might recommend (/vulnerabilities[]/product_status/recommended) a product version from any group -
+also from the affected group, i.e. if it was discoveres that fixed versions introduce a more severe vulnerability.
 
 Example 45 which fails the test:
 
@@ -61,14 +63,10 @@ PATHS = {
         '/vulnerabilities[]/product_status/known_affected[]',
         '/vulnerabilities[]/product_status/last_affected[]',
     ),
-    'not_affected': (
-        '/vulnerabilities[]/product_status/known_not_affected[]',
-    ),
+    'not_affected': ('/vulnerabilities[]/product_status/known_not_affected[]',),
     'fixed': (
         '/vulnerabilities[]/product_status/first_fixed[]',
         '/vulnerabilities[]/product_status/fixed[]',
     ),
-    'under_investigation': (
-        '/vulnerabilities[]/product_status/under_investigation[]',
-    ),
+    'under_investigation': ('/vulnerabilities[]/product_status/under_investigation[]',),
 }
