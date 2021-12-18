@@ -5,7 +5,9 @@ from __future__ import annotations
 from enum import Enum
 from typing import Annotated, Optional
 
-from csaf.cvss31.definitions import (  # type: ignore
+from pydantic import BaseModel, Field
+
+from turvallisuusneuvonta.csaf.cvss31.definitions import (
     AttackComplexityType,
     AttackVectorType,
     CiaRequirementType,
@@ -25,7 +27,6 @@ from csaf.cvss31.definitions import (  # type: ignore
     SeverityType,
     UserInteractionType,
 )
-from pydantic import BaseModel, Field
 
 
 class Version(Enum):
