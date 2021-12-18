@@ -4,10 +4,11 @@ from __future__ import annotations
 from collections.abc import Sequence
 from typing import Annotated, Optional, no_type_check
 
-from csaf.document import DocumentLevelMetaData  # type: ignore
-from csaf.product import ProductTree  # type: ignore
-from csaf.vulnerability import Vulnerability  # type: ignore
 from pydantic import BaseModel, Field, validator
+
+from turvallisuusneuvonta.csaf.document import DocumentLevelMetaData
+from turvallisuusneuvonta.csaf.product import ProductTree
+from turvallisuusneuvonta.csaf.vulnerability import Vulnerability
 
 
 class CommonSecurityAdvisoryFramework(BaseModel):
