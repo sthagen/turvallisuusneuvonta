@@ -1,7 +1,7 @@
 [tool.pyflow]
 name = "turvallisuusneuvonta"
 py_version = "3.8"
-version = "2021.12.10"
+version = "2021.12.18"
 authors = ["Stefan Hagen <stefan@hagen.link>"]
 
 [tool.pyflow.scripts]
@@ -11,6 +11,7 @@ jmespath = "^0.10.0"
 langcodes ="^3.3.0"
 lazr.uri = "^1.0.6"
 orjson = "^3.6.5"
+pydantic = "^1.8.2"
 typer = "^0.4.0"
 
 [tool.pyflow.dev-dependencies]
