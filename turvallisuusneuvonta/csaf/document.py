@@ -6,8 +6,15 @@ from datetime import datetime
 from enum import Enum
 from typing import Annotated, Optional, no_type_check
 
-from csaf.definitions import LanguageType, ListOfAcknowledgments, ListOfNotes, ListOfReferences, Version  # type: ignore
 from pydantic import AnyUrl, BaseModel, Field, validator
+
+from turvallisuusneuvonta.csaf.definitions import (
+    LanguageType,
+    ListOfAcknowledgments,
+    ListOfNotes,
+    ListOfReferences,
+    Version,
+)
 
 
 class Revision(BaseModel):
