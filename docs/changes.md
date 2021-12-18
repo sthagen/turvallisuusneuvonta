@@ -1,5 +1,9 @@
 # Change History
 
+## 2021.12.18
+
+* Added pydantic dependency for annotation based model
+
 ## 2021.12.10
 
 * Added langcodes dependency for language tag validation
