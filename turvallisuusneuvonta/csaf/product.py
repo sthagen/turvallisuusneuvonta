@@ -5,14 +5,15 @@ from collections.abc import Sequence
 from enum import Enum
 from typing import Annotated, Optional, no_type_check
 
-from csaf.definitions import (  # type: ignore
+from pydantic import BaseModel, Field, validator
+
+from turvallisuusneuvonta.csaf.definitions import (
     FullProductName,
     ListOfBranches,
     ListOfProductIds,
     ReferenceTokenForProductGroupInstance,
     ReferenceTokenForProductInstance,
 )
-from pydantic import BaseModel, Field, validator
 
 
 class ProductGroup(BaseModel):
