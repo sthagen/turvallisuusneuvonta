@@ -7,6 +7,6 @@ import turvallisuusneuvonta.csaf.cvss31.cvss31 as cvss31
 
 
 def test_cvss2_empty():
-    message = '4 validation errors for Field1'
+    message = '4 validation errors for CVSS'
     with pytest.raises(ValidationError, match=message):
-        _ = cvss31.Field1()
+        _ = cvss31.CVSS()
