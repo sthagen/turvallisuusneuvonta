@@ -7,6 +7,6 @@ import turvallisuusneuvonta.csaf.cvss2.cvss2 as cvss2
 
 
 def test_cvss2_empty():
-    message = '3 validation errors for Field0'
+    message = '3 validation errors for CVSS'
     with pytest.raises(ValidationError, match=message):
-        _ = cvss2.Field0()
+        _ = cvss2.CVSS()
