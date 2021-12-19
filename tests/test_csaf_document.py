@@ -6,7 +6,7 @@ from pydantic.error_wrappers import ValidationError
 import turvallisuusneuvonta.csaf.csaf as csaf
 
 
-def test_foo():
+def test_doc_empty_meta():
     message = '5 validation errors for DocumentLevelMetaData'
     with pytest.raises(ValidationError, match=message):
         _ = csaf.CommonSecurityAdvisoryFramework(csaf.DocumentLevelMetaData())
