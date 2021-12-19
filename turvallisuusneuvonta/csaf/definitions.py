@@ -436,7 +436,7 @@ class ListOfProductIds(BaseModel):
     Specifies a list of product_ids to give context to the parent item.
     """
 
-    __root__: Annotated[
+    product_ids: Annotated[
         Sequence[ReferenceTokenForProductInstance],
         Field(
             description='Specifies a list of product_ids to give context to the parent item.',
@@ -446,7 +446,7 @@ class ListOfProductIds(BaseModel):
     ]
 
     @no_type_check
-    @validator('__root__')
+    @validator('product_ids')
     def check_len(cls, v):
         if not v:
             raise ValueError('mandatory element present but empty')
