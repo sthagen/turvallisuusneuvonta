@@ -1,5 +1,9 @@
 # Change History
 
+## 2021.12.19
+
+* Better test coverage (of the new model implementation)
+
 ## 2021.12.18
 
 * Added pydantic dependency for annotation based model
