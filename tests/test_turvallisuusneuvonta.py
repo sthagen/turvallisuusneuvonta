@@ -5,9 +5,7 @@ import pathlib
 
 import orjson
 import pytest
-from pydantic.error_wrappers import ValidationError
 
-import turvallisuusneuvonta.csaf.csaf as csaf
 import turvallisuusneuvonta.turvallisuusneuvonta as tu
 
 SPAM = {
@@ -25,12 +23,6 @@ SPAM_JSON = orjson.dumps(SPAM)
 CSAF_EXAMPLE_COM_123_PATH = pathlib.Path('tests', 'fixtures', 'example-com', 'example-com-123.json')
 with open(CSAF_EXAMPLE_COM_123_PATH, 'rb') as handle:
     CSAF_WITH_DOCUMENTS = orjson.loads(handle.read())
-
-
-def test_foo():
-    message = '5 validation errors for DocumentLevelMetaData'
-    with pytest.raises(ValidationError, match=message):
-        _ = csaf.CommonSecurityAdvisoryFramework(csaf.DocumentLevelMetaData())
 
 
 def test_tu_main():
