@@ -34,7 +34,7 @@ class Version(Enum):
     CVSS Version
     """
 
-    field_3_0 = '3.0'
+    value = '3.0'
 
 
 class CVSS(BaseModel):
