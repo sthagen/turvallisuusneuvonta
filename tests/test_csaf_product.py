@@ -6,17 +6,7 @@ import orjson
 import pytest
 
 import turvallisuusneuvonta.csaf.product as product
-
-PRODUCT_RELATIONSHIP_DATA = {
-    'category': 'installed_with',
-    'full_product_name': {
-        'name': 'wun',
-        'product_id': {'value': 'acme-112'},
-        'product_identification_helper': None,
-    },
-    'product_reference': {'value': 'acme-112'},
-    'relates_to_product_reference': {'value': 'acme-101'},
-}
+from tests import conftest
 
 
 def test_product_empty():
@@ -47,8 +37,8 @@ def test_product_relationship():
 
 
 def test_product_relationship_loads():
-    rel = product.Relationship(**PRODUCT_RELATIONSHIP_DATA)
-    assert orjson.loads(rel.json()) == PRODUCT_RELATIONSHIP_DATA
+    rel = product.Relationship(**conftest.PRODUCT_RELATIONSHIP_DATA)
+    assert orjson.loads(rel.json()) == conftest.PRODUCT_RELATIONSHIP_DATA
 
 
 def test_product_relationship_dumps():
@@ -65,4 +55,4 @@ def test_product_relationship_dumps():
         'relates_to_product_reference': pr_ref_other,
     }
     rel = product.Relationship(**data)
-    assert orjson.loads(rel.json()) == PRODUCT_RELATIONSHIP_DATA
+    assert orjson.loads(rel.json()) == conftest.PRODUCT_RELATIONSHIP_DATA

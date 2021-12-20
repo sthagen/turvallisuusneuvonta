@@ -7,40 +7,7 @@ import pytest
 from pydantic.error_wrappers import ValidationError
 
 import turvallisuusneuvonta.csaf.csaf as csaf
-
-META_OK = {
-    'category': '42',
-    'csaf_version': '2.0',
-    'publisher': {
-        'category': 'vendor',
-        'name': 'ACME',
-        'namespace': 'https://example.com',
-    },
-    'title': 'a',
-    'tracking': {
-        'current_release_date': '0001-01-01 00:00:00',
-        'id': '0',
-        'initial_release_date': '0001-01-01 00:00:00',
-        'revision_history': [
-            {
-                'date': '0001-01-01 00:00:00',
-                'number': '1',
-                'summary': 'a',
-            }
-        ],
-        'status': 'final',
-        'version': '1',
-    },
-}
-
-DOC_OK = {
-    'document': META_OK,
-}
-
-DOC_VULN_EMPTY = {
-    'document': META_OK,
-    'vulnerabilities': [],
-}
+from tests import conftest
 
 
 def _subs(count: int, what: str) -> str:
@@ -74,13 +41,13 @@ def _strip_and_iso_grace(a_map) -> None:
 
 
 def test_doc_ok_if_spammy():
-    doc = csaf.CommonSecurityAdvisoryFramework(**DOC_OK)
+    doc = csaf.CommonSecurityAdvisoryFramework(**conftest.DOC_OK)
     strip_me = orjson.loads(doc.json())
     _strip_and_iso_grace(strip_me)
-    assert strip_me == DOC_OK
+    assert strip_me == conftest.DOC_OK
 
 
 def test_doc_vulnerability_empty():
     with pytest.raises(ValidationError, match=_subs(1, 'CommonSecurityAdvisoryFramework')) as err:
-        _ = csaf.CommonSecurityAdvisoryFramework(**DOC_VULN_EMPTY)
+        _ = csaf.CommonSecurityAdvisoryFramework(**conftest.DOC_VULN_EMPTY)
     assert '\nvulnerabilities\n  vulnerabilities present but empty' in str(err.value)
