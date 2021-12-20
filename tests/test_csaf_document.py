@@ -18,12 +18,12 @@ META_OK = {
     },
     'title': 'a',
     'tracking': {
-        'current_release_date': '0001-01-01T00:00:00',
+        'current_release_date': '0001-01-01 00:00:00',
         'id': '0',
-        'initial_release_date': '0001-01-01T00:00:00',
+        'initial_release_date': '0001-01-01 00:00:00',
         'revision_history': [
             {
-                'date': '0001-01-01T00:00:00',
+                'date': '0001-01-01 00:00:00',
                 'number': '1',
                 'summary': 'a',
             }
@@ -59,22 +59,24 @@ def test_doc_empty_meta():
 
 
 @no_type_check
-def _strip(a_map) -> None:
+def _strip_and_iso_grace(a_map) -> None:
     """Keep only mandatory shape."""
     for key, value in tuple(a_map.items()):
         if isinstance(value, dict):
-            _strip(value)
+            _strip_and_iso_grace(value)
         elif value is None:
             del a_map[key]
+        elif isinstance(value, str) and value == '0001-01-01T00:00:00':
+            a_map[key] = '0001-01-01 00:00:00'
         elif isinstance(value, list):
             for v_i in value:
-                _strip(v_i)
+                _strip_and_iso_grace(v_i)
 
 
 def test_doc_ok_if_spammy():
     doc = csaf.CommonSecurityAdvisoryFramework(**DOC_OK)
     strip_me = orjson.loads(doc.json())
-    _strip(strip_me)
+    _strip_and_iso_grace(strip_me)
     assert strip_me == DOC_OK
 
 
