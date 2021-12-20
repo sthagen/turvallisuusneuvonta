@@ -12,3 +12,13 @@ def test_meta_doc_none():
         _ = document.DocumentLevelMetaData()  # type: ignore
     for prop in ('category', 'csaf_version', 'publisher', 'title', 'tracking'):
         assert f'\n{prop}\n  field required' in str(err.value)
+
+
+def test_meta_doc_category_empty():
+    message = '5 validation errors for DocumentLevelMetaData'
+    with pytest.raises(ValidationError, match=message) as err:
+        _ = document.DocumentLevelMetaData(category='')  # type: ignore
+    hint = 'ensure this value has at least 1 character'
+    assert f'\ncategory\n  {hint}' in str(err.value)
+    for prop in ('csaf_version', 'publisher', 'title', 'tracking'):
+        assert f'\n{prop}\n  field required' in str(err.value)
