@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=line-too-long,missing-docstring,reimported,unused-import,unused-variable
-import copy
 from typing import no_type_check
 
 import orjson
@@ -40,14 +39,23 @@ DOC_OK = {
 
 DOC_VULN_EMPTY = {
     'document': META_OK,
-    'vulnerability': {},
+    'vulnerabilities': [],
 }
 
 
+def _subs(count: int, what: str) -> str:
+    """DRY."""
+    return f'{count} validation error{"" if count == 1 else "s"} for {what}'
+
+
 def test_doc_empty_meta():
-    message = '5 validation errors for DocumentLevelMetaData'
-    with pytest.raises(ValidationError, match=message):
+    with pytest.raises(ValidationError, match=_subs(5, 'DocumentLevelMetaData')) as err:
         _ = csaf.CommonSecurityAdvisoryFramework(csaf.DocumentLevelMetaData())  # type: ignore
+    assert '\ncategory\n  field required' in str(err.value)
+    assert '\ncsaf_version\n  field required' in str(err.value)
+    assert '\npublisher\n  field required' in str(err.value)
+    assert '\ntitle\n  field required' in str(err.value)
+    assert '\ntracking\n  field required' in str(err.value)
 
 
 @no_type_check
@@ -64,16 +72,13 @@ def _strip(a_map) -> None:
 
 
 def test_doc_ok_if_spammy():
-    doc = csaf.CommonSecurityAdvisoryFramework(**DOC_OK)  # type: ignore
+    doc = csaf.CommonSecurityAdvisoryFramework(**DOC_OK)
     strip_me = orjson.loads(doc.json())
     _strip(strip_me)
     assert strip_me == DOC_OK
 
 
 def test_doc_vulnerability_empty():
-    doc = csaf.CommonSecurityAdvisoryFramework(**DOC_VULN_EMPTY)  # type: ignore
-    strip_me = orjson.loads(doc.json())
-    _strip(strip_me)
-    me_too = copy.deepcopy(DOC_VULN_EMPTY)
-    del me_too['vulnerability']
-    assert strip_me == me_too
+    with pytest.raises(ValidationError, match=_subs(1, 'CommonSecurityAdvisoryFramework')) as err:
+        _ = csaf.CommonSecurityAdvisoryFramework(**DOC_VULN_EMPTY)
+    assert '\nvulnerabilities\n  vulnerabilities present but empty' in str(err.value)
