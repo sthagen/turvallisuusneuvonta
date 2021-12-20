@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=line-too-long,missing-docstring,reimported,unused-import,unused-variable
+from typing import no_type_check
+
+import orjson
 import pytest
 from pydantic.error_wrappers import ValidationError
 
@@ -37,6 +40,31 @@ META_EMPTY_TRACKING = {
     },
     'title': 'a',
     'tracking': {},
+}
+
+META_OK = {
+    'category': '42',
+    'csaf_version': '2.0',
+    'publisher': {
+        'category': 'vendor',
+        'name': 'ACME',
+        'namespace': 'https://example.com',
+    },
+    'title': 'a',
+    'tracking': {
+        'current_release_date': '0001-01-01T00:00:00',
+        'id': '0',
+        'initial_release_date': '0001-01-01T00:00:00',
+        'revision_history': [
+            {
+                'date': '0001-01-01T00:00:00',
+                'number': '1',
+                'summary': 'a',
+            }
+        ],
+        'status': 'final',
+        'version': '1',
+    },
 }
 
 
@@ -92,3 +120,23 @@ def test_meta_doc_tracking_empty():
     host = 'tracking'
     for prop in ('current_release_date', 'id', 'initial_release_date', 'revision_history', 'status', 'version'):
         assert f'\n{host} -> {prop}\n  field required' in str(err.value)
+
+
+@no_type_check
+def _strip(a_map) -> None:
+    """Keep only mandatory shape."""
+    for key, value in tuple(a_map.items()):
+        if isinstance(value, dict):
+            _strip(value)
+        elif value is None:
+            del a_map[key]
+        elif isinstance(value, list):
+            for v_i in value:
+                _strip(v_i)
+
+
+def test_meta_doc_ok_if_spammy():
+    meta_doc = document.DocumentLevelMetaData(**META_OK)  # type: ignore
+    strip_me = orjson.loads(meta_doc.json())
+    _strip(strip_me)
+    assert strip_me == META_OK

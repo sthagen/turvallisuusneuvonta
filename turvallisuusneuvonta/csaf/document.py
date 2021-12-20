@@ -490,3 +490,6 @@ class DocumentLevelMetaData(BaseModel):
             title='Tracking',
         ),
     ]
+
+
+Tracking.update_forward_refs()
