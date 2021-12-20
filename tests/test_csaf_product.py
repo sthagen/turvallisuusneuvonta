@@ -2,6 +2,7 @@
 # pylint: disable=line-too-long,missing-docstring,reimported,unused-import,unused-variable
 import re
 
+import orjson
 import pytest
 
 import turvallisuusneuvonta.csaf.product as product
@@ -33,3 +34,32 @@ def test_product_relationship():
     }
     rel = product.Relationship(**data)
     assert rel.category == product.RelationshipCategory.installed_with
+
+
+def test_product_relationship_dumps():
+    pr_ref_other = product.ReferenceTokenForProductInstance(value='acme-101')
+    pr_ref_self = product.ReferenceTokenForProductInstance(value='acme-112')
+    pr_id = pr_ref_self
+    pr_ids = product.ListOfProductIds(product_ids=[pr_ref_self, pr_ref_other])
+    assert pr_ref_other in pr_ids.product_ids
+    product.FullProductName.update_forward_refs()
+    pr_name = product.FullProductName(name='wun', product_id=pr_id)
+    data = {
+        'category': product.RelationshipCategory.installed_with,
+        'full_product_name': pr_name,
+        'product_reference': pr_ref_self,
+        'relates_to_product_reference': pr_ref_other,
+    }
+    rel = product.Relationship(**data)
+    expected = {
+        'category': 'installed_with',
+        'full_product_name': {
+            'name': 'wun',
+            'product_id': {'value': 'acme-112'},
+            'product_identification_helper': None,
+        },
+        'product_reference': {'value': 'acme-112'},
+        'relates_to_product_reference': {'value': 'acme-101'},
+    }
+    what = rel.json()
+    assert orjson.loads(what) == expected
