@@ -11,9 +11,9 @@ CVSS30_BASE_SEVERITY_LOG4J = cvss30.SeverityType.critical
 
 
 def test_cvss30_empty():
-    message = '4 validation errors for CVSS30'
+    message = '4 validation errors for CVSS'
     with pytest.raises(ValidationError, match=message):
-        _ = cvss30.CVSS30()
+        _ = cvss30.CVSS()
 
 
 def test_cvss30_wrong_version():
@@ -23,9 +23,9 @@ def test_cvss30_wrong_version():
         'baseScore': CVSS30_BASE_SCORE_LOG4J,
         'baseSeverity': CVSS30_BASE_SEVERITY_LOG4J,
     }
-    message = '1 validation error for CVSS30'
+    message = '1 validation error for CVSS'
     with pytest.raises(ValidationError, match=message) as err:
-        _ = cvss30.CVSS30(**data)
+        _ = cvss30.CVSS(**data)
     assert '\nversion\n  value is not a valid enumeration member' in str(err.value)
 
 
@@ -36,8 +36,8 @@ def test_cvss30_log4j_cve_2021_44228():
         'baseScore': CVSS30_BASE_SCORE_LOG4J,
         'baseSeverity': CVSS30_BASE_SEVERITY_LOG4J,
     }
-    cvss_cve_2021_44228 = cvss30.CVSS30(**data)
-    assert isinstance(cvss_cve_2021_44228, cvss30.CVSS30)
+    cvss_cve_2021_44228 = cvss30.CVSS(**data)
+    assert isinstance(cvss_cve_2021_44228, cvss30.CVSS)
     assert cvss_cve_2021_44228.version == cvss30.Version.value
     assert cvss_cve_2021_44228.vector_string == CVSS30_VECTOR_STRING_LOG4J
     assert cvss_cve_2021_44228.base_score.__root__ == float(CVSS30_BASE_SCORE_LOG4J)
