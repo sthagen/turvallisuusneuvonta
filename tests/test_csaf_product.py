@@ -35,7 +35,6 @@ def test_product_relationship():
     pr_id = pr_ref_self
     pr_ids = product.ListOfProductIds(product_ids=[pr_ref_self, pr_ref_other])
     assert pr_ref_other in pr_ids.product_ids
-    product.FullProductName.update_forward_refs()
     pr_name = product.FullProductName(name='wun', product_id=pr_id)
     data = {
         'category': product.RelationshipCategory.installed_with,
@@ -58,7 +57,6 @@ def test_product_relationship_dumps():
     pr_id = pr_ref_self
     pr_ids = product.ListOfProductIds(product_ids=[pr_ref_self, pr_ref_other])
     assert pr_ref_other in pr_ids.product_ids
-    product.FullProductName.update_forward_refs()
     pr_name = product.FullProductName(name='wun', product_id=pr_id)
     data = {
         'category': product.RelationshipCategory.installed_with,

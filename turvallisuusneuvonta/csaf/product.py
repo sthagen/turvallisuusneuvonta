@@ -218,4 +218,5 @@ class ProductTree(BaseModel):
         return v
 
 
+FullProductName.update_forward_refs()
 ProductTree.update_forward_refs()
