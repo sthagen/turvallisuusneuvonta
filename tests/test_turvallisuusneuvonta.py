@@ -3,26 +3,10 @@
 import copy
 import pathlib
 
-import orjson
 import pytest
 
 import turvallisuusneuvonta.turvallisuusneuvonta as tu
-
-SPAM = {
-    'document': {
-        'category': ' ',
-        'csaf_version': '2.0',
-        'publisher': ' ',
-        'title': ' ',
-        'tracking': ' ',
-    }
-}
-
-SPAM_JSON = orjson.dumps(SPAM)
-
-CSAF_EXAMPLE_COM_123_PATH = pathlib.Path('tests', 'fixtures', 'example-com', 'example-com-123.json')
-with open(CSAF_EXAMPLE_COM_123_PATH, 'rb') as handle:
-    CSAF_WITH_DOCUMENTS = orjson.loads(handle.read())
+from tests import conftest
 
 
 def test_tu_main():
@@ -78,17 +62,17 @@ def test_verify_json_empty_object():
 
 def test_verify_json_csaf_spam_object():
     message = 'missing document.publisher property (category)'
-    assert tu.verify_json(SPAM_JSON) == (1, message, [])
+    assert tu.verify_json(conftest.SPAM_JSON) == (1, message, [])
 
 
 def test_level_zero_csaf_spam_object():
     message = 'missing document.publisher property (category)'
-    assert tu.level_zero(SPAM) == (1, message)
+    assert tu.level_zero(conftest.SPAM) == (1, message)
 
 
 @pytest.mark.parametrize('prop', ['category', 'csaf_version', 'publisher', 'title', 'tracking'])
 def test_level_zero_document_missing_mandatory_key(prop):
-    document_missing_publisher = copy.deepcopy(SPAM)
+    document_missing_publisher = copy.deepcopy(conftest.SPAM)
     parent = 'document'
     del document_missing_publisher[parent][prop]
     assert tu.level_zero(document_missing_publisher) == (1, f'missing {parent} property ({prop})')
@@ -96,7 +80,7 @@ def test_level_zero_document_missing_mandatory_key(prop):
 
 @pytest.mark.parametrize('version', ['', '1', '2', '2.', '2.00', '2_0', '2.0.', '2.0.0', ['2.0'], {'en': 'try'}])
 def test_level_zero_document_wrong_csaf_version_values(version):
-    document_missing_publisher = copy.deepcopy(SPAM)
+    document_missing_publisher = copy.deepcopy(conftest.SPAM)
     parent, prop = 'document', 'csaf_version'
     document_missing_publisher[parent][prop] = version
     expectation = (1, f'property {parent}.{prop} present but ({version}) not matching CSAF version 2.0')
@@ -108,13 +92,13 @@ def test_level_zero_document_wrong_csaf_version_values(version):
 
 
 def test_document_optional_csaf_example_com_123():
-    document = copy.deepcopy(CSAF_WITH_DOCUMENTS['document'])
+    document = copy.deepcopy(conftest.CSAF_WITH_DOCUMENTS['document'])
     message = 'NotImplemented'
     assert tu.document_optional(document) == (0, message)
 
 
 def test_document_aggregate_severity_csaf_example_com_123():
-    document = copy.deepcopy(CSAF_WITH_DOCUMENTS['document'])
+    document = copy.deepcopy(conftest.CSAF_WITH_DOCUMENTS['document'])
     message = 'NotImplemented'
     assert tu.document_optional(document['aggregate_severity']) == (0, message)
 
@@ -122,7 +106,7 @@ def test_document_aggregate_severity_csaf_example_com_123():
 @pytest.mark.parametrize('value', ['en', 'fr', 'de', 'de-ch', 'en_EN', 'talking', 'ok', '', [], {}])
 def test_document_optional_csaf_example_com_123_lang(value):
     parent, prop = 'document', 'lang'
-    document = copy.deepcopy(CSAF_WITH_DOCUMENTS[parent])
+    document = copy.deepcopy(conftest.CSAF_WITH_DOCUMENTS[parent])
     document[prop] = value
     expectation = (0, '')
     if value in ('en_EN', 'talking', 'ok'):
@@ -136,7 +120,7 @@ def test_document_optional_csaf_example_com_123_lang(value):
 
 @pytest.mark.parametrize('values', ['', 'a string', [], {}, {'en': 'try'}])
 def test_document_optional_csaf_example_com_123_wrong_acknowledgments(values):
-    document = copy.deepcopy(CSAF_WITH_DOCUMENTS['document'])
+    document = copy.deepcopy(conftest.CSAF_WITH_DOCUMENTS['document'])
     prop = 'acknowledgments'
     document[prop] = values
     message = 'optional document property acknowledgments present but '
@@ -146,7 +130,7 @@ def test_document_optional_csaf_example_com_123_wrong_acknowledgments(values):
 
 @pytest.mark.parametrize('values', ['', 'a string', [], {}, {'en': 'try'}])
 def test_document_optional_csaf_example_com_123_wrong_acknowledgments_names(values):
-    document = copy.deepcopy(CSAF_WITH_DOCUMENTS['document'])
+    document = copy.deepcopy(conftest.CSAF_WITH_DOCUMENTS['document'])
     prop = 'acknowledgments'
     aspect = 'names'
     document[prop][0][aspect] = values
@@ -165,7 +149,7 @@ def test_document_optional_csaf_example_com_123_wrong_acknowledgments_names(valu
     ],
 )
 def test_document_optional_csaf_example_com_123_wrong_acknowledgments_names_entries(values, what):
-    document = copy.deepcopy(CSAF_WITH_DOCUMENTS['document'])
+    document = copy.deepcopy(conftest.CSAF_WITH_DOCUMENTS['document'])
     prop = 'acknowledgments'
     aspect = 'names'
     document[prop][0][aspect] = values
@@ -175,7 +159,7 @@ def test_document_optional_csaf_example_com_123_wrong_acknowledgments_names_entr
 
 @pytest.mark.parametrize('values', ['', 'a string', [], {}, {'en': 'try'}])
 def test_document_optional_csaf_example_com_123_wrong_acknowledgments_urls(values):
-    document = copy.deepcopy(CSAF_WITH_DOCUMENTS['document'])
+    document = copy.deepcopy(conftest.CSAF_WITH_DOCUMENTS['document'])
     prop = 'acknowledgments'
     aspect = 'urls'
     document[prop][0][aspect] = values
@@ -195,7 +179,7 @@ def test_document_optional_csaf_example_com_123_wrong_acknowledgments_urls(value
     ],
 )
 def test_document_optional_csaf_example_com_123_wrong_acknowledgments_urls_entries(values, what):
-    document = copy.deepcopy(CSAF_WITH_DOCUMENTS['document'])
+    document = copy.deepcopy(conftest.CSAF_WITH_DOCUMENTS['document'])
     prop = 'acknowledgments'
     aspect = 'urls'
     document[prop][0][aspect] = values
@@ -205,7 +189,7 @@ def test_document_optional_csaf_example_com_123_wrong_acknowledgments_urls_entri
 
 @pytest.mark.parametrize('values', ['', [], ['entry'], {}, {'en': 'try'}])
 def test_document_optional_csaf_example_com_123_wrong_acknowledgments_organization(values):
-    document = copy.deepcopy(CSAF_WITH_DOCUMENTS['document'])
+    document = copy.deepcopy(conftest.CSAF_WITH_DOCUMENTS['document'])
     prop = 'acknowledgments'
     aspect = 'organization'
     document[prop][0][aspect] = values
@@ -216,7 +200,7 @@ def test_document_optional_csaf_example_com_123_wrong_acknowledgments_organizati
 
 @pytest.mark.parametrize('values', ['', [], ['entry'], {}, {'en': 'try'}])
 def test_document_optional_csaf_example_com_123_wrong_acknowledgments_summary(values):
-    document = copy.deepcopy(CSAF_WITH_DOCUMENTS['document'])
+    document = copy.deepcopy(conftest.CSAF_WITH_DOCUMENTS['document'])
     prop = 'acknowledgments'
     aspect = 'summary'
     document[prop][0][aspect] = values

@@ -13,7 +13,6 @@ from turvallisuusneuvonta.csaf.cvss.cvss import (
 )
 
 CVSS31_BASE_SEVERITY_LOG4J = CvssSeverityType.critical
-
 CVSS30_BASE_SEVERITY_LOG4J = CvssSeverityType.critical
 
 

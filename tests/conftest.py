@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=line-too-long,missing-docstring,reimported,unused-import,unused-variable
+import pathlib
+from typing import no_type_check
+
+import orjson
+
 CVSS31_VECTOR_STRING_LOG4J = 'CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H'
 CVSS31_BASE_SCORE_LOG4J = '10.0'
 
@@ -60,6 +65,41 @@ VULNERABILITY_SCORE_LOG4J = {
     'products': {'product_ids': [{'value': 'log4j-123'}]},
 }
 
+
+META_WRONG_VERSION = {
+    'category': '42',
+    'csaf_version': '42',
+}
+
+META_EMPTY_PUBLISHER = {
+    'category': '42',
+    'csaf_version': '2.0',
+    'publisher': {},
+}
+
+META_EMPTY_TITLE = {
+    'category': '42',
+    'csaf_version': '2.0',
+    'publisher': {
+        'category': 'vendor',
+        'name': 'ACME',
+        'namespace': 'https://example.com',
+    },
+    'title': '',
+}
+
+META_EMPTY_TRACKING = {
+    'category': '42',
+    'csaf_version': '2.0',
+    'publisher': {
+        'category': 'vendor',
+        'name': 'ACME',
+        'namespace': 'https://example.com',
+    },
+    'title': 'a',
+    'tracking': {},
+}
+
 META_OK = {
     'category': '42',
     'csaf_version': '2.0',
@@ -93,3 +133,34 @@ DOC_VULN_EMPTY = {
     'document': META_OK,
     'vulnerabilities': [],
 }
+
+SPAM = {
+    'document': {
+        'category': ' ',
+        'csaf_version': '2.0',
+        'publisher': ' ',
+        'title': ' ',
+        'tracking': ' ',
+    }
+}
+
+SPAM_JSON = orjson.dumps(SPAM)
+
+CSAF_EXAMPLE_COM_123_PATH = pathlib.Path('tests', 'fixtures', 'example-com', 'example-com-123.json')
+with open(CSAF_EXAMPLE_COM_123_PATH, 'rb') as handle:
+    CSAF_WITH_DOCUMENTS = orjson.loads(handle.read())
+
+
+@no_type_check
+def _strip_and_iso_grace(a_map) -> None:
+    """Keep only mandatory shape."""
+    for key, value in tuple(a_map.items()):
+        if isinstance(value, dict):
+            _strip_and_iso_grace(value)
+        elif value is None:
+            del a_map[key]
+        elif isinstance(value, str) and value == '0001-01-01T00:00:00':
+            a_map[key] = '0001-01-01 00:00:00'
+        elif isinstance(value, list):
+            for v_i in value:
+                _strip_and_iso_grace(v_i)
