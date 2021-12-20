@@ -19,9 +19,9 @@ def test_cvss30_empty():
 def test_cvss30_wrong_version():
     data = {
         'version': '42',
-        'vectorString': CVSS30_VECTOR_STRING_LOG4J,
-        'baseScore': CVSS30_BASE_SCORE_LOG4J,
-        'baseSeverity': CVSS30_BASE_SEVERITY_LOG4J,
+        'vector_string': CVSS30_VECTOR_STRING_LOG4J,
+        'base_score': CVSS30_BASE_SCORE_LOG4J,
+        'base_severity': CVSS30_BASE_SEVERITY_LOG4J,
     }
     message = '1 validation error for CVSS'
     with pytest.raises(ValidationError, match=message) as err:
@@ -32,9 +32,9 @@ def test_cvss30_wrong_version():
 def test_cvss30_log4j_cve_2021_44228():
     data = {
         'version': cvss30.Version.value,
-        'vectorString': CVSS30_VECTOR_STRING_LOG4J,
-        'baseScore': CVSS30_BASE_SCORE_LOG4J,
-        'baseSeverity': CVSS30_BASE_SEVERITY_LOG4J,
+        'vector_string': CVSS30_VECTOR_STRING_LOG4J,
+        'base_score': CVSS30_BASE_SCORE_LOG4J,
+        'base_severity': CVSS30_BASE_SEVERITY_LOG4J,
     }
     cvss_cve_2021_44228 = cvss30.CVSS(**data)
     assert isinstance(cvss_cve_2021_44228, cvss30.CVSS)
