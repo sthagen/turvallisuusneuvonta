@@ -9,4 +9,4 @@ import turvallisuusneuvonta.csaf.document as document
 def test_meta_doc_empty():
     message = '5 validation errors for DocumentLevelMetaData'
     with pytest.raises(ValidationError, match=message):
-        _ = document.DocumentLevelMetaData()
+        _ = document.DocumentLevelMetaData()  # type: ignore
