@@ -415,7 +415,7 @@ class ListOfProductGroupIds(BaseModel):
 
 
 class ReferenceTokenForProductInstance(BaseModel):
-    __root__: Annotated[
+    value: Annotated[
         str,
         Field(
             description=(
