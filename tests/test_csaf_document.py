@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=line-too-long,missing-docstring,reimported,unused-import,unused-variable
+import copy
 from typing import no_type_check
 
 import orjson
@@ -37,6 +38,11 @@ DOC_OK = {
     'document': META_OK,
 }
 
+DOC_VULN_EMPTY = {
+    'document': META_OK,
+    'vulnerability': {},
+}
+
 
 def test_doc_empty_meta():
     message = '5 validation errors for DocumentLevelMetaData'
@@ -62,3 +68,12 @@ def test_doc_ok_if_spammy():
     strip_me = orjson.loads(doc.json())
     _strip(strip_me)
     assert strip_me == DOC_OK
+
+
+def test_doc_vulnerability_empty():
+    doc = csaf.CommonSecurityAdvisoryFramework(**DOC_VULN_EMPTY)  # type: ignore
+    strip_me = orjson.loads(doc.json())
+    _strip(strip_me)
+    me_too = copy.deepcopy(DOC_VULN_EMPTY)
+    del me_too['vulnerability']
+    assert strip_me == me_too
