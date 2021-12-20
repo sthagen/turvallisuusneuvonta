@@ -36,6 +36,21 @@ def test_product_relationship():
     assert rel.category == product.RelationshipCategory.installed_with
 
 
+def test_product_relationship_loads():
+    external_data = {
+        'category': 'installed_with',
+        'full_product_name': {
+            'name': 'wun',
+            'product_id': {'value': 'acme-112'},
+            'product_identification_helper': None,
+        },
+        'product_reference': {'value': 'acme-112'},
+        'relates_to_product_reference': {'value': 'acme-101'},
+    }
+    rel = product.Relationship(**external_data)
+    assert orjson.loads(rel.json()) == external_data
+
+
 def test_product_relationship_dumps():
     pr_ref_other = product.ReferenceTokenForProductInstance(value='acme-101')
     pr_ref_self = product.ReferenceTokenForProductInstance(value='acme-112')
@@ -61,5 +76,4 @@ def test_product_relationship_dumps():
         'product_reference': {'value': 'acme-112'},
         'relates_to_product_reference': {'value': 'acme-101'},
     }
-    what = rel.json()
-    assert orjson.loads(what) == expected
+    assert orjson.loads(rel.json()) == expected
