@@ -30,7 +30,7 @@ class Version(Enum):
     value = '2.0'
 
 
-class CVSS(BaseModel):
+class CVSS2(BaseModel):
     version: Annotated[Version, Field(description='CVSS Version')]
     vector_string: Annotated[
         str,
