@@ -5,6 +5,7 @@ import re
 import orjson
 import pytest
 
+import turvallisuusneuvonta.csaf.definitions as defs
 import turvallisuusneuvonta.csaf.product as product
 from tests import conftest
 
@@ -23,8 +24,8 @@ def test_product_relationship():
     pr_ref_other = product.ReferenceTokenForProductInstance(value='acme-101')
     pr_ref_self = product.ReferenceTokenForProductInstance(value='acme-112')
     pr_id = pr_ref_self
-    pr_ids = product.ListOfProductIds(product_ids=[pr_ref_self, pr_ref_other])
-    assert pr_ref_other in pr_ids.product_ids
+    pr_ids = product.Products(__root__=['acme-101', 'acme-112'])
+    assert defs.ProductId(__root__='acme-101') in pr_ids.__root__
     pr_name = product.FullProductName(name='wun', product_id=pr_id)
     data = {
         'category': product.RelationshipCategory.installed_with,
@@ -45,8 +46,8 @@ def test_product_relationship_dumps():
     pr_ref_other = product.ReferenceTokenForProductInstance(value='acme-101')
     pr_ref_self = product.ReferenceTokenForProductInstance(value='acme-112')
     pr_id = pr_ref_self
-    pr_ids = product.ListOfProductIds(product_ids=[pr_ref_self, pr_ref_other])
-    assert pr_ref_other in pr_ids.product_ids
+    pr_ids = product.Products(__root__=['acme-101', 'acme-112'])
+    assert defs.ProductId(__root__='acme-101') in pr_ids.__root__
     pr_name = product.FullProductName(name='wun', product_id=pr_id)
     data = {
         'category': product.RelationshipCategory.installed_with,
