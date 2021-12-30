@@ -62,7 +62,7 @@ VULNERABILITY_SCORE_LOG4J = {
         'environmental_score': None,
         'environmental_severity': None,
     },
-    'products': {'product_ids': [{'value': 'log4j-123'}]},
+    'products': ['log4j-123'],
 }
 
 
