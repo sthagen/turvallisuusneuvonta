@@ -3,14 +3,14 @@ from __future__ import annotations
 
 from collections.abc import Sequence
 from enum import Enum
-from typing import Annotated, Optional, no_type_check
+from typing import Annotated, List, Optional, no_type_check
 
 from pydantic import BaseModel, Field, validator
 
 from turvallisuusneuvonta.csaf.definitions import (
+    Branches,
     FullProductName,
-    ListOfBranches,
-    ListOfProductIds,
+    Products,
     ReferenceTokenForProductGroupInstance,
     ReferenceTokenForProductInstance,
 )
@@ -59,76 +59,67 @@ class ProductStatus(BaseModel):
     """
 
     first_affected: Annotated[
-        Optional[ListOfProductIds],
+        Optional[Products],
         Field(
             description='These are the first versions of the releases known to be affected by the vulnerability.',
             title='First affected',
         ),
-    ] = None
+    ]
     first_fixed: Annotated[
-        Optional[ListOfProductIds],
+        Optional[Products],
         Field(
-            description=(
-                'These versions contain the first fix for the vulnerability but may not be'
-                ' the recommended fixed versions.'
-            ),
+            description='These versions contain the first fix for the vulnerability but may not be the recommended'
+            ' fixed versions.',
             title='First fixed',
         ),
-    ] = None
+    ]
     fixed: Annotated[
-        Optional[ListOfProductIds],
+        Optional[Products],
         Field(
-            description=(
-                'These versions contain a fix for the vulnerability but may not be the recommended fixed versions.'
-            ),
+            description='These versions contain a fix for the vulnerability but may not be the recommended'
+            ' fixed versions.',
             title='Fixed',
         ),
-    ] = None
+    ]
     known_affected: Annotated[
-        Optional[ListOfProductIds],
+        Optional[Products],
         Field(
             description='These versions are known to be affected by the vulnerability.',
             title='Known affected',
         ),
-    ] = None
+    ]
     known_not_affected: Annotated[
-        Optional[ListOfProductIds],
+        Optional[Products],
         Field(
             description='These versions are known not to be affected by the vulnerability.',
             title='Known not affected',
         ),
-    ] = None
+    ]
     last_affected: Annotated[
-        Optional[ListOfProductIds],
+        Optional[Products],
         Field(
-            description=(
-                'These are the last versions in a release train known to be affected by the vulnerability.'
-                ' Subsequently released versions would contain a fix for the vulnerability.'
-            ),
+            description='These are the last versions in a release train known to be affected by the vulnerability.'
+            ' Subsequently released versions would contain a fix for the vulnerability.',
             title='Last affected',
         ),
-    ] = None
+    ]
     recommended: Annotated[
-        Optional[ListOfProductIds],
+        Optional[Products],
         Field(
-            description=(
-                'These versions have a fix for the vulnerability and are the vendor-recommended versions'
-                ' for fixing the vulnerability.'
-            ),
+            description='These versions have a fix for the vulnerability and are the vendor-recommended versions for'
+            ' fixing the vulnerability.',
             title='Recommended',
         ),
-    ] = None
+    ]
     under_investigation: Annotated[
-        Optional[ListOfProductIds],
+        Optional[Products],
         Field(
-            description=(
-                'It is not known yet whether these versions are or are not affected by the vulnerability.'
-                ' However, it is still under investigation'
-                ' - the result will be provided in a later release of the document.'
-            ),
+            description='It is not known yet whether these versions are or are not affected by the vulnerability.'
+            ' However, it is still under investigation - the result will be provided in a later release'
+            ' of the document.',
             title='Under investigation',
         ),
-    ] = None
+    ]
 
 
 class RelationshipCategory(Enum):
@@ -184,31 +175,31 @@ class ProductTree(BaseModel):
     Is a container for all fully qualified product names that can be referenced elsewhere in the document.
     """
 
-    branches: Optional[ListOfBranches] = None
+    branches: Optional[Branches]
     full_product_names: Annotated[
-        Optional[Sequence[FullProductName]],
+        Optional[List[FullProductName]],
         Field(
             description='Contains a list of full product names.',
-            # min_items=1,
+            min_items=1,
             title='List of full product names',
         ),
-    ] = None
+    ]
     product_groups: Annotated[
-        Optional[Sequence[ProductGroup]],
+        Optional[List[ProductGroup]],
         Field(
             description='Contains a list of product groups.',
-            # min_items=1,
+            min_items=1,
             title='List of product groups',
         ),
-    ] = None
+    ]
     relationships: Annotated[
-        Optional[Sequence[Relationship]],
+        Optional[List[Relationship]],
         Field(
             description='Contains a list of relationships.',
-            # min_items=1,
+            min_items=1,
             title='List of relationships',
         ),
-    ] = None
+    ]
 
     @no_type_check
     @validator('full_product_names', 'product_groups', 'relationships')
