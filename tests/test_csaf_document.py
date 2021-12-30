@@ -14,8 +14,8 @@ def _subs(count: int, what: str) -> str:
 
 
 def test_doc_empty_meta():
-    with pytest.raises(ValidationError, match=_subs(5, 'DocumentLevelMetaData')) as err:
-        _ = csaf.CommonSecurityAdvisoryFramework(csaf.DocumentLevelMetaData())  # type: ignore
+    with pytest.raises(ValidationError, match=_subs(5, 'Document')) as err:
+        _ = csaf.CSAF(document=csaf.Document())  # type: ignore
     assert '\ncategory\n  field required' in str(err.value)
     assert '\ncsaf_version\n  field required' in str(err.value)
     assert '\npublisher\n  field required' in str(err.value)
@@ -24,13 +24,13 @@ def test_doc_empty_meta():
 
 
 def test_doc_ok_if_spammy():
-    doc = csaf.CommonSecurityAdvisoryFramework(**conftest.DOC_OK)
+    doc = csaf.CSAF(**conftest.DOC_OK)
     strip_me = orjson.loads(doc.json())
     conftest._strip_and_iso_grace(strip_me)
     assert strip_me == conftest.DOC_OK
 
 
 def test_doc_vulnerability_empty():
-    with pytest.raises(ValidationError, match=_subs(1, 'CommonSecurityAdvisoryFramework')) as err:
-        _ = csaf.CommonSecurityAdvisoryFramework(**conftest.DOC_VULN_EMPTY)
-    assert '\nvulnerabilities\n  vulnerabilities present but empty' in str(err.value)
+    with pytest.raises(ValidationError, match=_subs(1, 'CSAF')) as err:
+        _ = csaf.CSAF(**conftest.DOC_VULN_EMPTY)
+    assert '\nvulnerabilities\n  ensure this value has at least 1 items' in str(err.value)
