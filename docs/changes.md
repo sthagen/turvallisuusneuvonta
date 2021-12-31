@@ -1,5 +1,10 @@
 # Change History
 
+## 2022.1.1
+
+* Implemented first additional test cases from specification
+* Migrated to model implementation for verification
+
 ## 2021.12.31
 
 * Enhanced the new model implementation
