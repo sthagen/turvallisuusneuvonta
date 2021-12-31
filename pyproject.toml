@@ -1,7 +1,7 @@
 [tool.pyflow]
 name = "turvallisuusneuvonta"
 py_version = "3.8"
-version = "2021.12.19"
+version = "2021.12.31"
 authors = ["Stefan Hagen <stefan@hagen.link>"]
 
 [tool.pyflow.scripts]
