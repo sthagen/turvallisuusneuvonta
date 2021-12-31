@@ -21,7 +21,7 @@ Asking for the version:
 
 ```console
 $ turvallisuusneuvonta version
-Security advisory (Finnish: turvallisuusneuvonta) audit tool. version 2021.12.19
+Security advisory (Finnish: turvallisuusneuvonta) audit tool. version 2021.12.31
 ```
 
 Minimal verification (WIP):
