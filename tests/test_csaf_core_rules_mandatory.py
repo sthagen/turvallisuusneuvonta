@@ -31,3 +31,12 @@ def test_mandatory_exists_single_claim_multiple_paths_mixed_results():
         ('sartre', 'exists', True),
         ('sartre', 'also', False),
     )
+
+
+def test_mandatory_exists_multiple_claims_single_paths():
+    document = {'exists': 'truthy', 'also': True}
+    claims = {'sartre': ['exists'], 'nirvana': ['also']}
+    assert mandatory.exists(document, claims) == (
+        ('sartre', 'exists', True),
+        ('nirvana', 'also', True),
+    )
