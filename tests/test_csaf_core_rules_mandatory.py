@@ -3,7 +3,16 @@
 import turvallisuusneuvonta.csaf.core.rules.mandatory.mandatory as mandatory
 
 
-def test_mandatory_exists_single_path():
+def test_mandatory_exists_single_claim_single_path():
     document = {'exists': 'truthy'}
     claims = {'sartre': ['exists']}
     assert mandatory.exists(document, claims) == (('sartre', 'exists', True),)
+
+
+def test_mandatory_exists_single_claim_multiple_paths():
+    document = {'exists': 'truthy', 'also': True}
+    claims = {'sartre': ['exists', 'also']}
+    assert mandatory.exists(document, claims) == (
+        ('sartre', 'exists', True),
+        ('sartre', 'also', True),
+    )
