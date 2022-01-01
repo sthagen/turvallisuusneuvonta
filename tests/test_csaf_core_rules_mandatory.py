@@ -9,6 +9,12 @@ def test_mandatory_exists_single_claim_single_path():
     assert mandatory.exists(document, claims) == (('sartre', 'exists', True),)
 
 
+def test_mandatory_exists_not_single_claim_single_path():
+    document = {'exists': ''}
+    claims = {'sartre': ['exists']}
+    assert mandatory.exists(document, claims) == (('sartre', 'exists', False),)
+
+
 def test_mandatory_exists_single_claim_multiple_paths():
     document = {'exists': 'truthy', 'also': True}
     claims = {'sartre': ['exists', 'also']}
