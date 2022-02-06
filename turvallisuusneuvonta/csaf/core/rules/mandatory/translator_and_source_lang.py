@@ -25,7 +25,6 @@ The required element source_lang is missing.
 
 ID = (6, 1, 15)
 TOPIC = 'Translator'
-
-PATHS = (
-    '/document/category',
-)
+BASE_URL = 'https://docs.oasis-open.org/csaf/csaf/v2.0/cs01/csaf-v2.0-cs01.html'
+REFERENCE = f'{BASE_URL}#6115-translator'
+PATHS = ('/document/source_lang',)
