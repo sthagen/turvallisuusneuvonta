@@ -40,3 +40,15 @@ def test_mandatory_exists_multiple_claims_single_paths():
         ('sartre', 'exists', True),
         ('nirvana', 'also', True),
     )
+
+
+def test_mandatory_valid_category_name_exempt():
+    document = {'name': mandatory.val_cat_nam.STOP_WORDS[0]}
+    path = 'name'
+    assert mandatory.must_skip(document, path, mandatory.val_cat_nam.STOP_WORDS) == (document['name'], path, True)
+
+
+def test_mandatory_valid_category_name_not_exempt():
+    document = {'name': '=x='.join(mandatory.val_cat_nam.STOP_WORDS)}
+    path = 'name'
+    assert mandatory.must_skip(document, path, mandatory.val_cat_nam.STOP_WORDS) == (document['name'], path, False)

@@ -31,3 +31,10 @@ def exists(document: dict, claims: Dict[str, List[str]]) -> Tuple[Tuple[str, str
     return tuple(
         (claim, path, bool(jmespath.search(path, document))) for claim, paths in claims.items() for path in paths
     )
+
+
+@no_type_check
+def must_skip(document: dict, path: str, skip_these: Tuple[str, ...]) -> Tuple[str, str, bool]:
+    """Verify any skips and return tuple of triplets with claim, path and result."""
+    value = jmespath.search(path, document)
+    return value, path, any(value == skip for skip in skip_these)
