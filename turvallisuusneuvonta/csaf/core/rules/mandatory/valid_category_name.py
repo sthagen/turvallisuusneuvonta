@@ -50,20 +50,23 @@ DASH = '-'
 SPACE = ' '
 UNDERSCORE = '_'
 IRRELEVANT_CHARACTERS = (SPACE, UNDERSCORE, DASH)
+STRIP_THESE = ''.join(IRRELEVANT_CHARACTERS)
 
 
 def is_valid(text: str) -> bool:
     """Verify category match per spec (disambiguation)."""
-    if not text:  # empty
+    if not text:  # empty (implementer safeguard)
         return False
-    if not text.strip():  # spaces only
+
+    if len(text) < 3 or not text.strip(STRIP_THESE):  # short enough or irrelevant characters only
         return True
 
     # characters other than space present
-    text_stripped = text.lstrip(''.join(IRRELEVANT_CHARACTERS)).rstrip(''.join(IRRELEVANT_CHARACTERS))
+    text_stripped = text.strip(STRIP_THESE)
     term = UNDERSCORE.join(w for w in text.replace(DASH, SPACE).replace(UNDERSCORE, SPACE).split(SPACE) if w.strip())
     term_lower = term.lower()
     term_lower_in_profiles = term_lower in STOP_WORDS
-    if not term_lower_in_profiles or term_lower_in_profiles and term_lower == term and text_stripped == text:
+
+    if not term_lower_in_profiles or all([term_lower_in_profiles, term_lower == term, text_stripped == text]):
         return True
     return False

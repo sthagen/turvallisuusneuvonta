@@ -38,3 +38,9 @@ def must_skip(document: dict, path: str, skip_these: Tuple[str, ...]) -> Tuple[s
     """Verify any skips and return tuple of triplets with claim, path and result."""
     value = jmespath.search(path, document)
     return value, path, any(value == skip for skip in skip_these)
+
+
+@no_type_check
+def is_valid_category(document: dict) -> bool:
+    """Verify category value."""
+    return val_cat_nam.is_valid(jmespath.search('document.category', document))

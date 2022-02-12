@@ -57,6 +57,71 @@ def test_mandatory_valid_category_name_not_exempt():
 
 
 @pytest.mark.parametrize('category, status', [(' ', True), ('-', True), ('_', True), ('1', True), ('9', True)])
+def test_mandatory_valid_category_ok_irrelevant_and_digits(category, status):
+    assert mandatory.is_valid_category({'document': {'category': category}}) is status
+
+
+@pytest.mark.parametrize('category, status', [(f'abc{w}xyz', True) for w in mandatory.val_cat_nam.STOP_WORDS])
+def test_mandatory_valid_category_ok_no_profiles(category, status):
+    assert mandatory.is_valid_category({'document': {'category': category}}) is status
+
+
+@pytest.mark.parametrize('category, status', [(w, True) for w in mandatory.val_cat_nam.STOP_WORDS])
+def test_mandatory_valid_category_ok_profiles(category, status):
+    assert mandatory.is_valid_category({'document': {'category': category}}) is status
+
+
+@pytest.mark.parametrize('category, status', [(w.upper(), False) for w in mandatory.val_cat_nam.STOP_WORDS])
+def test_mandatory_valid_category_nok_uppercase_profiles(category, status):
+    assert mandatory.is_valid_category({'document': {'category': category}}) is status
+
+
+@pytest.mark.parametrize('category, status', [(w.title(), False) for w in mandatory.val_cat_nam.STOP_WORDS])
+def test_mandatory_valid_category_nok_titlecase_profiles(category, status):
+    assert mandatory.is_valid_category({'document': {'category': category}}) is status
+
+
+@pytest.mark.parametrize('category, status', [(f' {w}', False) for w in mandatory.val_cat_nam.STOP_WORDS])
+def test_mandatory_valid_category_nok_leading_space_profiles(category, status):
+    assert mandatory.is_valid_category({'document': {'category': category}}) is status
+
+
+@pytest.mark.parametrize('category, status', [(f'{w} ', False) for w in mandatory.val_cat_nam.STOP_WORDS])
+def test_mandatory_valid_category_nok_trailing_space_profiles(category, status):
+    assert mandatory.is_valid_category({'document': {'category': category}}) is status
+
+
+@pytest.mark.parametrize('category, status', [(f'-{w}', False) for w in mandatory.val_cat_nam.STOP_WORDS])
+def test_mandatory_valid_category_nok_leading_dash_profiles(category, status):
+    assert mandatory.is_valid_category({'document': {'category': category}}) is status
+
+
+@pytest.mark.parametrize('category, status', [(f'{w}-', False) for w in mandatory.val_cat_nam.STOP_WORDS])
+def test_mandatory_valid_category_nok_trailing_dash_profiles(category, status):
+    assert mandatory.is_valid_category({'document': {'category': category}}) is status
+
+
+@pytest.mark.parametrize('category, status', [(f'_{w}', False) for w in mandatory.val_cat_nam.STOP_WORDS])
+def test_mandatory_valid_category_nok_leading_underscore_profiles(category, status):
+    assert mandatory.is_valid_category({'document': {'category': category}}) is status
+
+
+@pytest.mark.parametrize('category, status', [(f'{w}_', False) for w in mandatory.val_cat_nam.STOP_WORDS])
+def test_mandatory_valid_category_nok_trailing_underscore_profiles(category, status):
+    assert mandatory.is_valid_category({'document': {'category': category}}) is status
+
+
+@pytest.mark.parametrize('category, status', [(f'- _{w}', False) for w in mandatory.val_cat_nam.STOP_WORDS])
+def test_mandatory_valid_category_nok_leading_irrelevant_profiles(category, status):
+    assert mandatory.is_valid_category({'document': {'category': category}}) is status
+
+
+@pytest.mark.parametrize('category, status', [(f'{w}__  --  _', False) for w in mandatory.val_cat_nam.STOP_WORDS])
+def test_mandatory_valid_category_nok_trailing_irrelevant_profiles(category, status):
+    assert mandatory.is_valid_category({'document': {'category': category}}) is status
+
+
+@pytest.mark.parametrize('category, status', [(' ', True), ('-', True), ('_', True), ('1', True), ('9', True)])
 def test_mandatory_valid_category_name_ok_irrelevant_and_digits(category, status):
     assert mandatory.val_cat_nam.is_valid(category) is status
 
