@@ -46,18 +46,25 @@ STOP_WORDS = (
     'security_incident_response',
     'vex',
 )
-IRRELEVANT_CHARACTERS = (' ', '_', '-')
-STOP_WORDS_CANONICAL = tuple(''.join(c for c in term if c not in IRRELEVANT_CHARACTERS) for term in STOP_WORDS)
+DASH = '-'
+SPACE = ' '
+UNDERSCORE = '_'
+IRRELEVANT_CHARACTERS = (SPACE, UNDERSCORE, DASH)
 
 
 def is_valid(text: str) -> bool:
     """Verify category match per spec (disambiguation)."""
-    if not text:  # testability
+    if not text:  # empty
         return False
-    relevant = ''.join(c for c in text if c not in IRRELEVANT_CHARACTERS)
-    relevant_canonical = relevant.lower()
-    if relevant_canonical in STOP_WORDS_CANONICAL and relevant_canonical == relevant:
+    if not text.strip():  # spaces only
         return True
-    if relevant_canonical not in STOP_WORDS_CANONICAL:
+
+    # characters other than space present
+    text_stripped = text.lstrip(''.join(IRRELEVANT_CHARACTERS)).rstrip(''.join(IRRELEVANT_CHARACTERS))
+    term = UNDERSCORE.join(w for w in text.replace(DASH, SPACE).replace(UNDERSCORE, SPACE).split(SPACE) if w.strip())
+    term_lower = term.lower()
+    if term_lower in STOP_WORDS and term_lower == term and text_stripped == text:
+        return True
+    if term_lower not in STOP_WORDS:
         return True
     return False
