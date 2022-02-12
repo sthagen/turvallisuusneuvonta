@@ -1,5 +1,10 @@
 # Change History
 
+## 2022.2.12
+
+* Category rule test ready
+* Added property based testing
+
 ## 2022.1.1
 
 * Implemented first additional test cases from specification
