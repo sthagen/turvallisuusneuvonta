@@ -63,8 +63,7 @@ def is_valid(text: str) -> bool:
     text_stripped = text.lstrip(''.join(IRRELEVANT_CHARACTERS)).rstrip(''.join(IRRELEVANT_CHARACTERS))
     term = UNDERSCORE.join(w for w in text.replace(DASH, SPACE).replace(UNDERSCORE, SPACE).split(SPACE) if w.strip())
     term_lower = term.lower()
-    if term_lower in STOP_WORDS and term_lower == term and text_stripped == text:
-        return True
-    if term_lower not in STOP_WORDS:
+    term_lower_in_profiles = term_lower in STOP_WORDS
+    if not term_lower_in_profiles or term_lower_in_profiles and term_lower == term and text_stripped == text:
         return True
     return False
