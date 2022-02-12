@@ -1,7 +1,7 @@
 [tool.pyflow]
 name = "turvallisuusneuvonta"
 py_version = "3.8"
-version = "2022.1.1"
+version = "2022.2.12"
 authors = ["Stefan Hagen <stefan@hagen.link>"]
 
 [tool.pyflow.scripts]
@@ -19,6 +19,7 @@ black = "^21.10b0"
 coverage = "^6.1.2"
 flake8 = "^4.0.1"
 flake8-quotes = "^3.3.1"
+hypothesis = "´6.36.1"
 isort = "^5.10.1"
 mkautodoc = "^0.1.0"
 mkdocstrings = "^0.16.2"
