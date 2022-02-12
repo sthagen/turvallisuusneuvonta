@@ -26,6 +26,15 @@ TOPIC_MAP = {topic.TOPIC: topic.PATHS for topic in TOPICS}
 
 
 @no_type_check
+def is_valid(document: dict) -> bool:
+    """Complete validation of all mandatory rules."""
+    if not is_valid_category(document):
+        return False
+
+    return NotImplemented
+
+
+@no_type_check
 def exists(document: dict, claims: Dict[str, List[str]]) -> Tuple[Tuple[str, str, bool]]:
     """Verify the existence and return tuple of triplets with claim, path and result."""
     return tuple(

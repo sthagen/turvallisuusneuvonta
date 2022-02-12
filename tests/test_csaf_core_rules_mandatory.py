@@ -57,6 +57,18 @@ def test_mandatory_valid_category_name_not_exempt():
 
 
 @pytest.mark.parametrize('category, status', [(' ', True), ('-', True), ('_', True), ('1', True), ('9', True)])
+def test_mandatory_valid_ok_irrelevant_and_digits(category, status):
+    incomplete = NotImplemented if status is True else False
+    assert mandatory.is_valid({'document': {'category': category}}) is incomplete
+
+
+@pytest.mark.parametrize('category, status', [(w.upper(), False) for w in mandatory.val_cat_nam.STOP_WORDS])
+def test_mandatory_valid_nok_uppercase_profiles(category, status):
+    incomplete = NotImplemented if status is True else False
+    assert mandatory.is_valid({'document': {'category': category}}) is incomplete
+
+
+@pytest.mark.parametrize('category, status', [(' ', True), ('-', True), ('_', True), ('1', True), ('9', True)])
 def test_mandatory_valid_category_ok_irrelevant_and_digits(category, status):
     assert mandatory.is_valid_category({'document': {'category': category}}) is status
 
