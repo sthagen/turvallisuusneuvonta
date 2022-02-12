@@ -239,3 +239,16 @@ def test_mandatory_valid_category_nok_spec_example():
     with open(path, 'rt', encoding=ENCODING) as handle:
         document = json.load(handle)
     assert mandatory.is_valid(document) is False
+
+
+def test_mandatory_valid_translator_nok_spec_example():
+    path = pathlib.Path('tests/fixtures/rules/invalid/upstream/6-1-15-01.json')
+    with open(path, 'rt', encoding=ENCODING) as handle:
+        document = json.load(handle)
+    assert mandatory.is_valid(document) is False
+
+
+def test_mandatory_valid_ok_grow_me():
+    document = {'document': {'category': ' ', 'publisher': {'category': 'translator'}, 'source_lang': 'fr'}}
+    incomplete = NotImplemented
+    assert mandatory.is_valid(document) is incomplete
