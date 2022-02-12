@@ -40,16 +40,14 @@ TOPIC = 'Prohibited Document Category Name'
 BASE_URL = 'https://docs.oasis-open.org/csaf/csaf/v2.0/cs01/csaf-v2.0-cs01.html'
 REFERENCE = f'{BASE_URL}#6126-prohibited-document-category-name'
 PATHS = ('/document/category',)
-STOP_WORDS = (
+PROFILES = (
     'informational_advisory',
     'security_advisory',
     'security_incident_response',
     'vex',
 )
-DASH = '-'
-SPACE = ' '
-UNDERSCORE = '_'
-IRRELEVANT_CHARACTERS = (SPACE, UNDERSCORE, DASH)
+MIN_LEN = min(len(profile) for profile in PROFILES)
+IRRELEVANT_CHARACTERS = (SPACE := ' ', UNDERSCORE := '_', DASH := '-')
 STRIP_THESE = ''.join(IRRELEVANT_CHARACTERS)
 
 
@@ -58,15 +56,11 @@ def is_valid(text: str) -> bool:
     if not text:  # empty (implementer safeguard)
         return False
 
-    if len(text) < 3 or not text.strip(STRIP_THESE):  # short enough or irrelevant characters only
+    if not (text_strip := text.strip(STRIP_THESE)) or len(text) < MIN_LEN:  # short enough or irrelevant chars only
         return True
 
     # characters other than space present
-    text_stripped = text.strip(STRIP_THESE)
     term = UNDERSCORE.join(w for w in text.replace(DASH, SPACE).replace(UNDERSCORE, SPACE).split(SPACE) if w.strip())
-    term_lower = term.lower()
-    term_lower_in_profiles = term_lower in STOP_WORDS
+    term_lc_in_profiles = (term_lc := term.lower()) in PROFILES
 
-    if not term_lower_in_profiles or all([term_lower_in_profiles, term_lower == term, text_stripped == text]):
-        return True
-    return False
+    return True if not term_lc_in_profiles or all([term_lc_in_profiles, term_lc == term, text_strip == text]) else False
