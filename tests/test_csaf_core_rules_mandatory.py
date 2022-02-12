@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=line-too-long,missing-docstring,reimported,unused-import,unused-variable
+import json
+import pathlib
 import string
 
 import pytest
@@ -7,6 +9,7 @@ from hypothesis import given, strategies as st
 
 import turvallisuusneuvonta.csaf.core.rules.mandatory.mandatory as mandatory
 
+ENCODING = 'utf-8'
 PROFILE_SAFE_LETTERS = ('k', 'j', 'q', 'b', 'g', 'h', 'w', 'z')
 PROFILE_MAX_LEN = max(len(profile) for profile in mandatory.val_cat_nam.PROFILES)
 LOWER_ASCII = tuple(list(string.ascii_lowercase))
@@ -229,3 +232,10 @@ def test_mandatory_valid_category_name_nok_leading_irrelevant_profiles(category,
 @pytest.mark.parametrize('category, status', [(f'{w}__  --  _', False) for w in mandatory.val_cat_nam.PROFILES])
 def test_mandatory_valid_category_name_nok_trailing_irrelevant_profiles(category, status):
     assert mandatory.val_cat_nam.is_valid(category) is status
+
+
+def test_mandatory_valid_category_nok_spec_example():
+    path = pathlib.Path('tests/fixtures/rules/invalid/upstream/6-1-26-01.json')
+    with open(path, 'rt', encoding=ENCODING) as handle:
+        document = json.load(handle)
+    assert mandatory.is_valid(document) is False
