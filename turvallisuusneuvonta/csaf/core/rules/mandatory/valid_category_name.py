@@ -46,3 +46,18 @@ STOP_WORDS = (
     'security_incident_response',
     'vex',
 )
+IRRELEVANT_CHARACTERS = (' ', '_', '-')
+STOP_WORDS_CANONICAL = tuple(''.join(c for c in term if c not in IRRELEVANT_CHARACTERS) for term in STOP_WORDS)
+
+
+def is_valid(text: str) -> bool:
+    """Verify category match per spec (disambiguation)."""
+    if not text:  # testability
+        return False
+    relevant = ''.join(c for c in text if c not in IRRELEVANT_CHARACTERS)
+    relevant_canonical = relevant.lower()
+    if relevant_canonical in STOP_WORDS_CANONICAL and relevant_canonical == relevant:
+        return True
+    if relevant_canonical not in STOP_WORDS_CANONICAL:
+        return True
+    return False
