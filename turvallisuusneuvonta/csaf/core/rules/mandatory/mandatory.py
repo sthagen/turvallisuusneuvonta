@@ -27,7 +27,10 @@ TOPIC_MAP = {topic.TOPIC: topic.PATHS for topic in TOPICS}
 
 @no_type_check
 def is_valid(document: dict) -> bool:
-    """Complete validation of all mandatory rules."""
+    """Complete validation of all mandatory rules.
+
+    This is a spike - we throw it away when all rules are in and back comes something maintainable.
+    """
     if not is_valid_category(document):
         return False
 
