@@ -47,7 +47,7 @@ PROFILES = (
     'vex',
 )
 MIN_LEN = min(len(profile) for profile in PROFILES)
-STRIP_THESE =  ''.join(IRRELEVANT_CHARACTERS := (SPACE := ' ', UNDERSCORE := '_', DASH := '-'))
+STRIP_THESE = ''.join(IRRELEVANT_CHARACTERS := (SPACE := ' ', UNDERSCORE := '_', DASH := '-'))
 
 
 def is_valid(text: str) -> bool:
