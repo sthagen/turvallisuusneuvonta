@@ -39,7 +39,11 @@ CSAFGID-1020301 was not defined in the Product Tree.
 ID = (6, 1, 4)
 TOPIC = 'Missing Definition of Product Group ID'
 
-PATHS = (
+TRIGGER_PATH = '/product_tree/product_groups[]/group_id'
+TRIGGER_JMES_PATH = TRIGGER_PATH.lstrip('/').replace('/', '.')
+CONDITION_PATHS = (
     '/vulnerabilities[]/remediations[]/group_ids',
     '/vulnerabilities[]/threats[]/group_ids',
 )
+CONDITION_JMES_PATHS = tuple(path.lstrip('/').replace('/', '.') for path in CONDITION_PATHS)
+PATHS = CONDITION_PATHS

@@ -45,6 +45,16 @@ def is_valid(document: dict) -> bool:
             if any(claim_prod_id not in known_prod_ids for claim_prod_id in claim_prod_ids):
                 return False
 
+    defined_group_ids = jmespath.search(def_gro_ids.TRIGGER_JMES_PATH, document)
+    if defined_group_ids is None:
+        defined_group_ids = []
+    known_group_ids = set(defined_group_ids)
+    for path in def_gro_ids.CONDITION_JMES_PATHS:
+        claim_group_ids = jmespath.search(path, document)
+        if claim_group_ids is not None:
+            if any(claim_group_id not in known_group_ids for cl_seq in claim_group_ids for claim_group_id in cl_seq):
+                return False
+
     return NotImplemented
 
 
