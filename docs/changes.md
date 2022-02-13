@@ -1,5 +1,9 @@
 # Change History
 
+## 2022.2.13
+
+* Experimental implementations for unique as well as defined product and group ids, and translator 
+
 ## 2022.2.12
 
 * Category rule test ready
