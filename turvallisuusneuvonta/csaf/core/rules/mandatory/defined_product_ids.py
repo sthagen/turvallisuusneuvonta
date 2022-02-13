@@ -39,8 +39,9 @@ Neither CSAFPID-9080700 nor CSAFPID-9080701 were defined in the product_tree.
 
 ID = (6, 1, 1)
 TOPIC = 'Missing Definition of Product ID'
-
-PATHS = (
+TRIGGER_PATH = 'product_tree/full_product_names[]/product_id'
+TRIGGER_JMES_PATH = TRIGGER_PATH.lstrip('/').replace('/', '.')
+CONDITION_PATHS = (
     '/product_tree/product_groups[]/product_ids[]',
     '/product_tree/relationships[]/product_reference',
     '/product_tree/relationships[]/relates_to_product_reference',
@@ -56,3 +57,5 @@ PATHS = (
     '/vulnerabilities[]/scores[]/products[]',
     '/vulnerabilities[]/threats[]/product_ids[]',
 )
+CONDITION_JMES_PATHS = tuple(path.lstrip('/').replace('/', '.') for path in CONDITION_PATHS)
+PATHS = CONDITION_PATHS

@@ -30,9 +30,20 @@ def is_valid(document: dict) -> bool:
     """Complete validation of all mandatory rules."""
     if not is_valid_category(document):
         return False
+
     if jmespath.search(tra_and_sou_lan.TRIGGER_JMES_PATH, document) == tra_and_sou_lan.TRIGGER_VALUE:
         if not is_valid_translator(document):
             return False
+
+    defined_prod_ids = jmespath.search(def_pro_ids.TRIGGER_JMES_PATH, document)
+    if defined_prod_ids is None:
+        defined_prod_ids = []
+    known_prod_ids = set(defined_prod_ids)
+    for path in def_pro_ids.CONDITION_JMES_PATHS:
+        claim_prod_ids = jmespath.search(path, document)
+        if claim_prod_ids is not None:
+            if any(claim_prod_id not in known_prod_ids for claim_prod_id in claim_prod_ids):
+                return False
 
     return NotImplemented
 
