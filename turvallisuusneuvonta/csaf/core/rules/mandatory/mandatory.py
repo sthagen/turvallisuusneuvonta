@@ -26,6 +26,16 @@ TOPIC_MAP = {topic.TOPIC: topic.PATHS for topic in TOPICS}
 
 
 @no_type_check
+def guess_max_depth(map_or_seq):
+    """HACK A DID ACK - please delete me when cleaning up."""
+    if isinstance(map_or_seq, dict):
+        return 1 + max(map(guess_max_depth, map_or_seq.values()), default=0)
+    elif isinstance(map_or_seq, list):
+        return 1 + max(map(guess_max_depth, map_or_seq[0].values()), default=0)
+    return 0
+
+
+@no_type_check
 def is_valid(document: dict) -> bool:
     """Complete validation of all mandatory rules.
 
@@ -36,6 +46,14 @@ def is_valid(document: dict) -> bool:
 
     if jmespath.search(tra_and_sou_lan.TRIGGER_JMES_PATH, document) == tra_and_sou_lan.TRIGGER_VALUE:
         if not is_valid_translator(document):
+            return False
+
+    if not is_valid_unique_product_ids(document):
+        return False
+
+    group_ids = jmespath.search(uni_gro_ids.CONDITION_JMES_PATH, document)
+    if group_ids is not None:
+        if len(group_ids) > len(set(group_ids)):
             return False
 
     defined_prod_ids = jmespath.search(def_pro_ids.TRIGGER_JMES_PATH, document)
@@ -58,20 +76,30 @@ def is_valid(document: dict) -> bool:
             if any(claim_group_id not in known_group_ids for cl_seq in claim_group_ids for claim_group_id in cl_seq):
                 return False
 
+    return NotImplemented
+
+
+@no_type_check
+def is_valid_unique_product_ids(document: dict) -> bool:
+    """Temporary split."""
     prod_ids = []
     for path in uni_pro_ids.CONDITION_JMES_PATHS:
         pids = jmespath.search(path, document)
         if pids is not None:
             prod_ids.extend(pids)
+    probe = jmespath.search('product_tree.branches[]', document)
+    trials = guess_max_depth(probe) + 1
+    ipath = 'product_tree.branches[].product.product_id'
+    inject = 'branches[].product.'
+    for trial in range(trials):
+        harvest = jmespath.search(ipath, document)
+        if harvest:
+            prod_ids.extend(harvest)
+        ipath = ipath.replace('product.', inject)
     if len(prod_ids) > len(set(prod_ids)):
         return False
 
-    group_ids = jmespath.search(uni_gro_ids.CONDITION_JMES_PATH, document)
-    if group_ids is not None:
-        if len(group_ids) > len(set(group_ids)):
-            return False
-
-    return NotImplemented
+    return True
 
 
 @no_type_check
