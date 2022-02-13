@@ -28,9 +28,10 @@ CSAFPID-9080700 was defined twice.
 
 ID = (6, 1, 2)
 TOPIC = 'Multiple Definition of Product ID'
-
-PATHS = (
-    '/product_tree/branches[](/branches[])*/product/product_id',
+CONDITION_PATHS = (
+    # '/product_tree/branches[](/branches[])*/product/product_id',  # TODO(sthagen) recursion may require custom code
     '/product_tree/full_product_names[]/product_id',
     '/product_tree/relationships[]/full_product_name/product_id',
 )
+CONDITION_JMES_PATHS = tuple(path.lstrip('/').replace('/', '.') for path in CONDITION_PATHS)
+PATHS = CONDITION_PATHS

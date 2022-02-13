@@ -262,6 +262,20 @@ def test_mandatory_defined_group_id_nok_spec_example():
     assert mandatory.is_valid(document) is False
 
 
+def test_mandatory_unique_product_id_nok_spec_example():
+    path = pathlib.Path('tests/fixtures/rules/invalid/upstream/6-1-02-01.json')
+    with open(path, 'rt', encoding=ENCODING) as handle:
+        document = json.load(handle)
+    assert mandatory.is_valid(document) is False
+
+
+def test_mandatory_unique_group_id_nok_spec_example():
+    path = pathlib.Path('tests/fixtures/rules/invalid/upstream/6-1-05-01.json')
+    with open(path, 'rt', encoding=ENCODING) as handle:
+        document = json.load(handle)
+    assert mandatory.is_valid(document) is False
+
+
 def test_mandatory_valid_ok_grow_me():
     document = {'document': {'category': ' ', 'publisher': {'category': 'translator'}, 'source_lang': 'fr'}}
     incomplete = NotImplemented

@@ -47,5 +47,6 @@ CSAFGID-1020300 was defined twice.
 
 ID = (6, 1, 5)
 TOPIC = 'Multiple Definition of Product Group ID'
-
-PATHS = ('/product_tree/product_groups[]/group_id',)
+CONDITION_PATH = '/product_tree/product_groups[]/group_id'
+CONDITION_JMES_PATH = CONDITION_PATH.lstrip('/').replace('/', '.')
+PATHS = (CONDITION_PATH,)
