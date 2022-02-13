@@ -30,7 +30,7 @@ def is_valid(document: dict) -> bool:
     """Complete validation of all mandatory rules."""
     if not is_valid_category(document):
         return False
-    if jmespath.search('document.publisher.category', document) == 'translator':
+    if jmespath.search(tra_and_sou_lan.TRIGGER_JMES_PATH, document) == tra_and_sou_lan.TRIGGER_VALUE:
         if not is_valid_translator(document):
             return False
 
@@ -55,12 +55,12 @@ def must_skip(document: dict, path: str, skip_these: Tuple[str, ...]) -> Tuple[s
 @no_type_check
 def is_valid_category(document: dict) -> bool:
     """Verify category value."""
-    return val_cat_nam.is_valid(jmespath.search('document.category', document))
+    return val_cat_nam.is_valid(jmespath.search(val_cat_nam.CONDITION_JMES_PATH, document))
 
 
 @no_type_check
 def is_valid_translator(document: dict) -> bool:
     """Verify source_lang value is present for translator."""
-    if jmespath.search('document.publisher.category', document) != 'translator':
+    if jmespath.search(tra_and_sou_lan.TRIGGER_JMES_PATH, document) != tra_and_sou_lan.TRIGGER_VALUE:
         return False
-    return bool(jmespath.search('document.source_lang', document))
+    return bool(jmespath.search(tra_and_sou_lan.CONDITION_JMES_PATH, document))

@@ -39,7 +39,9 @@ ID = (6, 1, 26)
 TOPIC = 'Prohibited Document Category Name'
 BASE_URL = 'https://docs.oasis-open.org/csaf/csaf/v2.0/cs01/csaf-v2.0-cs01.html'
 REFERENCE = f'{BASE_URL}#6126-prohibited-document-category-name'
-PATHS = ('/document/category',)
+CONDITION_PATH = '/document/category'
+CONDITION_JMES_PATH = CONDITION_PATH.lstrip('/').replace('/', '.')
+PATHS = (CONDITION_PATH,)
 PROFILES = (
     'informational_advisory',
     'security_advisory',
