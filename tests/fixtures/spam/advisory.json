@@ -1,7 +1,11 @@
 {
   "document": {
+    "category": "argentum est sermo, silentium est aureum",
     "csaf_version": "2.0",
     "publisher": {
+      "category": "other",
+      "name": "romulus",
+      "namespace": "re:mus",
       "type": "discoverer",
       "vendor_id": "proident elit",
       "issuing_authority": "culpa magna mollit reprehenderit",
