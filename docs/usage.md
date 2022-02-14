@@ -5,7 +5,7 @@
 ### Mandatory Rules from CSAF v2.0 CS01
 
 ```console
-turvallisuusneuvonta verify tests/fixtures/rules/invalid/upstream/6-1-01-01.json
+$ turvallisuusneuvonta verify tests/fixtures/rules/invalid/upstream/6-1-01-01.json
 using configuration ({})
 set of document properties only contains known properties
 set of document properties is a proper subset of the known properties
@@ -25,7 +25,7 @@ advisory fails mandatory rules:
 ```
 
 ```console
-turvallisuusneuvonta verify tests/fixtures/rules/invalid/upstream/6-1-04-01.json
+$ turvallisuusneuvonta verify tests/fixtures/rules/invalid/upstream/6-1-04-01.json
 using configuration ({})
 set of document properties only contains known properties
 set of document properties is a proper subset of the known properties
