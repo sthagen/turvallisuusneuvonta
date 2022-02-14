@@ -1,5 +1,90 @@
 # Example Usage
 
+## Examples for Verifications
+
+### Mandatory Rules from CSAF v2.0 CS01
+
+```console
+turvallisuusneuvonta verify tests/fixtures/rules/invalid/upstream/6-1-01-01.json
+using configuration ({})
+set of document properties only contains known properties
+set of document properties is a proper subset of the known properties
+advisory fails mandatory rules:
+- undefined product ids
+- invalid translator
+```
+
+```console
+$ turvallisuusneuvonta verify tests/fixtures/rules/invalid/upstream/6-1-02-01.json
+using configuration ({})
+set of document properties only contains known properties
+set of document properties is a proper subset of the known properties
+advisory fails mandatory rules:
+- invalid translator
+- non-unique product ids
+```
+
+```console
+turvallisuusneuvonta verify tests/fixtures/rules/invalid/upstream/6-1-04-01.json
+using configuration ({})
+set of document properties only contains known properties
+set of document properties is a proper subset of the known properties
+advisory fails mandatory rules:
+- undefined group ids
+- invalid translator
+```
+
+```console
+$ turvallisuusneuvonta verify tests/fixtures/rules/invalid/upstream/6-1-05-01.json
+using configuration ({})
+set of document properties only contains known properties
+set of document properties is a proper subset of the known properties
+advisory fails mandatory rules:
+- invalid translator
+- non-unique group ids
+```
+
+```console
+$ turvallisuusneuvonta verify tests/fixtures/rules/invalid/upstream/6-1-15-01.json
+using configuration ({})
+set of document properties only contains known properties
+set of document properties is a proper subset of the known properties
+advisory fails mandatory rules:
+- invalid translator
+```
+
+```console
+$ turvallisuusneuvonta verify tests/fixtures/rules/invalid/upstream/6-1-26-01.json
+using configuration ({})
+set of document properties only contains known properties
+set of document properties is a proper subset of the known properties
+advisory fails mandatory rules:
+- invalid category
+- invalid translator
+```
+
+### Verification of Other Documents
+
+```console
+$ turvallisuusneuvonta verify tests/fixtures/spam/advisory.json
+using configuration ({})
+OK
+```
+
+```console
+$ turvallisuusneuvonta verify tests/fixtures/a-game-log4j/some-vex-csaf-document.json
+using configuration ({})
+set of document.aggregate_severity properties only contains known properties
+set of document.aggregate_severity properties is a proper subset of the known properties
+set of document properties only contains known properties
+set of document properties is a proper subset of the known properties
+advisory fails mandatory rules:
+- undefined product ids
+- invalid translator
+```
+
+## General Use
+
 Maybe not yet. But if:
 
 ```console
