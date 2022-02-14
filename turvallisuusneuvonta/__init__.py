@@ -1,2 +1,2 @@
 """Security advisory (Finnish: turvallisuusneuvonta) audit tool."""
-__version__ = '2022.2.13'
+__version__ = '2022.2.14'
