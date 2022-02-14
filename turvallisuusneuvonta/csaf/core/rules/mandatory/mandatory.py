@@ -38,37 +38,21 @@ def is_valid(document: dict) -> bool:
     if not is_valid_unique_product_ids(document):
         return False
 
-    group_ids = jmespath.search(uni_gro_ids.CONDITION_JMES_PATH, document)
-    if group_ids is not None:
-        if len(group_ids) > len(set(group_ids)):
-            return False
+    if not is_valid_unique_group_ids(document):
+        return False
 
-    defined_prod_ids = jmespath.search(def_pro_ids.TRIGGER_JMES_PATH, document)
-    if defined_prod_ids is None:
-        defined_prod_ids = []
-    known_prod_ids = set(defined_prod_ids)
-    for path in def_pro_ids.CONDITION_JMES_PATHS:
-        claim_prod_ids = jmespath.search(path, document)
-        if claim_prod_ids is not None:
-            if any(claim_prod_id not in known_prod_ids for claim_prod_id in claim_prod_ids):
-                return False
+    if not is_valid_defined_product_ids(document):
+        return False
 
-    defined_group_ids = jmespath.search(def_gro_ids.TRIGGER_JMES_PATH, document)
-    if defined_group_ids is None:
-        defined_group_ids = []
-    known_group_ids = set(defined_group_ids)
-    for path in def_gro_ids.CONDITION_JMES_PATHS:
-        claim_group_ids = jmespath.search(path, document)
-        if claim_group_ids is not None:
-            if any(claim_group_id not in known_group_ids for cl_seq in claim_group_ids for claim_group_id in cl_seq):
-                return False
+    if not is_valid_defined_group_ids(document):
+        return False
 
     return NotImplemented
 
 
 @no_type_check
 def is_valid_unique_product_ids(document: dict) -> bool:
-    """Temporary split."""
+    """Temporary implementation of rule for unique product ids."""
     prod_ids = []
     for path in uni_pro_ids.CONDITION_JMES_PATHS:
         pids = jmespath.search(path, document)
@@ -85,6 +69,49 @@ def is_valid_unique_product_ids(document: dict) -> bool:
         ipath = ipath.replace('product.', inject)
     if len(prod_ids) > len(set(prod_ids)):
         return False
+
+    return True
+
+
+@no_type_check
+def is_valid_unique_group_ids(document: dict) -> bool:
+    """Temporary implementation of rule for unique group ids."""
+    group_ids = jmespath.search(uni_gro_ids.CONDITION_JMES_PATH, document)
+    if group_ids is not None:
+        if len(group_ids) > len(set(group_ids)):
+            return False
+
+    return True
+
+
+@no_type_check
+def is_valid_defined_product_ids(document: dict) -> bool:
+    """Temporary implementation of rule for defined product ids."""
+    defined_prod_ids = jmespath.search(def_pro_ids.TRIGGER_JMES_PATH, document)
+    if defined_prod_ids is None:
+        defined_prod_ids = []
+    known_prod_ids = set(defined_prod_ids)
+    for path in def_pro_ids.CONDITION_JMES_PATHS:
+        claim_prod_ids = jmespath.search(path, document)
+        if claim_prod_ids is not None:
+            if any(claim_prod_id not in known_prod_ids for claim_prod_id in claim_prod_ids):
+                return False
+
+    return True
+
+
+@no_type_check
+def is_valid_defined_group_ids(document: dict) -> bool:
+    """Temporary implementation of rule for defined group ids."""
+    defined_group_ids = jmespath.search(def_gro_ids.TRIGGER_JMES_PATH, document)
+    if defined_group_ids is None:
+        defined_group_ids = []
+    known_group_ids = set(defined_group_ids)
+    for path in def_gro_ids.CONDITION_JMES_PATHS:
+        claim_group_ids = jmespath.search(path, document)
+        if claim_group_ids is not None:
+            if any(claim_group_id not in known_group_ids for cl_seq in claim_group_ids for claim_group_id in cl_seq):
+                return False
 
     return True
 
