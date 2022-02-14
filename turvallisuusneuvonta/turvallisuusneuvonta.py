@@ -11,12 +11,22 @@ import os
 import pathlib
 import sys
 from itertools import chain
-from typing import Iterator, List, Optional, Tuple, Union, no_type_check
+from typing import Dict, Iterator, List, Optional, Tuple, Union, no_type_check
 
 import jmespath
 import orjson
 from langcodes import tag_is_valid
 from lazr.uri import URI, InvalidURIError  # type: ignore
+
+from turvallisuusneuvonta.csaf.core.rules.mandatory.mandatory import (
+    is_valid,
+    is_valid_category,
+    is_valid_defined_group_ids,
+    is_valid_defined_product_ids,
+    is_valid_translator,
+    is_valid_unique_group_ids,
+    is_valid_unique_product_ids,
+)
 
 DEBUG_VAR = 'TURVALLISUUSNEUVONTA_DEBUG'
 DEBUG = os.getenv(DEBUG_VAR)
@@ -330,17 +340,17 @@ def verify_request(argv: Optional[List[str]]) -> Tuple[int, str, List[str]]:
     return 0, '', argv
 
 
-def verify_json(data: str) -> Tuple[int, str, List[str]]:
+def verify_json(data: str) -> Tuple[int, str, List[str], Dict[str, object]]:
     """Verify the JSON as CSAF."""
     try:
         doc = orjson.loads(data)
     except orjson.JSONDecodeError:
-        return 1, 'advisory is no valid JSON', []
+        return 1, 'advisory is no valid JSON', [], {}
 
     error, message = level_zero(doc)
     if error:
-        return error, message, []
-    return 0, 'OK', []
+        return error, message, [], {}
+    return 0, 'OK', [], doc
 
 
 def main(argv: Union[List[str], None] = None) -> int:
@@ -370,11 +380,28 @@ def main(argv: Union[List[str], None] = None) -> int:
         return 1
 
     if guess == 'JSON':
-        error, message, strings = verify_json(data)
+        error, message, strings, doc = verify_json(data)
         if error:
             print(message, file=sys.stderr)
             return error
         # Later post process the business rules (spec tests) here
+        # Like that:
+        if is_valid(doc) is False:  # For now, we return NotImplemented, sorry
+            print('advisory fails mandatory rules:')
+            # Why not execute the rules multiple times (until we have traits in place to report the failing rule)?
+            if not is_valid_category(doc):
+                print('- invalid category')
+            if not is_valid_defined_group_ids(doc):
+                print('- undefined group ids')
+            if not is_valid_defined_product_ids(doc):
+                print('- undefined product ids')
+            if not is_valid_translator(doc):
+                print('- invalid translator')
+            if not is_valid_unique_group_ids(doc):
+                print('- non-unique group ids')
+            if not is_valid_unique_product_ids(doc):
+                print('- non-unique product ids')
+            return 1
         print('OK')
         return 0
 
