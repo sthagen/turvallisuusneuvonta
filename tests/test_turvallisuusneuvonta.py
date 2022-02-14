@@ -53,16 +53,16 @@ def test_reader_empty():
 
 
 def test_verify_json_empty():
-    assert tu.verify_json('') == (1, 'advisory is no valid JSON', [])
+    assert tu.verify_json('') == (1, 'advisory is no valid JSON', [], {})
 
 
 def test_verify_json_empty_object():
-    assert tu.verify_json('{}') == (1, 'missing document property', [])
+    assert tu.verify_json('{}') == (1, 'missing document property', [], {})
 
 
 def test_verify_json_csaf_spam_object():
     message = 'missing document.publisher property (category)'
-    assert tu.verify_json(conftest.SPAM_JSON) == (1, message, [])
+    assert tu.verify_json(conftest.SPAM_JSON) == (1, message, [], {})
 
 
 def test_level_zero_csaf_spam_object():
