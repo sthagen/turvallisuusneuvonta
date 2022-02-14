@@ -1,5 +1,10 @@
 # Change History
 
+## 2022.2.14
+
+* Hotfix making mandatory rules (spike) module a package (fixes #11)
+* Removal of topical approach (for now) and code cleanup
+
 ## 2022.2.13
 
 * Experimental implementations for unique as well as defined product and group ids, and translator 
