@@ -15,7 +15,7 @@ install:
 install-all: install
 	pip install -r tests/requirements-dev.txt
 
-.PHONY: isort
+.PHONY: format
 format:
 	$(isort)
 	$(black)
@@ -38,7 +38,7 @@ mypy:
 
 .PHONY: test
 test: clean
-	pytest --cov=turvallisuusneuvonta --log-format="%(levelname)s %(message)s"
+	pytest --asyncio-mode=strict --cov=turvallisuusneuvonta --cov-report term-missing:skip-covered --cov-branch --log-format="%(levelname)s %(message)s"
 
 .PHONY: testcov
 testcov: test
