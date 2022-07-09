@@ -6,11 +6,11 @@ import pathlib
 import pytest
 
 import turvallisuusneuvonta.turvallisuusneuvonta as tu
-from tests import conftest
+from test import conftest
 
 
 def test_tu_main():
-    inp = str(pathlib.Path('tests', 'fixtures', 'empty', 'advisory.json'))
+    inp = str(pathlib.Path('test', 'fixtures', 'empty', 'advisory.json'))
     assert tu.main(['verify', inp, '']) == 2
 
 
@@ -48,7 +48,7 @@ def test_what_xml():
 
 
 def test_reader_empty():
-    inp = str(pathlib.Path('tests', 'fixtures', 'empty', 'advisory.json'))
+    inp = str(pathlib.Path('test', 'fixtures', 'empty', 'advisory.json'))
     assert next(tu.reader(inp)).strip() == '{}'
 
 

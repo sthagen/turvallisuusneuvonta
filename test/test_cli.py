@@ -9,7 +9,7 @@ import turvallisuusneuvonta.cli as cli
 
 
 def test_main_legacy_ok(capsys):
-    inp = str(pathlib.Path('tests', 'fixtures', 'empty', 'advisory.json'))
+    inp = str(pathlib.Path('test', 'fixtures', 'empty', 'advisory.json'))
     assert cli.main(['verify', inp, '']) == 2
     out, err = capsys.readouterr()
     assert not out
@@ -32,7 +32,7 @@ def test_version_ok(capsys):
 
 
 def test_now_ok(capsys):
-    in_path = pathlib.Path('tests', 'fixtures', 'empty', 'advisory.json')
+    in_path = pathlib.Path('test', 'fixtures', 'empty', 'advisory.json')
     with pytest.raises(SystemExit) as exec_info:
         cli.verify(conf=str(in_path))
         assert exec_info.value.code == 0

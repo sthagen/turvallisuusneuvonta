@@ -235,49 +235,49 @@ def test_mandatory_valid_category_name_nok_trailing_irrelevant_profiles(category
 
 
 def test_mandatory_valid_category_nok_spec_example():
-    path = pathlib.Path('tests/fixtures/rules/invalid/upstream/6-1-26-01.json')
+    path = pathlib.Path('test/fixtures/rules/invalid/upstream/6-1-26-01.json')
     with open(path, 'rt', encoding=ENCODING) as handle:
         document = json.load(handle)
     assert mandatory.is_valid(document) is False
 
 
 def test_mandatory_valid_translator_nok_spec_example():
-    path = pathlib.Path('tests/fixtures/rules/invalid/upstream/6-1-15-01.json')
+    path = pathlib.Path('test/fixtures/rules/invalid/upstream/6-1-15-01.json')
     with open(path, 'rt', encoding=ENCODING) as handle:
         document = json.load(handle)
     assert mandatory.is_valid(document) is False
 
 
 def test_mandatory_defined_product_id_nok_spec_example():
-    path = pathlib.Path('tests/fixtures/rules/invalid/upstream/6-1-01-01.json')
+    path = pathlib.Path('test/fixtures/rules/invalid/upstream/6-1-01-01.json')
     with open(path, 'rt', encoding=ENCODING) as handle:
         document = json.load(handle)
     assert mandatory.is_valid(document) is False
 
 
 def test_mandatory_defined_group_id_nok_spec_example():
-    path = pathlib.Path('tests/fixtures/rules/invalid/upstream/6-1-04-01.json')
+    path = pathlib.Path('test/fixtures/rules/invalid/upstream/6-1-04-01.json')
     with open(path, 'rt', encoding=ENCODING) as handle:
         document = json.load(handle)
     assert mandatory.is_valid(document) is False
 
 
 def test_mandatory_unique_product_id_nok_spec_example():
-    path = pathlib.Path('tests/fixtures/rules/invalid/upstream/6-1-02-01.json')
+    path = pathlib.Path('test/fixtures/rules/invalid/upstream/6-1-02-01.json')
     with open(path, 'rt', encoding=ENCODING) as handle:
         document = json.load(handle)
     assert mandatory.is_valid(document) is False
 
 
 def test_mandatory_is_valid_unique_product_ids_nok_spec_example():
-    path = pathlib.Path('tests/fixtures/rules/invalid/upstream/6-1-02-01.json')
+    path = pathlib.Path('test/fixtures/rules/invalid/upstream/6-1-02-01.json')
     with open(path, 'rt', encoding=ENCODING) as handle:
         document = json.load(handle)
     assert mandatory.is_valid_unique_product_ids(document) is False
 
 
 def test_mandatory_unique_group_id_nok_spec_example():
-    path = pathlib.Path('tests/fixtures/rules/invalid/upstream/6-1-05-01.json')
+    path = pathlib.Path('test/fixtures/rules/invalid/upstream/6-1-05-01.json')
     with open(path, 'rt', encoding=ENCODING) as handle:
         document = json.load(handle)
     assert mandatory.is_valid(document) is False

@@ -7,7 +7,7 @@ import pytest
 
 import turvallisuusneuvonta.csaf.definitions as defs
 import turvallisuusneuvonta.csaf.product as product
-from tests import conftest
+from test import conftest
 
 
 def test_product_empty():

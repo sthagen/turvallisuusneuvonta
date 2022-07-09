@@ -5,7 +5,7 @@ import pytest
 from pydantic.error_wrappers import ValidationError
 
 import turvallisuusneuvonta.csaf.csaf as csaf
-from tests import conftest
+from test import conftest
 
 
 def _subs(count: int, what: str) -> str:

@@ -146,7 +146,7 @@ SPAM = {
 
 SPAM_JSON = orjson.dumps(SPAM)
 
-CSAF_EXAMPLE_COM_123_PATH = pathlib.Path('tests', 'fixtures', 'example-com', 'example-com-123.json')
+CSAF_EXAMPLE_COM_123_PATH = pathlib.Path('test', 'fixtures', 'example-com', 'example-com-123.json')
 with open(CSAF_EXAMPLE_COM_123_PATH, 'rb') as handle:
     CSAF_WITH_DOCUMENTS = orjson.loads(handle.read())
 

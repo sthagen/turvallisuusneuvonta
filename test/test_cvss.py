@@ -3,7 +3,7 @@
 import pytest
 from pydantic.error_wrappers import ValidationError
 
-from tests import conftest
+from test import conftest
 from turvallisuusneuvonta.csaf.cvss.cvss import (
     CVSS2,
     CVSS30,
