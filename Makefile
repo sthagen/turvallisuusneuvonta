@@ -2,18 +2,18 @@ SHELL = /bin/bash
 package = shagen/turvallisuusneuvonta
 
 .DEFAULT_GOAL := all
-isort = isort turvallisuusneuvonta tests
-black = black -S -l 120 --target-version py38 turvallisuusneuvonta tests
+isort = isort turvallisuusneuvonta test
+black = black -S -l 120 --target-version py38 turvallisuusneuvonta test
 
 .PHONY: install
 install:
 	pip install -U pip wheel
-	pip install -r tests/requirements.txt
+	pip install -r test/requirements.txt
 	pip install -U .
 
 .PHONY: install-all
 install-all: install
-	pip install -r tests/requirements-dev.txt
+	pip install -r test/requirements-dev.txt
 
 .PHONY: format
 format:
@@ -22,13 +22,13 @@ format:
 
 .PHONY: init
 init:
-	pip install -r tests/requirements.txt
-	pip install -r tests/requirements-dev.txt
+	pip install -r test/requirements.txt
+	pip install -r test/requirements-dev.txt
 
 .PHONY: lint
 lint:
 	python setup.py check -ms
-	flake8 turvallisuusneuvonta/ tests/
+	flake8 turvallisuusneuvonta/ test/
 	$(isort) --check-only --df
 	$(black) --check --diff
 
@@ -62,39 +62,3 @@ clean:
 	@rm -rf build
 	@rm -f *.log
 	python setup.py clean
-
-image:
-	@echo "- building container image"
-	set -e ;\
-	RND_SEED=$$(openssl rand -base64 48) ;\
-	BUILD_TS=$$(date -u +'%Y-%m-%dT%H:%M:%SZ') ;\
-	REVISION=$$(git rev-parse --verify HEAD) ;\
-	VERSION=$$(grep version setup.py | cut -f2 -d'"') ;\
-	echo $$RND_SEED $$BUILD_TS ;\
-	docker buildx use rekcod ;\
-	docker buildx inspect rekcod ;\
-	docker buildx build \
-  --output=type=registry \
-	--platform linux/amd64,linux/arm64,linux/arm/v7 \
-	--no-cache \
-	--build-arg BUILD_TS=$$BUILD_TS \
-	--build-arg REVISION=$$REVISION \
-	--build-arg VERSION=$$VERSION \
-	--tag $(package) . ;\
-
-	@echo "Result: $$(docker inspect -f \
-	'version={{index .Config.Labels "org.opencontainers.image.version"}}\
-	timestamp={{index .Config.Labels "org.opencontainers.image.created"}}\
-	revision=sha1:{{index .Config.Labels "org.opencontainers.image.revision"}}' \
-	$(package))" ;\
-
-available:
-	@echo "- publishing container image on hub.docker.com"
-	@echo " + docker inspect says:"
-	@echo "   $$(docker inspect -f \
-	'version={{index .Config.Labels "org.opencontainers.image.version"}}\
-	timestamp={{index .Config.Labels "org.opencontainers.image.created"}}\
-	revision=sha1:{{index .Config.Labels "org.opencontainers.image.revision"}}' \
-	$(package))" ;\
-	docker push $(package) ;\
-
