@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=line-too-long,missing-docstring,reimported,unused-import,unused-variable
 import re
+from test import conftest
 
 import orjson
 import pytest
 
 import turvallisuusneuvonta.csaf.definitions as defs
 import turvallisuusneuvonta.csaf.product as product
-from test import conftest
 
 
 def test_product_empty():
@@ -15,7 +15,7 @@ def test_product_empty():
 
 
 def test_product_positional_text():
-    message = '__init__() takes 1 positional argument but 3 were given'
+    message = '__init__() takes exactly 1 positional argument (3 given)'
     with pytest.raises(TypeError, match=re.escape(message)):
         _ = product.ProductTree('positional', 'text')  # type: ignore
 

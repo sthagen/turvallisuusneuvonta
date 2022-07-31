@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=line-too-long,missing-docstring,reimported,unused-import,unused-variable
+from test import conftest
+
 import pytest
 from pydantic.error_wrappers import ValidationError
 
-from test import conftest
 from turvallisuusneuvonta.csaf.cvss.cvss import (
     CVSS2,
     CVSS30,

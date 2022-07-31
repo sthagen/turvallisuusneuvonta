@@ -2,11 +2,11 @@
 # pylint: disable=line-too-long,missing-docstring,reimported,unused-import,unused-variable
 import copy
 import pathlib
+from test import conftest
 
 import pytest
 
 import turvallisuusneuvonta.turvallisuusneuvonta as tu
-from test import conftest
 
 
 def test_tu_main():

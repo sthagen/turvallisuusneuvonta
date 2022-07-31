@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=line-too-long,missing-docstring,reimported,unused-import,unused-variable
+from test import conftest
+
 import orjson
 import pytest
 from pydantic.error_wrappers import ValidationError
 
 import turvallisuusneuvonta.csaf.document as document
-from test import conftest
 
 
 def _subs(count: int) -> str:
