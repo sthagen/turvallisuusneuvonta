@@ -74,6 +74,7 @@ class CryptographicHashes(BaseModel):
 
     @no_type_check
     @validator('file_hashes', 'filename')
+    @classmethod
     def check_len(cls, v):
         if not v:
             raise ValueError('mandatory element present but empty')
@@ -205,6 +206,7 @@ class HelperToIdentifyTheProduct(BaseModel):
 
     @no_type_check
     @validator('hashes', 'sbom_urls', 'serial_numbers', 'skus', 'x_generic_uris')
+    @classmethod
     def check_len(cls, v):
         if not v:
             raise ValueError('optional element present but empty')
@@ -212,6 +214,7 @@ class HelperToIdentifyTheProduct(BaseModel):
 
     @no_type_check
     @validator('purl')
+    @classmethod
     def check_purl(cls, v):
         if not v or len(v) < 7:
             raise ValueError('optional purl element present but too short')
@@ -280,6 +283,7 @@ class ProductGroup(BaseModel):
 
     @no_type_check
     @validator('product_ids')
+    @classmethod
     def check_len(cls, v):
         if len(v) < 2:
             raise ValueError('mandatory element present but too few items')
@@ -437,6 +441,7 @@ class ProductTree(BaseModel):
 
     @no_type_check
     @validator('full_product_names', 'product_groups', 'relationships')
+    @classmethod
     def check_len(cls, v):
         if not v:
             raise ValueError('optional element present but empty')
@@ -511,6 +516,7 @@ class Branches(BaseModel):
 
     @no_type_check
     @validator('__root__')
+    @classmethod
     def check_len(cls, v):
         if not v:
             raise ValueError('mandatory element present but empty')
