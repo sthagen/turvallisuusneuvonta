@@ -2,8 +2,11 @@ SHELL = /bin/bash
 package = shagen/turvallisuusneuvonta
 
 .DEFAULT_GOAL := all
+black = black -S -l 120 --target-version py39 turvallisuusneuvonta test
+flake8 = flake8 turvallisuusneuvonta test
 isort = isort turvallisuusneuvonta test
-black = black -S -l 120 --target-version py38 turvallisuusneuvonta test
+pytest = pytest --asyncio-mode=strict --cov=turvallisuusneuvonta --cov-report term-missing:skip-covered --cov-branch --log-format="%(levelname)s %(message)s"
+types = mypy turvallisuusneuvonta
 
 .PHONY: install
 install:
@@ -28,17 +31,17 @@ init:
 .PHONY: lint
 lint:
 	python setup.py check -ms
-	flake8 turvallisuusneuvonta/ test/
+	$(flake8)
 	$(isort) --check-only --df
 	$(black) --check --diff
 
-.PHONY: mypy
-mypy:
-	mypy turvallisuusneuvonta
+.PHONY: types
+types:
+	$(types)
 
 .PHONY: test
 test: clean
-	pytest --asyncio-mode=strict --cov=turvallisuusneuvonta --cov-report term-missing:skip-covered --cov-branch --log-format="%(levelname)s %(message)s"
+	$(pytest)
 
 .PHONY: testcov
 testcov: test
@@ -46,7 +49,7 @@ testcov: test
 	@coverage html
 
 .PHONY: all
-all: lint mypy testcov
+all: lint types testcov
 
 .PHONY: clean
 clean:
@@ -54,12 +57,7 @@ clean:
 	@rm -f `find . -type f -name '*.py[co]' `
 	@rm -f `find . -type f -name '*~' `
 	@rm -f `find . -type f -name '.*~' `
-	@rm -rf .cache
-	@rm -rf htmlcov
-	@rm -rf *.egg-info
-	@rm -f .coverage
-	@rm -f .coverage.*
-	@rm -rf build
-	@rm -f *.log
+	@rm -rf .cache htmlcov *.egg-info build dist/*
+	@rm -f .coverage .coverage.* *.log
 	python setup.py clean
 	@rm -fr site/*
