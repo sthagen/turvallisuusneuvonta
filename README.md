@@ -16,7 +16,7 @@ User and developer [documentation of turvallisuusneuvonta](https://codes.diletta
 
 ## Bug Tracker
 
-Feature requests and bug reports are bested entered in the [todos of turvallisuusneuvonta](https://todo.sr.ht/~sthagen/turvallisuusneuvonta).
+Feature requests and bug reports are best entered in the [todos of turvallisuusneuvonta](https://todo.sr.ht/~sthagen/turvallisuusneuvonta).
 
 ## Primary Source repository
 
