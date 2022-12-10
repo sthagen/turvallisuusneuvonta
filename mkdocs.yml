@@ -3,6 +3,8 @@ site_description: "Security advisory (Finnish: turvallisuusneuvonta) audit tool.
 
 theme:
   name: 'material'
+  logo: assets/logo.png
+  favicon: images/favicon.ico
   features:
     - navigation.expand
     - toc.integrate
