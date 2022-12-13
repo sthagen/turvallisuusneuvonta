@@ -1,8 +1,10 @@
-# turvallisuusneuvonta
+# Turvallisuusneuvonta
 
 Security advisory (Finnish: turvallisuusneuvonta) audit tool.
 
 [License: MIT](https://git.sr.ht/~sthagen/turvallisuusneuvonta/tree/default/item/LICENSE)
+
+Third party dependencies are documented in the folder [third-party](third-party/README.md).
 
 [![version](https://img.shields.io/pypi/v/turvallisuusneuvonta.svg?style=flat)](https://pypi.python.org/pypi/turvallisuusneuvonta/)
 [![downloads](https://pepy.tech/badge/turvallisuusneuvonta/month)](https://pepy.tech/project/turvallisuusneuvonta)
