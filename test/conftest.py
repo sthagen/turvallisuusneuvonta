@@ -3,7 +3,7 @@
 import pathlib
 from typing import no_type_check
 
-import orjson
+import msgspec
 
 CVSS31_VECTOR_STRING_LOG4J = 'CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H'
 CVSS31_BASE_SCORE_LOG4J = '10.0'
@@ -144,11 +144,11 @@ SPAM = {
     }
 }
 
-SPAM_JSON = orjson.dumps(SPAM)
+SPAM_JSON = msgspec.json.encode(SPAM)
 
 CSAF_EXAMPLE_COM_123_PATH = pathlib.Path('test', 'fixtures', 'example-com', 'example-com-123.json')
 with open(CSAF_EXAMPLE_COM_123_PATH, 'rb') as handle:
-    CSAF_WITH_DOCUMENTS = orjson.loads(handle.read())
+    CSAF_WITH_DOCUMENTS = msgspec.json.decode(handle.read())
 
 
 @no_type_check

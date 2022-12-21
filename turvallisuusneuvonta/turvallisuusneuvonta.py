@@ -14,7 +14,7 @@ from itertools import chain
 from typing import Dict, Iterator, List, Optional, Tuple, Union, no_type_check
 
 import jmespath
-import orjson
+import msgspec
 from langcodes import tag_is_valid
 from lazr.uri import URI, InvalidURIError  # type: ignore
 
@@ -343,8 +343,8 @@ def verify_request(argv: Optional[List[str]]) -> Tuple[int, str, List[str]]:
 def verify_json(data: str) -> Tuple[int, str, List[str], Dict[str, object]]:
     """Verify the JSON as CSAF."""
     try:
-        doc = orjson.loads(data)
-    except orjson.JSONDecodeError:
+        doc = msgspec.json.decode(data)
+    except msgspec.DecodeError:
         return 1, 'advisory is no valid JSON', [], {}
 
     error, message = level_zero(doc)
@@ -363,7 +363,7 @@ def main(argv: Union[List[str], None] = None) -> int:
     command, inp, config = strings
 
     with open(config, 'rb') as handle:
-        configuration = orjson.loads(handle.read())
+        configuration = msgspec.json.decode(handle.read())
 
     print(f'using configuration ({configuration})')
     source = sys.stdin if not inp else reader(inp)

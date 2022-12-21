@@ -3,7 +3,7 @@
 import re
 from test import conftest
 
-import orjson
+import msgspec
 import pytest
 
 import turvallisuusneuvonta.csaf.definitions as defs
@@ -39,7 +39,7 @@ def test_product_relationship():
 
 def test_product_relationship_loads():
     rel = product.Relationship(**conftest.PRODUCT_RELATIONSHIP_DATA)
-    assert orjson.loads(rel.json()) == conftest.PRODUCT_RELATIONSHIP_DATA
+    assert msgspec.json.decode(rel.json()) == conftest.PRODUCT_RELATIONSHIP_DATA
 
 
 def test_product_relationship_dumps():
@@ -56,4 +56,4 @@ def test_product_relationship_dumps():
         'relates_to_product_reference': pr_ref_other,
     }
     rel = product.Relationship(**data)
-    assert orjson.loads(rel.json()) == conftest.PRODUCT_RELATIONSHIP_DATA
+    assert msgspec.json.decode(rel.json()) == conftest.PRODUCT_RELATIONSHIP_DATA

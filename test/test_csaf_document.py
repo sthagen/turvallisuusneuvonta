@@ -2,7 +2,7 @@
 # pylint: disable=line-too-long,missing-docstring,reimported,unused-import,unused-variable
 from test import conftest
 
-import orjson
+import msgspec
 import pytest
 from pydantic.error_wrappers import ValidationError
 
@@ -26,7 +26,7 @@ def test_doc_empty_meta():
 
 def test_doc_ok_if_spammy():
     doc = csaf.CSAF(**conftest.DOC_OK)
-    strip_me = orjson.loads(doc.json())
+    strip_me = msgspec.json.decode(doc.json())
     conftest._strip_and_iso_grace(strip_me)
     assert strip_me == conftest.DOC_OK
 
