@@ -1,5 +1,9 @@
 # Change History
 
+## Source
+
+* Migrated from orjson to msgspec
+
 ## 2022.8.9
 
 * Bumped dependencies for development and test
