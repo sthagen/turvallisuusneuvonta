@@ -22,8 +22,8 @@ dependencies = [
     "jmespath >= 1.0.1",
     "langcodes >= 3.3.0",
     "lazr.uri >= 1.0.6",
-    "msgspec >= 0.12.0",
-    "pydantic >= 1.10.4",
+    "msgspec >= 0.13.1",
+    "pydantic >= 1.10.7",
     "typer >= 0.7.0",
 ]
 requires-python = ">=3.9"
