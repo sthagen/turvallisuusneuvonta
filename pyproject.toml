@@ -22,7 +22,7 @@ dependencies = [
     "jmespath >= 1.0.1",
     "langcodes >= 3.3.0",
     "lazr.uri >= 1.0.6",
-    "msgspec >= 0.14.1",
+    "msgspec >= 0.14.2",
     "pydantic >= 1.10.7",
     "typer >= 0.7.0",
 ]
