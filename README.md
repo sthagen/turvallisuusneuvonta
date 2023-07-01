@@ -11,6 +11,7 @@ Third party dependencies are documented in the folder [third-party](docs/third-p
 [![wheel](https://img.shields.io/pypi/wheel/turvallisuusneuvonta.svg?style=flat)](https://pypi.python.org/pypi/turvallisuusneuvonta/)
 [![supported-versions](https://img.shields.io/pypi/pyversions/turvallisuusneuvonta.svg?style=flat)](https://pypi.python.org/pypi/turvallisuusneuvonta/)
 [![supported-implementations](https://img.shields.io/pypi/implementation/turvallisuusneuvonta.svg?style=flat)](https://pypi.python.org/pypi/turvallisuusneuvonta/)
+[![maintenance-status](https://img.shields.io/github/commit-activity/y/sthagen/turvallisuusneuvonta.svg?style=flat)](https://git.sr.ht/~sthagen/turvallisuusneuvonta/log)
 
 ## Documentation
 
