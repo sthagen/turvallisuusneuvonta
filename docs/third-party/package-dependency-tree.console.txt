@@ -1,7 +1,7 @@
 jmespath==1.0.1
 langcodes==3.3.0
 lazr.uri==1.0.6
-└── setuptools [required: Any, installed: 68.0.0]
+└── setuptools [required: Any, installed: 68.1.0]
 msgspec==0.18.0
 pydantic==1.10.10
 └── typing-extensions [required: >=4.2.0, installed: 4.7.1]
