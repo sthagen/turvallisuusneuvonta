@@ -5,7 +5,7 @@ digraph {
 	click [label="click\n8.1.6"]
 	jmespath [label="jmespath\n1.0.1"]
 	langcodes [label="langcodes\n3.3.0"]
-	msgspec [label="msgspec\n0.18.0"]
+	msgspec [label="msgspec\n0.18.1"]
 	pydantic -> "typing-extensions" [label=">=4.2.0"]
 	pydantic [label="pydantic\n1.10.10"]
 	setuptools [label="setuptools\n68.1.0"]

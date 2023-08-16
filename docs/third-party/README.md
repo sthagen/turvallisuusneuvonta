@@ -1,8 +1,8 @@
 # Third Party Dependencies
 
 <!--[[[fill sbom_sha256()]]]-->
-The [SBOM in CycloneDX v1.4 JSON format](https://git.sr.ht/~sthagen/turvallisuusneuvonta/blob/default/sbom/cdx.json) with SHA256 checksum ([a00bd7bb ...](https://git.sr.ht/~sthagen/turvallisuusneuvonta/blob/default/sbom/cdx.json.sha256 "sha256:a00bd7bbe39b598190ef849aee5f830a2402a4a8da306a6524222150189be6e5")).
-<!--[[[end]]] (checksum: 015fb128f36cbef6fbb824fe710d8aa9)-->
+The [SBOM in CycloneDX v1.4 JSON format](https://git.sr.ht/~sthagen/turvallisuusneuvonta/blob/default/sbom/cdx.json) with SHA256 checksum ([5bfaddda ...](https://git.sr.ht/~sthagen/turvallisuusneuvonta/blob/default/sbom/cdx.json.sha256 "sha256:5bfadddae23ebc47756fb4496e6932332837594e97a0cff051605e51dc37bf56")).
+<!--[[[end]]] (checksum: 49319e3ffe3d7989a17bd2b993d4b37a)-->
 ## Licenses
 
 JSON files with complete license info of: [direct dependencies](direct-dependency-licenses.json) | [all dependencies](all-dependency-licenses.json)
@@ -15,10 +15,10 @@ JSON files with complete license info of: [direct dependencies](direct-dependenc
 | [jmespath](https://github.com/jmespath/jmespath.py) | [1.0.1](https://pypi.org/project/jmespath/1.0.1/)     | MIT License                                         | James Saryerwinnie     | JSON Matching Expressions                                                                                |
 | [langcodes](https://github.com/rspeer/langcodes)    | [3.3.0](https://pypi.org/project/langcodes/3.3.0/)    | MIT License                                         | Elia Robyn Speer       | Tools for labeling human languages with IETF language tags                                               |
 | [lazr.uri](https://launchpad.net/lazr.uri)          | [1.0.6](https://pypi.org/project/lazr.uri/1.0.6/)     | GNU Library or Lesser General Public License (LGPL) | "LAZR Developers" team | A self-contained, easily reusable library for parsing, manipulating,                                     |
-| [msgspec](https://jcristharif.com/msgspec/)         | [0.18.0](https://pypi.org/project/msgspec/0.18.0/)    | BSD License                                         | Jim Crist-Harif        | A fast serialization and validation library, with builtin support for JSON, MessagePack, YAML, and TOML. |
+| [msgspec](https://jcristharif.com/msgspec/)         | [0.18.1](https://pypi.org/project/msgspec/0.18.1/)    | BSD License                                         | Jim Crist-Harif        | A fast serialization and validation library, with builtin support for JSON, MessagePack, YAML, and TOML. |
 | [pydantic](https://github.com/pydantic/pydantic)    | [1.10.10](https://pypi.org/project/pydantic/1.10.10/) | MIT License                                         | Samuel Colvin          | Data validation and settings management using python type hints                                          |
 | [typer](https://github.com/tiangolo/typer)          | [0.9.0](https://pypi.org/project/typer/0.9.0/)        | MIT License                                         | Sebastián Ramírez      | Typer, build great CLIs. Easy to code. Based on Python type hints.                                       |
-<!--[[[end]]] (checksum: 0c62951bcb2787a14126d5d701558a1a)-->
+<!--[[[end]]] (checksum: 607251aa7e821b17e3b0aad3fc152750)-->
 
 ### Indirect Dependencies
 
@@ -48,11 +48,11 @@ jmespath==1.0.1
 langcodes==3.3.0
 lazr.uri==1.0.6
 └── setuptools [required: Any, installed: 68.1.0]
-msgspec==0.18.0
+msgspec==0.18.1
 pydantic==1.10.10
 └── typing-extensions [required: >=4.2.0, installed: 4.7.1]
 typer==0.9.0
 ├── click [required: >=7.1.1,<9.0.0, installed: 8.1.6]
 └── typing-extensions [required: >=3.7.4.3, installed: 4.7.1]
 ````
-<!--[[[end]]] (checksum: 59b6c45dc5bf9f44ab4df0c12365419d)-->
+<!--[[[end]]] (checksum: a26e71998c94ce4333bc6bf195269a0b)-->
