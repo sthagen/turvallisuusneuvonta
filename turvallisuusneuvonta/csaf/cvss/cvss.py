@@ -52,7 +52,7 @@ class CVSS2(BaseModel):
         str,
         Field(
             alias='vectorString',
-            regex=(
+            pattern=(
                 '^((AV:[NAL]|AC:[LMH]|Au:[MSN]|[CIA]:[NPC]|E:(U|POC|F|H|ND)|RL:(OF|TF|W|U|ND)|RC:(UC|UR|C|ND)|CDP:'
                 '(N|L|LM|MH|H|ND)|TD:(N|L|M|H|ND)|[CIA]R:(L|M|H|ND))/)*(AV:[NAL]|AC:[LMH]|Au:[MSN]|[CIA]:[NPC]|E:'
                 '(U|POC|F|H|ND)|RL:(OF|TF|W|U|ND)|RC:(UC|UR|C|ND)|CDP:(N|L|LM|MH|H|ND)|TD:(N|L|M|H|ND)|[CIA]R:'
@@ -86,7 +86,7 @@ class CVSS2(BaseModel):
     @no_type_check
     def json(self, *args, **kwargs):
         kwargs.setdefault('by_alias', True)
-        return super().json(*args, **kwargs)
+        return super().model_dump_json(*args, **kwargs)
 
 
 class CVSS30(BaseModel):
@@ -95,7 +95,7 @@ class CVSS30(BaseModel):
         str,
         Field(
             alias='vectorString',
-            regex=(
+            pattern=(
                 '^CVSS:3[.]0/((AV:[NALP]|AC:[LH]|PR:[UNLH]|UI:[NR]|S:[UC]|[CIA]:[NLH]|E:[XUPFH]|RL:[XOTWU]|RC:[XURC]|'
                 '[CIA]R:[XLMH]|MAV:[XNALP]|MAC:[XLH]|MPR:[XUNLH]|MUI:[XNR]|MS:[XUC]|M[CIA]:[XNLH])/)*(AV:[NALP]|'
                 'AC:[LH]|PR:[UNLH]|UI:[NR]|S:[UC]|[CIA]:[NLH]|E:[XUPFH]|RL:[XOTWU]|RC:[XURC]|[CIA]R:[XLMH]|'
@@ -146,7 +146,7 @@ class CVSS30(BaseModel):
     @no_type_check
     def json(self, *args, **kwargs):
         kwargs.setdefault('by_alias', True)
-        return super().json(*args, **kwargs)
+        return super().model_dump_json(*args, **kwargs)
 
 
 class CVSS31(BaseModel):
@@ -155,7 +155,7 @@ class CVSS31(BaseModel):
         str,
         Field(
             alias='vectorString',
-            regex=(
+            pattern=(
                 '^CVSS:3[.]1/((AV:[NALP]|AC:[LH]|PR:[NLH]|UI:[NR]|S:[UC]|[CIA]:[NLH]|E:[XUPFH]|RL:[XOTWU]|RC:'
                 '[XURC]|[CIA]R:[XLMH]|MAV:[XNALP]|MAC:[XLH]|MPR:[XNLH]|MUI:[XNR]|MS:[XUC]|M[CIA]:[XNLH])/)*'
                 '(AV:[NALP]|AC:[LH]|PR:[NLH]|UI:[NR]|S:[UC]|[CIA]:[NLH]|E:[XUPFH]|RL:[XOTWU]|RC:[XURC]|[CIA]R:'
@@ -206,4 +206,4 @@ class CVSS31(BaseModel):
     @no_type_check
     def json(self, *args, **kwargs):
         kwargs.setdefault('by_alias', True)
-        return super().json(*args, **kwargs)
+        return super().model_dump_json(*args, **kwargs)

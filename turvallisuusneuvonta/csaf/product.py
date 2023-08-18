@@ -6,7 +6,7 @@ from collections.abc import Sequence
 from enum import Enum
 from typing import Annotated, List, Optional, no_type_check
 
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, RootModel, field_validator, model_validator
 
 from turvallisuusneuvonta.csaf.definitions import (
     AnyUrl,
@@ -43,7 +43,7 @@ class FileHash(BaseModel):
                 '9ea4c8200113d49d26505da0e02e2f49055dc078d1ad7a419b32e291c7afebbb84badfbd46dec42883bea0b2a1fa697c',
             ],
             min_length=32,
-            regex='^[0-9a-fA-F]{32,}$',
+            pattern='^[0-9a-fA-F]{32,}$',
             title='Value of the cryptographic hash',
         ),
     ]
@@ -72,9 +72,9 @@ class CryptographicHashes(BaseModel):
         ),
     ]
 
-    @no_type_check
-    @validator('file_hashes', 'filename')
     @classmethod
+    @no_type_check
+    @field_validator('file_hashes', 'filename')
     def check_len(cls, v):
         if not v:
             raise ValueError('mandatory element present but empty')
@@ -100,29 +100,37 @@ class GenericUri(BaseModel):
     uri: Annotated[AnyUrl, Field(description='Contains the identifier itself.', title='URI')]
 
 
-class SerialNumber(BaseModel):
-    __root__: Annotated[
-        str,
-        Field(
-            description='Contains a part, or a full serial number of the component to identify.',
-            min_length=1,
-            title='Serial number',
-        ),
-    ]
-
-
-class StockKeepingUnit(BaseModel):
-    __root__: Annotated[
-        str,
-        Field(
-            description=(
-                'Contains a part, or a full stock keeping unit (SKU) which is used in the ordering process'
-                ' to identify the component.'
+class SerialNumber(
+    RootModel[
+        Annotated[
+            str,
+            Field(
+                description='Contains a part, or a full serial number of the component to identify.',
+                min_length=1,
+                title='Serial number',
             ),
-            min_length=1,
-            title='Stock keeping unit',
-        ),
+        ]
     ]
+):
+    pass
+
+
+class StockKeepingUnit(
+    RootModel[
+        Annotated[
+            str,
+            Field(
+                description=(
+                    'Contains a part, or a full stock keeping unit (SKU) which is used in the ordering process'
+                    ' to identify the component.'
+                ),
+                min_length=1,
+                title='Stock keeping unit',
+            ),
+        ]
+    ]
+):
+    pass
 
 
 class HelperToIdentifyTheProduct(BaseModel):
@@ -138,7 +146,7 @@ class HelperToIdentifyTheProduct(BaseModel):
                 ' to this specification.'
             ),
             min_length=5,
-            regex=(
+            pattern=(
                 '^(cpe:2\\.3:[aho\\*\\-](:(((\\?*|\\*?)([a-zA-Z0-9\\-\\._]|'
                 '(\\\\[\\\\\\*\\?!"#\\$%&\'\\(\\)\\+,/:;<=>@\\[\\]\\^`\\{\\|\\}~]))+(\\?*|\\*?))|[\\*\\-])){5}'
                 '(:(([a-zA-Z]{2,3}(-([a-zA-Z]{2}|[0-9]{3}))?)|[\\*\\-]))(:(((\\?*|\\*?)([a-zA-Z0-9\\-\\._]|'
@@ -164,7 +172,7 @@ class HelperToIdentifyTheProduct(BaseModel):
                 ' locating software packages external to this specification.'
             ),
             # min_length=7,
-            # regex='^pkg:[A-Za-z\\.\\-\\+][A-Za-z0-9\\.\\-\\+]*/.+',
+            # pattern='^pkg:[A-Za-z\\.\\-\\+][A-Za-z0-9\\.\\-\\+]*/.+',
             title='package URL representation',
         ),
     ] = None
@@ -204,17 +212,17 @@ class HelperToIdentifyTheProduct(BaseModel):
         ),
     ] = None
 
-    @no_type_check
-    @validator('hashes', 'sbom_urls', 'serial_numbers', 'skus', 'x_generic_uris')
     @classmethod
+    @no_type_check
+    @field_validator('hashes', 'sbom_urls', 'serial_numbers', 'skus', 'x_generic_uris')
     def check_len(cls, v):
         if not v:
             raise ValueError('optional element present but empty')
         return v
 
-    @no_type_check
-    @validator('purl')
     @classmethod
+    @no_type_check
+    @field_validator('purl')
     def check_purl(cls, v):
         if not v or len(v) < 7:
             raise ValueError('optional purl element present but too short')
@@ -281,9 +289,9 @@ class ProductGroup(BaseModel):
         ),
     ] = None
 
-    @no_type_check
-    @validator('product_ids')
     @classmethod
+    @no_type_check
+    @field_validator('product_ids')
     def check_len(cls, v):
         if len(v) < 2:
             raise ValueError('mandatory element present but too few items')
@@ -439,9 +447,9 @@ class ProductTree(BaseModel):
         ),
     ]
 
-    @no_type_check
-    @validator('full_product_names', 'product_groups', 'relationships')
     @classmethod
+    @no_type_check
+    @field_validator('full_product_names', 'product_groups', 'relationships')
     def check_len(cls, v):
         if not v:
             raise ValueError('optional element present but empty')
@@ -500,29 +508,29 @@ class Branch(BaseModel):
     product: Optional[FullProductName]
 
 
-class Branches(BaseModel):
-    """
-    Contains branch elements as children of the current element.
-    """
-
-    __root__: Annotated[
-        List[Branch],
-        Field(
-            description='Contains branch elements as children of the current element.',
-            min_items=1,
-            title='List of branches',
-        ),
+class Branches(
+    RootModel[
+        Annotated[
+            List[Branch],
+            Field(
+                description='Contains branch elements as children of the current element.',
+                min_length=1,
+                title='List of branches',
+            ),
+        ]
     ]
+):
+    """Contains branch elements as children of the current element."""
 
-    @no_type_check
-    @validator('__root__')
     @classmethod
+    @no_type_check
+    @model_validator(mode='before')
     def check_len(cls, v):
         if not v:
             raise ValueError('mandatory element present but empty')
         return v
 
 
-Branch.update_forward_refs()
-FullProductName.update_forward_refs()
-ProductTree.update_forward_refs()
+Branch.model_rebuild()
+FullProductName.model_rebuild()
+ProductTree.model_rebuild()

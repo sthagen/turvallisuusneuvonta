@@ -5,7 +5,7 @@ from datetime import datetime
 from enum import Enum
 from typing import Annotated, List, Optional, no_type_check
 
-from pydantic import AnyUrl, BaseModel, Field, validator
+from pydantic import AnyUrl, BaseModel, Field, RootModel, field_validator, validator
 
 from turvallisuusneuvonta.csaf.definitions import Acknowledgments, Lang, Notes, References, Version
 
@@ -174,7 +174,7 @@ class TrafficLightProtocol(BaseModel):
             ],
             title='URL of TLP version',
         ),
-    ] = AnyUrl(url='https://www.first.org/tlp/', host='www.first.org', scheme='https')
+    ] = AnyUrl(url='https://www.first.org/tlp/')
 
 
 class Distribution(BaseModel):
@@ -271,17 +271,21 @@ class Publisher(BaseModel):
     ]
 
 
-class Alias(BaseModel):
-    __root__: Annotated[
-        str,
-        Field(
-            description='Specifies a non-empty string that represents a distinct optional alternative ID used to'
-            ' refer to the document.',
-            examples=['CVE-2019-12345'],
-            min_length=1,
-            title='Alternate name',
-        ),
+class Alias(
+    RootModel[
+        Annotated[
+            str,
+            Field(
+                description='Specifies a non-empty string that represents a distinct optional alternative ID used to'
+                ' refer to the document.',
+                examples=['CVE-2019-12345'],
+                min_length=1,
+                title='Alternate name',
+            ),
+        ]
     ]
+):
+    pass
 
 
 class Engine(BaseModel):

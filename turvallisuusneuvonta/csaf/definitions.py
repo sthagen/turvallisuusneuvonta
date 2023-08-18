@@ -5,7 +5,7 @@ from collections.abc import Sequence
 from enum import Enum
 from typing import Annotated, List, Optional, no_type_check
 
-from pydantic import AnyUrl, BaseModel, Field, validator
+from pydantic import AnyUrl, BaseModel, Field, RootModel, field_validator, model_validator
 
 
 class Id(BaseModel):
@@ -34,16 +34,20 @@ class Id(BaseModel):
     ]
 
 
-class Name(BaseModel):
-    __root__: Annotated[
-        str,
-        Field(
-            description='Contains the name of a single person.',
-            examples=['Albert Einstein', 'Johann Sebastian Bach'],
-            min_length=1,
-            title='Name of entity being recognized',
-        ),
+class Name(
+    RootModel[
+        Annotated[
+            str,
+            Field(
+                description='Contains the name of a single person.',
+                examples=['Albert Einstein', 'Johann Sebastian Bach'],
+                min_length=1,
+                title='Name of entity being recognized',
+            ),
+        ]
     ]
+):
+    pass
 
 
 class Acknowledgment(BaseModel):
@@ -87,136 +91,155 @@ class Acknowledgment(BaseModel):
         ),
     ]
 
-    @no_type_check
-    @validator('names', 'organization', 'summary', 'urls')
     @classmethod
+    @no_type_check
+    @field_validator('names', 'organization', 'summary', 'urls')
     def check_len(cls, v):
         if not v:
             raise ValueError('optional element present but empty')
         return v
 
 
-class Acknowledgments(BaseModel):
-    """
-    Contains a list of acknowledgment elements.
-    """
-
-    __root__: Annotated[
-        List[Acknowledgment],
-        Field(
-            description='Contains a list of acknowledgment elements.',
-            min_items=1,
-            title='List of acknowledgments',
-        ),
-    ]
-
-    @no_type_check
-    @validator('__root__')
-    @classmethod
-    def check_len(cls, v):
-        if not v:
-            raise ValueError('optional element present but empty')
-        return v
-
-
-class ReferenceTokenForProductGroupInstance(BaseModel):
-    __root__: Annotated[
-        str,
-        Field(
-            description=(
-                'Token required to identify a group of products so that it can be referred to from'
-                ' other parts in the document.'
-                ' There is no predefined or required format for the product_group_id as long as it uniquely identifies'
-                ' a group in the context of the current document.'
+class Acknowledgments(
+    RootModel[
+        Annotated[
+            List[Acknowledgment],
+            Field(
+                description='Contains a list of acknowledgment elements.',
+                min_length=1,
+                title='List of acknowledgments',
             ),
-            examples=['CSAFGID-0001', 'CSAFGID-0002', 'CSAFGID-0020'],
-            min_length=1,
-            title='Reference token for product group instance',
-        ),
+        ]
     ]
+):
+    """Contains a list of acknowledgment elements."""
 
-
-class ProductGroupId(BaseModel):
-    __root__: Annotated[
-        str,
-        Field(
-            description='Token required to identify a group of products so that it can be referred to from other'
-            ' parts in the document. There is no predefined or required format for the product_group_id'
-            ' as long as it uniquely identifies a group in the context of the current document.',
-            examples=['CSAFGID-0001', 'CSAFGID-0002', 'CSAFGID-0020'],
-            min_length=1,
-            title='Reference token for product group instance',
-        ),
-    ]
-
-
-class ProductGroupIds(BaseModel):
-    """
-    Specifies a list of product_group_ids to give context to the parent item.
-    """
-
-    __root__: Annotated[
-        List[ProductGroupId],
-        Field(
-            description='Specifies a list of product_group_ids to give context to the parent item.',
-            min_items=1,
-            title='List of product_group_ids',
-        ),
-    ]
-
-    @no_type_check
-    @validator('__root__')
     @classmethod
+    @no_type_check
+    @model_validator(mode='before')
+    def check_len(cls, v):
+        if not v:
+            raise ValueError('optional element present but empty')
+        return v
+
+
+class ReferenceTokenForProductGroupInstance(
+    RootModel[
+        Annotated[
+            str,
+            Field(
+                description=(
+                    'Token required to identify a group of products so that it can be referred to from'
+                    ' other parts in the document.'
+                    ' There is no predefined or required format for the product_group_id'
+                    ' as long as it uniquely identifies a group in the context of the current document.'
+                ),
+                examples=['CSAFGID-0001', 'CSAFGID-0002', 'CSAFGID-0020'],
+                min_length=1,
+                title='Reference token for product group instance',
+            ),
+        ]
+    ]
+):
+    pass
+
+
+class ProductGroupId(
+    RootModel[
+        Annotated[
+            str,
+            Field(
+                description='Token required to identify a group of products so that it can be referred to from other'
+                ' parts in the document. There is no predefined or required format for the product_group_id'
+                ' as long as it uniquely identifies a group in the context of the current document.',
+                examples=['CSAFGID-0001', 'CSAFGID-0002', 'CSAFGID-0020'],
+                min_length=1,
+                title='Reference token for product group instance',
+            ),
+        ]
+    ]
+):
+    pass
+
+
+class ProductGroupIds(
+    RootModel[
+        Annotated[
+            List[ProductGroupId],
+            Field(
+                description='Specifies a list of product_group_ids to give context to the parent item.',
+                min_length=1,
+                title='List of product_group_ids',
+            ),
+        ]
+    ]
+):
+    """Specifies a list of product_group_ids to give context to the parent item."""
+
+    @classmethod
+    @no_type_check
+    @model_validator(mode='before')
     def check_len(cls, v):
         if not v:
             raise ValueError('mandatory element present but empty')
         return v
 
 
-class ProductId(BaseModel):
-    __root__: Annotated[
-        str,
-        Field(
-            description='Token required to identify a full_product_name so that it can be referred to from other parts'
-            ' in the document. There is no predefined or required format for the product_id as long as it'
-            ' uniquely identifies a product in the context of the current document.',
-            examples=['CSAFPID-0004', 'CSAFPID-0008'],
-            min_length=1,
-            title='Reference token for product instance',
-        ),
-    ]
-
-
-class Products(BaseModel):
-    """
-    Specifies a list of product_ids to give context to the parent item.
-    """
-
-    __root__: Annotated[
-        List[ProductId],
-        Field(
-            description='Specifies a list of product_ids to give context to the parent item.',
-            min_items=1,
-            title='List of product_ids',
-        ),
-    ]
-
-
-class ReferenceTokenForProductInstance(BaseModel):
-    value: Annotated[
-        str,
-        Field(
-            description=(
-                'Token required to identify a full_product_name so that it can be referred to from other'
-                ' parts in the document.'
-                ' There is no predefined or required format for the product_id as long as it uniquely'
-                ' identifies a product in the context of the current document.'
+class ProductId(
+    RootModel[
+        Annotated[
+            str,
+            Field(
+                description='Token required to identify a full_product_name so that it can be referred to from'
+                ' other parts in the document.'
+                ' There is no predefined or required format for the product_id as long as it'
+                ' uniquely identifies a product in the context of the current document.',
+                examples=['CSAFPID-0004', 'CSAFPID-0008'],
+                min_length=1,
+                title='Reference token for product instance',
             ),
-            examples=['CSAFPID-0004', 'CSAFPID-0008'],
-            min_length=1,
-            title='Reference token for product instance',
-        ),
+        ]
     ]
+):
+    pass
+
+
+class Products(
+    RootModel[
+        Annotated[
+            List[ProductId],
+            Field(
+                description='Specifies a list of product_ids to give context to the parent item.',
+                min_length=1,
+                title='List of product_ids',
+            ),
+        ]
+    ]
+):
+    """Specifies a list of product_ids to give context to the parent item."""
+
+    pass
+
+
+class ReferenceTokenForProductInstance(
+    RootModel[
+        Annotated[
+            str,
+            Field(
+                description=(
+                    'Token required to identify a full_product_name so that it can be referred to from other'
+                    ' parts in the document.'
+                    ' There is no predefined or required format for the product_id as long as it uniquely'
+                    ' identifies a product in the context of the current document.'
+                ),
+                examples=['CSAFPID-0004', 'CSAFPID-0008'],
+                min_length=1,
+                title='Reference token for product instance',
+            ),
+        ]
+    ]
+):
+    pass
 
 
 class ListOfProductIds(BaseModel):
@@ -233,29 +256,34 @@ class ListOfProductIds(BaseModel):
         ),
     ]
 
-    @no_type_check
-    @validator('product_ids')
     @classmethod
+    @no_type_check
+    @field_validator('product_ids')
     def check_len(cls, v):
         if not v:
             raise ValueError('mandatory element present but empty')
         return v
 
 
-class Lang(BaseModel):
-    __root__: Annotated[
-        str,
-        Field(
-            description='Identifies a language, corresponding to IETF BCP 47 / RFC 5646. See IETF language'
-            ' registry: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry',
-            examples=['de', 'en', 'fr', 'frc', 'jp'],
-            regex='^(([A-Za-z]{2,3}(-[A-Za-z]{3}(-[A-Za-z]{3}){0,2})?|[A-Za-z]{4,8})(-[A-Za-z]{4})?(-([A-Za-z]{2}|'
-            '[0-9]{3}))?(-([A-Za-z0-9]{5,8}|[0-9][A-Za-z0-9]{3}))*(-[A-WY-Za-wy-z0-9](-[A-Za-z0-9]{2,8})+)*'
-            '(-[Xx](-[A-Za-z0-9]{1,8})+)?|[Xx](-[A-Za-z0-9]{1,8})+|[Ii]-[Dd][Ee][Ff][Aa][Uu][Ll][Tt]|'
-            '[Ii]-[Mm][Ii][Nn][Gg][Oo])$',
-            title='Language type',
-        ),
+class Lang(
+    RootModel[
+        Annotated[
+            str,
+            Field(
+                description='Identifies a language, corresponding to IETF BCP 47 / RFC 5646. See IETF language'
+                ' registry: https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry',
+                examples=['de', 'en', 'fr', 'frc', 'jp'],
+                pattern='^'
+                '(([A-Za-z]{2,3}(-[A-Za-z]{3}(-[A-Za-z]{3}){0,2})?|[A-Za-z]{4,8})(-[A-Za-z]{4})?(-([A-Za-z]{2}|'
+                '[0-9]{3}))?(-([A-Za-z0-9]{5,8}|[0-9][A-Za-z0-9]{3}))*(-[A-WY-Za-wy-z0-9](-[A-Za-z0-9]{2,8})+)*'
+                '(-[Xx](-[A-Za-z0-9]{1,8})+)?|[Xx](-[A-Za-z0-9]{1,8})+|[Ii]-[Dd][Ee][Ff][Aa][Uu][Ll][Tt]|'
+                '[Ii]-[Mm][Ii][Nn][Gg][Oo])$',
+                title='Language type',
+            ),
+        ]
     ]
+):
+    pass
 
 
 class NoteCategory(Enum):
@@ -319,23 +347,23 @@ class Note(BaseModel):
     ]
 
 
-class Notes(BaseModel):
-    """
-    Contains notes which are specific to the current context.
-    """
-
-    __root__: Annotated[
-        List[Note],
-        Field(
-            description='Contains notes which are specific to the current context.',
-            min_items=1,
-            title='List of notes',
-        ),
+class Notes(
+    RootModel[
+        Annotated[
+            List[Note],
+            Field(
+                description='Contains notes which are specific to the current context.',
+                min_length=1,
+                title='List of notes',
+            ),
+        ]
     ]
+):
+    """Contains notes which are specific to the current context."""
 
-    @no_type_check
-    @validator('__root__')
     @classmethod
+    @no_type_check
+    @model_validator(mode='before')
     def check_len(cls, v):
         if not v:
             raise ValueError('mandatory element present but empty')
@@ -380,35 +408,42 @@ class Reference(BaseModel):
     ]
 
 
-class References(BaseModel):
-    """
-    Holds a list of references.
-    """
-
-    __root__: Annotated[
-        List[Reference],
-        Field(
-            description='Holds a list of references.',
-            min_items=1,
-            title='List of references',
-        ),
-    ]
-
-
-class Version(BaseModel):
-    __root__: Annotated[
-        str,
-        Field(
-            description=(
-                'Specifies a version string to denote clearly the evolution of the content of the document.'
-                ' Format must be either integer or semantic versioning.'
+class References(
+    RootModel[
+        Annotated[
+            List[Reference],
+            Field(
+                description='Holds a list of references.',
+                min_length=1,
+                title='List of references',
             ),
-            examples=['1', '4', '0.9.0', '1.4.3', '2.40.0+21AF26D3'],
-            regex=(
-                '^(0|[1-9][0-9]*)$|^((0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)'
-                '(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?'
-                '(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?)$'
-            ),
-            title='Version',
-        ),
+        ]
     ]
+):
+    """Holds a list of references."""
+
+    pass
+
+
+class Version(
+    RootModel[
+        Annotated[
+            str,
+            Field(
+                description=(
+                    'Specifies a version string to denote clearly the evolution of the content of the document.'
+                    ' Format must be either integer or semantic versioning.'
+                ),
+                examples=['1', '4', '0.9.0', '1.4.3', '2.40.0+21AF26D3'],
+                pattern=(
+                    '^(0|[1-9][0-9]*)$|^((0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)'
+                    '(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)'
+                    '(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?'
+                    '(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?)$'
+                ),
+                title='Version',
+            ),
+        ]
+    ]
+):
+    pass

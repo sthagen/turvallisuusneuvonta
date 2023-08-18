@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from typing import Annotated, List, Optional, no_type_check
 
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 
 from turvallisuusneuvonta.csaf.document import Document
 from turvallisuusneuvonta.csaf.product import ProductTree
@@ -43,11 +43,11 @@ class CSAF(BaseModel):
     @no_type_check
     def json(self, *args, **kwargs):
         kwargs.setdefault('by_alias', True)
-        return super().json(*args, **kwargs)
+        return super().model_dump_json(*args, **kwargs)
 
-    @no_type_check
-    @validator('vulnerabilities')
     @classmethod
+    @no_type_check
+    @field_validator('vulnerabilities')
     def check_len(cls, v):
         if not v:
             raise ValueError('vulnerabilities present but empty')
