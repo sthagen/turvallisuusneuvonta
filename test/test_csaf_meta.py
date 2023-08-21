@@ -15,14 +15,14 @@ def _subs(count: int) -> str:
 
 
 def test_meta_doc_none():
-    with pytest.raises(ValidationError, match=_subs(5)) as err:
+    with pytest.raises(ValidationError, match=_subs(11)) as err:
         _ = document.Document()  # type: ignore
     for prop in ('category', 'csaf_version', 'publisher', 'title', 'tracking'):
         assert f'\n{prop}\n  Field required' in str(err.value)
 
 
 def test_meta_doc_category_empty():
-    with pytest.raises(ValidationError, match=_subs(5)) as err:
+    with pytest.raises(ValidationError, match=_subs(11)) as err:
         _ = document.Document(category='')  # type: ignore
     hint = 'ensure this value has at least 1 character'
     assert f'\ncategory\n  {hint}' in str(err.value)
@@ -31,7 +31,7 @@ def test_meta_doc_category_empty():
 
 
 def test_meta_doc_csaf_version_wrong():
-    with pytest.raises(ValidationError, match=_subs(4)) as err:
+    with pytest.raises(ValidationError, match=_subs(11)) as err:
         _ = document.Document(**conftest.META_WRONG_VERSION)  # type: ignore
     hint = "value is not a valid enumeration member; permitted: '2.0'"
     assert f'\ncsaf_version\n  {hint}' in str(err.value)
@@ -50,9 +50,9 @@ def test_meta_doc_publisher_empty():
 
 
 def test_meta_doc_title_empty():
-    with pytest.raises(ValidationError, match=_subs(2)) as err:
+    with pytest.raises(ValidationError, match=_subs(11)) as err:
         _ = document.Document(**conftest.META_EMPTY_TITLE)  # type: ignore
-    hint = 'ensure this value has at least 1 character'
+    hint = 'String should have at least 1 character'
     assert f'\ntitle\n  {hint}' in str(err.value)
     for prop in ('tracking',):
         assert f'\n{prop}\n  Field required' in str(err.value)
