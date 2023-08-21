@@ -15,7 +15,7 @@ def _subs(count: int) -> str:
 
 
 def test_meta_doc_none():
-    with pytest.raises(ValidationError, match=_subs(11)) as err:
+    with pytest.raises(ValidationError, match=_subs(12)) as err:
         _ = document.Document()  # type: ignore
     for prop in ('category', 'csaf_version', 'publisher', 'title', 'tracking'):
         assert f'\n{prop}\n  Field required' in str(err.value)
