@@ -29,4 +29,4 @@ def test_doc_ok_if_spammy():
 def test_doc_vulnerability_empty():
     with pytest.raises(ValidationError, match=_subs(1, 'CSAF')) as err:
         _ = csaf.CSAF(**conftest.DOC_VULN_EMPTY)
-    assert '\nvulnerabilities\n  ensure this value has at least 1 items' in str(err.value)
+    assert '\nvulnerabilities\n  List should have at least 1 item after validation, not 0' in str(err.value)
