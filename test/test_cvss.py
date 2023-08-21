@@ -31,8 +31,8 @@ def test_cvss2_empty():
     message = '2 validation errors for CVSS2'
     with pytest.raises(ValidationError, match=message) as err:
         _ = CVSS2.parse_raw('{}')  # type: ignore
-    assert '\nvectorString\n  field required' in str(err.value)
-    assert '\nbaseScore\n  field required' in str(err.value)
+    assert '\nvectorString\n  Field required' in str(err.value)
+    assert '\nbaseScore\n  Field required' in str(err.value)
 
 
 def test_cvss2_wrong_version():
@@ -67,9 +67,9 @@ def test_cvss30_empty():
     message = '3 validation errors for CVSS30'
     with pytest.raises(ValidationError, match=message) as err:
         _ = CVSS30()  # type: ignore
-    assert '\nvectorString\n  field required' in str(err.value)
-    assert '\nbaseScore\n  field required' in str(err.value)
-    assert '\nbaseSeverity\n  field required' in str(err.value)
+    assert '\nvectorString\n  Field required' in str(err.value)
+    assert '\nbaseScore\n  Field required' in str(err.value)
+    assert '\nbaseSeverity\n  Field required' in str(err.value)
 
 
 def test_cvss30_wrong_version():
@@ -107,9 +107,9 @@ def test_cvss31_empty():
     message = '3 validation errors for CVSS31'
     with pytest.raises(ValidationError, match=message) as err:
         _ = CVSS31()  # type: ignore
-    assert '\nvectorString\n  field required' in str(err.value)
-    assert '\nbaseScore\n  field required' in str(err.value)
-    assert '\nbaseSeverity\n  field required' in str(err.value)
+    assert '\nvectorString\n  Field required' in str(err.value)
+    assert '\nbaseScore\n  Field required' in str(err.value)
+    assert '\nbaseSeverity\n  Field required' in str(err.value)
 
 
 def test_cvss31_wrong_version():
