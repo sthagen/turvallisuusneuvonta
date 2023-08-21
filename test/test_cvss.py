@@ -59,7 +59,7 @@ def test_cvss20_log4j_cve_2021_44228():
     assert isinstance(cvss_cve_2021_44228, CVSS2)
     assert cvss_cve_2021_44228.version == CvssVersion.two
     assert cvss_cve_2021_44228.vector_string == conftest.CVSS2_VECTOR_STRING_LOG4J
-    assert cvss_cve_2021_44228.base_score.__root__ == float(conftest.CVSS2_BASE_SCORE_LOG4J)
+    assert cvss_cve_2021_44228.base_score.root == float(conftest.CVSS2_BASE_SCORE_LOG4J)
     assert cvss_cve_2021_44228.confidentiality_requirement is None
 
 
@@ -98,7 +98,7 @@ def test_cvss30_log4j_cve_2021_44228():
     assert isinstance(cvss_cve_2021_44228, CVSS30)
     assert cvss_cve_2021_44228.version == CvssVersion.three_zero
     assert cvss_cve_2021_44228.vector_string == conftest.CVSS30_VECTOR_STRING_LOG4J
-    assert cvss_cve_2021_44228.base_score.__root__ == float(conftest.CVSS30_BASE_SCORE_LOG4J)
+    assert cvss_cve_2021_44228.base_score.root == float(conftest.CVSS30_BASE_SCORE_LOG4J)
     assert cvss_cve_2021_44228.base_severity.critical == CvssSeverityType.critical
     assert cvss_cve_2021_44228.confidentiality_requirement is None
 
@@ -138,7 +138,7 @@ def test_cvss31_log4j_cve_2021_44228():
     assert isinstance(cvss_cve_2021_44228, CVSS31)
     assert cvss_cve_2021_44228.version == CvssVersion.three_wun
     assert cvss_cve_2021_44228.vector_string == conftest.CVSS31_VECTOR_STRING_LOG4J
-    assert cvss_cve_2021_44228.base_score.__root__ == float(conftest.CVSS31_BASE_SCORE_LOG4J)
+    assert cvss_cve_2021_44228.base_score.root == float(conftest.CVSS31_BASE_SCORE_LOG4J)
     assert cvss_cve_2021_44228.base_severity.critical == CvssSeverityType.critical
     assert cvss_cve_2021_44228.confidentiality_requirement is None
 
