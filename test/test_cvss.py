@@ -123,7 +123,7 @@ def test_cvss31_wrong_version():
     message = '1 validation error for CVSS'
     with pytest.raises(ValidationError, match=message) as err:
         _ = CVSS31.model_validate_json(as_json)
-    assert '\nversion\n  value is not a valid enumeration member' in str(err.value)
+    assert "\nversion\n  Input should be '2.0','3.0' or '3.1'" in str(err.value)
 
 
 def test_cvss31_log4j_cve_2021_44228():
