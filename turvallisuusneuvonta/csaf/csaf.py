@@ -30,7 +30,7 @@ class CSAF(BaseModel):
             ' in the document.',
             title='Product tree',
         ),
-    ]
+    ] = None
     vulnerabilities: Annotated[
         Optional[List[Vulnerability]],
         Field(
@@ -38,7 +38,7 @@ class CSAF(BaseModel):
             min_items=1,
             title='Vulnerabilities',
         ),
-    ]
+    ] = None
 
     @no_type_check
     def json(self, *args, **kwargs):
