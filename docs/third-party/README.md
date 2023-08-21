@@ -1,8 +1,8 @@
 # Third Party Dependencies
 
 <!--[[[fill sbom_sha256()]]]-->
-The [SBOM in CycloneDX v1.4 JSON format](https://git.sr.ht/~sthagen/turvallisuusneuvonta/blob/default/sbom/cdx.json) with SHA256 checksum ([7bb57bd7 ...](https://git.sr.ht/~sthagen/turvallisuusneuvonta/blob/default/sbom/cdx.json.sha256 "sha256:7bb57bd7de5db48d5eb5474b94a94f568ed1e25abdc9818af514526a4340284a")).
-<!--[[[end]]] (checksum: 9b64c8af343e22b955a0f4068858287c)-->
+The [SBOM in CycloneDX v1.4 JSON format](https://git.sr.ht/~sthagen/turvallisuusneuvonta/blob/default/sbom/cdx.json) with SHA256 checksum ([ab053393 ...](https://git.sr.ht/~sthagen/turvallisuusneuvonta/blob/default/sbom/cdx.json.sha256 "sha256:ab053393a78a6a1f0cb9d513a5bea406a6c69cfa68c512b06718337153af4fd5")).
+<!--[[[end]]] (checksum: 4020911ab2c890eebb9a8ce45d8cbaba)-->
 ## Licenses
 
 JSON files with complete license info of: [direct dependencies](direct-dependency-licenses.json) | [all dependencies](all-dependency-licenses.json)
@@ -23,12 +23,14 @@ JSON files with complete license info of: [direct dependencies](direct-dependenc
 ### Indirect Dependencies
 
 <!--[[[fill indirect_dependencies_table()]]]-->
-| Name                                                             | Version                                                    | License                            | Author                                                                                | Description (from packaging data)                                       |
-|:-----------------------------------------------------------------|:-----------------------------------------------------------|:-----------------------------------|:--------------------------------------------------------------------------------------|:------------------------------------------------------------------------|
-| [click](https://palletsprojects.com/p/click/)                    | [8.1.6](https://pypi.org/project/click/8.1.6/)             | BSD License                        | UNKNOWN                                                                               | Composable command line interface toolkit                               |
-| [setuptools](https://github.com/pypa/setuptools)                 | [68.1.2](https://pypi.org/project/setuptools/68.1.2/)      | MIT License                        | Python Packaging Authority                                                            | Easily download, build, install, upgrade, and uninstall Python packages |
-| [typing_extensions](https://github.com/python/typing_extensions) | [4.7.1](https://pypi.org/project/typing_extensions/4.7.1/) | Python Software Foundation License | "Guido van Rossum, Jukka Lehtosalo, Łukasz Langa, Michael Lee" <levkivskyi@gmail.com> | Backported and Experimental Type Hints for Python 3.7+                  |
-<!--[[[end]]] (checksum: 1d019575c586fe07710c96f0125b96f6)-->
+| Name                                                                                      | Version                                                    | License                            | Author                                                                                                                                  | Description (from packaging data)                                       |
+|:------------------------------------------------------------------------------------------|:-----------------------------------------------------------|:-----------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------|
+| [annotated-types](https://github.com/annotated-types/annotated-types/blob/main/README.md) | [0.5.0](https://pypi.org/project/annotated-types/0.5.0/)   | MIT License                        | Samuel Colvin <s@muelcolvin.com>, Adrian Garcia Badaracco <1755071+adriangb@users.noreply.github.com>, Zac Hatfield-Dodds <zac@zhd.dev> | Reusable constraint types to use with typing.Annotated                  |
+| [click](https://palletsprojects.com/p/click/)                                             | [8.1.6](https://pypi.org/project/click/8.1.6/)             | BSD License                        | Pallets <contact@palletsprojects.com>                                                                                                   | Composable command line interface toolkit                               |
+| [pydantic_core](https://github.com/pydantic/pydantic-core)                                | [2.6.1](https://pypi.org/project/pydantic_core/2.6.1/)     | MIT License                        | Samuel Colvin <s@muelcolvin.com>                                                                                                        | UNKNOWN                                                                 |
+| [setuptools](https://github.com/pypa/setuptools)                                          | [68.1.2](https://pypi.org/project/setuptools/68.1.2/)      | MIT License                        | Python Packaging Authority                                                                                                              | Easily download, build, install, upgrade, and uninstall Python packages |
+| [typing_extensions](https://github.com/python/typing_extensions)                          | [4.7.1](https://pypi.org/project/typing_extensions/4.7.1/) | Python Software Foundation License | "Guido van Rossum, Jukka Lehtosalo, Łukasz Langa, Michael Lee" <levkivskyi@gmail.com>                                                   | Backported and Experimental Type Hints for Python 3.7+                  |
+<!--[[[end]]] (checksum: af034329d80546a7a7737f314a2e3311)-->
 
 ## Dependency Tree(s)
 
