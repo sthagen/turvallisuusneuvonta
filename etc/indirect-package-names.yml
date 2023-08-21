@@ -1,5 +1,7 @@
 ---
 packages:
+- annotated-types
 - click
+- pydantic-core
 - setuptools
 - typing-extensions
