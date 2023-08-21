@@ -53,7 +53,7 @@ include = [
     "turvallisuusneuvonta.csaf.cvss",
     "turvallisuusneuvonta.csaf.schema_proxy",
 ]
-exclude = ["test*"]
+exclude = ["test*", "bin", "sbom"]
 
 [tool.black]
 line-length = 120
