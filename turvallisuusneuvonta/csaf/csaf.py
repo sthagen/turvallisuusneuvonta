@@ -35,7 +35,7 @@ class CSAF(BaseModel):
         Optional[List[Vulnerability]],
         Field(
             description='Represents a list of all relevant vulnerability information items.',
-            min_items=1,
+            min_length=1,
             title='Vulnerabilities',
         ),
     ] = None

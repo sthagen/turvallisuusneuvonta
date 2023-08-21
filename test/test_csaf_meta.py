@@ -68,6 +68,6 @@ def test_meta_doc_tracking_empty():
 
 def test_meta_doc_ok_if_spammy():
     meta_doc = document.Document(**conftest.META_OK)  # type: ignore
-    strip_me = msgspec.json.decode(meta_doc.json())
+    strip_me = msgspec.json.decode(meta_doc.model_dump_json())
     conftest._strip_and_iso_grace(strip_me)
     assert strip_me == conftest.META_OK

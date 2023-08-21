@@ -21,7 +21,7 @@ def test_doc_empty_meta():
 
 def test_doc_ok_if_spammy():
     doc = csaf.CSAF(**conftest.DOC_OK)
-    strip_me = msgspec.json.decode(doc.json())
+    strip_me = msgspec.json.decode(doc.model_dump_json())
     conftest._strip_and_iso_grace(strip_me)
     assert strip_me == conftest.DOC_OK
 
