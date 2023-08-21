@@ -18,7 +18,7 @@ def test_meta_doc_none():
     with pytest.raises(ValidationError, match=_subs(5)) as err:
         _ = document.Document()  # type: ignore
     for prop in ('category', 'csaf_version', 'publisher', 'title', 'tracking'):
-        assert f'\n{prop}\n  field required' in str(err.value)
+        assert f'\n{prop}\n  Field required' in str(err.value)
 
 
 def test_meta_doc_category_empty():
@@ -27,7 +27,7 @@ def test_meta_doc_category_empty():
     hint = 'ensure this value has at least 1 character'
     assert f'\ncategory\n  {hint}' in str(err.value)
     for prop in ('csaf_version', 'publisher', 'title', 'tracking'):
-        assert f'\n{prop}\n  field required' in str(err.value)
+        assert f'\n{prop}\n  Field required' in str(err.value)
 
 
 def test_meta_doc_csaf_version_wrong():
@@ -36,14 +36,17 @@ def test_meta_doc_csaf_version_wrong():
     hint = "value is not a valid enumeration member; permitted: '2.0'"
     assert f'\ncsaf_version\n  {hint}' in str(err.value)
     for prop in ('publisher', 'title', 'tracking'):
-        assert f'\n{prop}\n  field required' in str(err.value)
+        assert f'\n{prop}\n  Field required' in str(err.value)
 
 
 def test_meta_doc_publisher_empty():
-    with pytest.raises(ValidationError, match=_subs(5)) as err:
+    with pytest.raises(ValidationError, match=_subs(14)) as err:
         _ = document.Document(**conftest.META_EMPTY_PUBLISHER)  # type: ignore
-    for prop in ('publisher -> category', 'publisher -> name', 'publisher -> namespace', 'title', 'tracking'):
-        assert f'\n{prop}\n  field required' in str(err.value)
+    for prop in ('title', 'tracking'):
+        assert f'\n{prop}\n  Field required' in str(err.value)
+    host = 'publisher'
+    for prop in ('category', 'name', 'namespace'):
+        assert f'\n{host}.{prop}\n  Field required' in str(err.value)
 
 
 def test_meta_doc_title_empty():
@@ -52,7 +55,7 @@ def test_meta_doc_title_empty():
     hint = 'ensure this value has at least 1 character'
     assert f'\ntitle\n  {hint}' in str(err.value)
     for prop in ('tracking',):
-        assert f'\n{prop}\n  field required' in str(err.value)
+        assert f'\n{prop}\n  Field required' in str(err.value)
 
 
 def test_meta_doc_tracking_empty():
