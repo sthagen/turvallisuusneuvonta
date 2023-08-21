@@ -21,11 +21,11 @@ PRODUCT_RELATIONSHIP_DATA = {
     'category': 'installed_with',
     'full_product_name': {
         'name': 'wun',
-        'product_id': {'value': 'acme-112'},
+        'product_id': 'acme-112',
         'product_identification_helper': None,
     },
-    'product_reference': {'value': 'acme-112'},
-    'relates_to_product_reference': {'value': 'acme-101'},
+    'product_reference': 'acme-112',
+    'relates_to_product_reference': 'acme-101',
 }
 
 VULNERABILITY_SCORE_LOG4J = {
