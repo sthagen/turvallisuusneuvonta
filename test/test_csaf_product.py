@@ -15,7 +15,7 @@ def test_product_empty():
 
 
 def test_product_positional_text():
-    message = '__init__() takes exactly 1 positional argument (3 given)'
+    message = 'BaseModel.__init__() takes 1 positional argument but 3 were given'
     with pytest.raises(TypeError, match=re.escape(message)):
         _ = product.ProductTree('positional', 'text')  # type: ignore
 
