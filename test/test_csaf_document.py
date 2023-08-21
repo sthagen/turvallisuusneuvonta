@@ -1,10 +1,8 @@
-# -*- coding: utf-8 -*-
-# pylint: disable=line-too-long,missing-docstring,reimported,unused-import,unused-variable
 from test import conftest
 
 import msgspec
 import pytest
-from pydantic.error_wrappers import ValidationError
+from pydantic import ValidationError
 
 import turvallisuusneuvonta.csaf.csaf as csaf
 
@@ -17,11 +15,8 @@ def _subs(count: int, what: str) -> str:
 def test_doc_empty_meta():
     with pytest.raises(ValidationError, match=_subs(5, 'Document')) as err:
         _ = csaf.CSAF(document=csaf.Document())  # type: ignore
-    assert '\ncategory\n  field required' in str(err.value)
-    assert '\ncsaf_version\n  field required' in str(err.value)
-    assert '\npublisher\n  field required' in str(err.value)
-    assert '\ntitle\n  field required' in str(err.value)
-    assert '\ntracking\n  field required' in str(err.value)
+    for prop in ('category', 'csaf_version', 'publisher', 'title', 'tracking'):
+        assert f'\n{prop}\n  Field required' in str(err.value)
 
 
 def test_doc_ok_if_spammy():
