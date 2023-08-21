@@ -5,7 +5,7 @@ import json
 from test import conftest
 
 import pytest
-from pydantic.error_wrappers import ValidationError
+from pydantic import ValidationError
 
 from turvallisuusneuvonta.csaf.cvss.cvss import (
     CVSS2,
