@@ -310,7 +310,7 @@ class ProductStatus(BaseModel):
             description='These are the first versions of the releases known to be affected by the vulnerability.',
             title='First affected',
         ),
-    ]
+    ] = None
     first_fixed: Annotated[
         Optional[Products],
         Field(
@@ -318,7 +318,7 @@ class ProductStatus(BaseModel):
             ' fixed versions.',
             title='First fixed',
         ),
-    ]
+    ] = None
     fixed: Annotated[
         Optional[Products],
         Field(
@@ -326,21 +326,21 @@ class ProductStatus(BaseModel):
             ' fixed versions.',
             title='Fixed',
         ),
-    ]
+    ] = None
     known_affected: Annotated[
         Optional[Products],
         Field(
             description='These versions are known to be affected by the vulnerability.',
             title='Known affected',
         ),
-    ]
+    ] = None
     known_not_affected: Annotated[
         Optional[Products],
         Field(
             description='These versions are known not to be affected by the vulnerability.',
             title='Known not affected',
         ),
-    ]
+    ] = None
     last_affected: Annotated[
         Optional[Products],
         Field(
@@ -348,7 +348,7 @@ class ProductStatus(BaseModel):
             ' Subsequently released versions would contain a fix for the vulnerability.',
             title='Last affected',
         ),
-    ]
+    ] = None
     recommended: Annotated[
         Optional[Products],
         Field(
@@ -356,7 +356,7 @@ class ProductStatus(BaseModel):
             ' fixing the vulnerability.',
             title='Recommended',
         ),
-    ]
+    ] = None
     under_investigation: Annotated[
         Optional[Products],
         Field(
@@ -365,7 +365,7 @@ class ProductStatus(BaseModel):
             ' of the document.',
             title='Under investigation',
         ),
-    ]
+    ] = None
 
 
 class RelationshipCategory(Enum):
@@ -429,7 +429,7 @@ class ProductTree(BaseModel):
             min_items=1,
             title='List of full product names',
         ),
-    ]
+    ] = None
     product_groups: Annotated[
         Optional[List[ProductGroup]],
         Field(
@@ -437,7 +437,7 @@ class ProductTree(BaseModel):
             min_items=1,
             title='List of product groups',
         ),
-    ]
+    ] = None
     relationships: Annotated[
         Optional[List[Relationship]],
         Field(
@@ -445,7 +445,7 @@ class ProductTree(BaseModel):
             min_items=1,
             title='List of relationships',
         ),
-    ]
+    ] = None
 
     @classmethod
     @no_type_check
@@ -505,7 +505,7 @@ class Branch(BaseModel):
             title='Name of the branch',
         ),
     ]
-    product: Optional[FullProductName]
+    product: Optional[FullProductName] = None
 
 
 class Branches(
