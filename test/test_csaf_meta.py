@@ -33,7 +33,7 @@ def test_meta_doc_category_empty():
 def test_meta_doc_csaf_version_wrong():
     with pytest.raises(ValidationError, match=_subs(11)) as err:
         _ = document.Document(**conftest.META_WRONG_VERSION)  # type: ignore
-    hint = "value is not a valid enumeration member; permitted: '2.0'"
+    hint = "Input should be '2.0'"
     assert f'\ncsaf_version\n  {hint}' in str(err.value)
     for prop in ('publisher', 'title', 'tracking'):
         assert f'\n{prop}\n  Field required' in str(err.value)
