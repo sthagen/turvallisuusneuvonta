@@ -4,7 +4,7 @@ from test import conftest
 
 import msgspec
 import pytest
-from pydantic.error_wrappers import ValidationError
+from pydantic import ValidationError
 
 import turvallisuusneuvonta.csaf.document as document
 
@@ -56,11 +56,11 @@ def test_meta_doc_title_empty():
 
 
 def test_meta_doc_tracking_empty():
-    with pytest.raises(ValidationError, match=_subs(6)) as err:
+    with pytest.raises(ValidationError, match=_subs(17)) as err:
         _ = document.Document(**conftest.META_EMPTY_TRACKING)  # type: ignore
     host = 'tracking'
     for prop in ('current_release_date', 'id', 'initial_release_date', 'revision_history', 'status', 'version'):
-        assert f'\n{host} -> {prop}\n  field required' in str(err.value)
+        assert f'\n{host}.{prop}\n  Field required' in str(err.value)
 
 
 def test_meta_doc_ok_if_spammy():
