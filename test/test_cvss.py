@@ -30,7 +30,7 @@ JSON = json.dumps(DATA)
 def test_cvss2_empty():
     message = '2 validation errors for CVSS2'
     with pytest.raises(ValidationError, match=message) as err:
-        _ = CVSS2.parse_raw('{}')  # type: ignore
+        _ = CVSS2.model_validate_json('{}')  # type: ignore
     assert '\nvectorString\n  Field required' in str(err.value)
     assert '\nbaseScore\n  Field required' in str(err.value)
 
@@ -44,7 +44,7 @@ def test_cvss2_wrong_version():
     as_json = json.dumps(data)
     message = '1 validation error for CVSS2'
     with pytest.raises(ValidationError, match=message) as err:
-        _ = CVSS2.parse_raw(as_json)
+        _ = CVSS2.model_validate_json(as_json)
     assert "\nversion\n  Input should be '2.0','3.0' or '3.1'" in str(err.value)
 
 
