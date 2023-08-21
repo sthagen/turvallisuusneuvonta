@@ -22,9 +22,9 @@ def test_meta_doc_none():
 
 
 def test_meta_doc_category_empty():
-    with pytest.raises(ValidationError, match=_subs(11)) as err:
+    with pytest.raises(ValidationError, match=_subs(12)) as err:
         _ = document.Document(category='')  # type: ignore
-    hint = 'ensure this value has at least 1 character'
+    hint = 'String should have at least 1 character'
     assert f'\ncategory\n  {hint}' in str(err.value)
     for prop in ('csaf_version', 'publisher', 'title', 'tracking'):
         assert f'\n{prop}\n  Field required' in str(err.value)
