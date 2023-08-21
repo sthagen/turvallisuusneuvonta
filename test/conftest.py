@@ -106,7 +106,7 @@ META_OK = {
     'publisher': {
         'category': 'vendor',
         'name': 'ACME',
-        'namespace': 'https://example.com',
+        'namespace': 'https://example.com/',
     },
     'title': 'a',
     'tracking': {

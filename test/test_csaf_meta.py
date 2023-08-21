@@ -15,14 +15,14 @@ def _subs(count: int) -> str:
 
 
 def test_meta_doc_none():
-    with pytest.raises(ValidationError, match=_subs(12)) as err:
+    with pytest.raises(ValidationError, match=_subs(5)) as err:
         _ = document.Document()  # type: ignore
     for prop in ('category', 'csaf_version', 'publisher', 'title', 'tracking'):
         assert f'\n{prop}\n  Field required' in str(err.value)
 
 
 def test_meta_doc_category_empty():
-    with pytest.raises(ValidationError, match=_subs(12)) as err:
+    with pytest.raises(ValidationError, match=_subs(5)) as err:
         _ = document.Document(category='')  # type: ignore
     hint = 'String should have at least 1 character'
     assert f'\ncategory\n  {hint}' in str(err.value)
@@ -31,7 +31,7 @@ def test_meta_doc_category_empty():
 
 
 def test_meta_doc_csaf_version_wrong():
-    with pytest.raises(ValidationError, match=_subs(11)) as err:
+    with pytest.raises(ValidationError, match=_subs(4)) as err:
         _ = document.Document(**conftest.META_WRONG_VERSION)  # type: ignore
     hint = "Input should be '2.0'"
     assert f'\ncsaf_version\n  {hint}' in str(err.value)
@@ -40,7 +40,7 @@ def test_meta_doc_csaf_version_wrong():
 
 
 def test_meta_doc_publisher_empty():
-    with pytest.raises(ValidationError, match=_subs(14)) as err:
+    with pytest.raises(ValidationError, match=_subs(5)) as err:
         _ = document.Document(**conftest.META_EMPTY_PUBLISHER)  # type: ignore
     for prop in ('title', 'tracking'):
         assert f'\n{prop}\n  Field required' in str(err.value)
@@ -50,7 +50,7 @@ def test_meta_doc_publisher_empty():
 
 
 def test_meta_doc_title_empty():
-    with pytest.raises(ValidationError, match=_subs(11)) as err:
+    with pytest.raises(ValidationError, match=_subs(2)) as err:
         _ = document.Document(**conftest.META_EMPTY_TITLE)  # type: ignore
     hint = 'String should have at least 1 character'
     assert f'\ntitle\n  {hint}' in str(err.value)
@@ -59,7 +59,7 @@ def test_meta_doc_title_empty():
 
 
 def test_meta_doc_tracking_empty():
-    with pytest.raises(ValidationError, match=_subs(17)) as err:
+    with pytest.raises(ValidationError, match=_subs(6)) as err:
         _ = document.Document(**conftest.META_EMPTY_TRACKING)  # type: ignore
     host = 'tracking'
     for prop in ('current_release_date', 'id', 'initial_release_date', 'revision_history', 'status', 'version'):
