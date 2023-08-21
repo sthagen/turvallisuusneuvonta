@@ -58,7 +58,7 @@ class CryptographicHashes(BaseModel):
         Sequence[FileHash],
         Field(
             description='Contains a list of cryptographic hashes for this file.',
-            # min_items=1,
+            # min_length=1,
             title='List of file hashes',
         ),
     ]
@@ -160,7 +160,7 @@ class HelperToIdentifyTheProduct(BaseModel):
         Optional[Sequence[CryptographicHashes]],
         Field(
             description='Contains a list of cryptographic hashes usable to identify files.',
-            # min_items=1,
+            # min_length=1,
             title='List of hashes',
         ),
     ] = None
@@ -180,7 +180,7 @@ class HelperToIdentifyTheProduct(BaseModel):
         Optional[Sequence[AnyUrl]],
         Field(
             description='Contains a list of URLs where SBOMs for this product can be retrieved.',
-            # min_items=1,
+            # min_length=1,
             title='List of SBOM URLs',
         ),
     ] = None
@@ -188,7 +188,7 @@ class HelperToIdentifyTheProduct(BaseModel):
         Optional[Sequence[SerialNumber]],
         Field(
             description='Contains a list of parts, or full serial numbers.',
-            # min_items=1,
+            # min_length=1,
             title='List of serial numbers',
         ),
     ] = None
@@ -196,7 +196,7 @@ class HelperToIdentifyTheProduct(BaseModel):
         Optional[Sequence[StockKeepingUnit]],
         Field(
             description='Contains a list of parts, or full stock keeping units.',
-            # min_items=1,
+            # min_length=1,
             title='List of stock keeping units',
         ),
     ] = None
@@ -207,7 +207,7 @@ class HelperToIdentifyTheProduct(BaseModel):
                 'Contains a list of identifiers which are either vendor-specific or derived from'
                 ' a standard not yet supported.'
             ),
-            # min_items=1,
+            # min_length=1,
             title='List of generic URIs',
         ),
     ] = None
@@ -272,7 +272,7 @@ class ProductGroup(BaseModel):
         Sequence[ReferenceTokenForProductInstance],
         Field(
             description='Lists the product_ids of those products which known as one group in the document.',
-            # min_items=2,
+            # min_length=2,
             title='List of Product IDs',
         ),
     ]
@@ -421,12 +421,12 @@ class ProductTree(BaseModel):
     Is a container for all fully qualified product names that can be referenced elsewhere in the document.
     """
 
-    branches: Optional[Branches]
+    branches: Optional[Branches] = None
     full_product_names: Annotated[
         Optional[List[FullProductName]],
         Field(
             description='Contains a list of full product names.',
-            min_items=1,
+            min_length=1,
             title='List of full product names',
         ),
     ] = None
@@ -434,7 +434,7 @@ class ProductTree(BaseModel):
         Optional[List[ProductGroup]],
         Field(
             description='Contains a list of product groups.',
-            min_items=1,
+            min_length=1,
             title='List of product groups',
         ),
     ] = None
@@ -442,7 +442,7 @@ class ProductTree(BaseModel):
         Optional[List[Relationship]],
         Field(
             description='Contains a list of relationships.',
-            min_items=1,
+            min_length=1,
             title='List of relationships',
         ),
     ] = None

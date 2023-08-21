@@ -59,10 +59,10 @@ class Acknowledgment(BaseModel):
         Optional[List[Name]],
         Field(
             description='Contains the names of entities being recognized.',
-            min_items=1,
+            min_length=1,
             title='List of acknowledged names',
         ),
-    ]
+    ] = None
     organization: Annotated[
         Optional[str],
         Field(
@@ -71,7 +71,7 @@ class Acknowledgment(BaseModel):
             min_length=1,
             title='Contributing organization',
         ),
-    ]
+    ] = None
     summary: Annotated[
         Optional[str],
         Field(
@@ -81,12 +81,12 @@ class Acknowledgment(BaseModel):
             min_length=1,
             title='Summary of the acknowledgment',
         ),
-    ]
+    ] = None
     urls: Annotated[
         Optional[List[AnyUrl]],
         Field(
             description='Specifies a list of URLs or location of the reference to be acknowledged.',
-            min_items=1,
+            min_length=1,
             title='List of URLs',
         ),
     ]
@@ -251,7 +251,7 @@ class ListOfProductIds(BaseModel):
         Sequence[ReferenceTokenForProductInstance],
         Field(
             description='Specifies a list of product_ids to give context to the parent item.',
-            # min_items=1,
+            # min_length=1,
             title='List of product_ids',
         ),
     ]
@@ -318,7 +318,7 @@ class Note(BaseModel):
             min_length=1,
             title='Audience of note',
         ),
-    ]
+    ] = None
     category: Annotated[
         NoteCategory,
         Field(description='Choice of what kind of note this is.', title='Note category'),
@@ -344,7 +344,7 @@ class Note(BaseModel):
             min_length=1,
             title='Title of note',
         ),
-    ]
+    ] = None
 
 
 class Notes(

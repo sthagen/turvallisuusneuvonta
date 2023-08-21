@@ -24,8 +24,8 @@ def test_product_relationship():
     pr_ref_other = product.ReferenceTokenForProductInstance(value='acme-101')
     pr_ref_self = product.ReferenceTokenForProductInstance(value='acme-112')
     pr_id = pr_ref_self
-    pr_ids = product.Products(__root__=['acme-101', 'acme-112'])
-    assert defs.ProductId(__root__='acme-101') in pr_ids.__root__
+    pr_ids = product.Products(value=['acme-101', 'acme-112'])
+    assert defs.ProductId(value='acme-101') in pr_ids.root
     pr_name = product.FullProductName(name='wun', product_id=pr_id)
     data = {
         'category': product.RelationshipCategory.installed_with,
