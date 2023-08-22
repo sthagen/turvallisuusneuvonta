@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-# pylint: disable=line-too-long,missing-docstring,reimported,unused-import,unused-variable
 import copy
 import pathlib
 from test import conftest
