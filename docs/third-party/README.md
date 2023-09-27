@@ -1,8 +1,8 @@
 # Third Party Dependencies
 
 <!--[[[fill sbom_sha256()]]]-->
-The [SBOM in CycloneDX v1.4 JSON format](https://git.sr.ht/~sthagen/turvallisuusneuvonta/blob/default/etc/sbom/cdx.json) with SHA256 checksum ([2fc1e22b ...](https://git.sr.ht/~sthagen/turvallisuusneuvonta/blob/default/etc/sbom/cdx.json.sha256 "sha256:2fc1e22b75b1d6ec1273dbd5dbd69cc5701983673e0f2e4c6c4dfc64a12d34f3")).
-<!--[[[end]]] (checksum: 73e69fece5a030b9b96de786e7e24c30)-->
+The [SBOM in CycloneDX v1.4 JSON format](https://git.sr.ht/~sthagen/turvallisuusneuvonta/blob/default/etc/sbom/cdx.json) with SHA256 checksum ([892e3bad ...](https://git.sr.ht/~sthagen/turvallisuusneuvonta/blob/default/etc/sbom/cdx.json.sha256 "sha256:892e3bade02ca27254c5a0ad2cf5eef8d62bfcfbdfd09d783b81788cbb87e962")).
+<!--[[[end]]] (checksum: 55545984f79efb452ff7a6a4aaf5151a)-->
 ## Licenses
 
 JSON files with complete license info of: [direct dependencies](direct-dependency-licenses.json) | [all dependencies](all-dependency-licenses.json)
@@ -16,9 +16,9 @@ JSON files with complete license info of: [direct dependencies](direct-dependenc
 | [langcodes](https://github.com/rspeer/langcodes)    | [3.3.0](https://pypi.org/project/langcodes/3.3.0/) | MIT License                                         | Elia Robyn Speer                                                                                                                                                                                                                                              | Tools for labeling human languages with IETF language tags                                               |
 | [lazr.uri](https://launchpad.net/lazr.uri)          | [1.0.6](https://pypi.org/project/lazr.uri/1.0.6/)  | GNU Library or Lesser General Public License (LGPL) | "LAZR Developers" team                                                                                                                                                                                                                                        | A self-contained, easily reusable library for parsing, manipulating,                                     |
 | [msgspec](https://jcristharif.com/msgspec/)         | [0.18.2](https://pypi.org/project/msgspec/0.18.2/) | BSD License                                         | Jim Crist-Harif                                                                                                                                                                                                                                               | A fast serialization and validation library, with builtin support for JSON, MessagePack, YAML, and TOML. |
-| [pydantic](https://github.com/pydantic/pydantic)    | [2.4.0](https://pypi.org/project/pydantic/2.4.0/)  | MIT License                                         | Samuel Colvin <s@muelcolvin.com>, Eric Jolibois <em.jolibois@gmail.com>, Hasan Ramezani <hasan.r67@gmail.com>, Adrian Garcia Badaracco <1755071+adriangb@users.noreply.github.com>, Terrence Dorsey <terry@pydantic.dev>, David Montague <david@pydantic.dev> | Data validation using Python type hints                                                                  |
+| [pydantic](https://github.com/pydantic/pydantic)    | [2.4.1](https://pypi.org/project/pydantic/2.4.1/)  | MIT License                                         | Samuel Colvin <s@muelcolvin.com>, Eric Jolibois <em.jolibois@gmail.com>, Hasan Ramezani <hasan.r67@gmail.com>, Adrian Garcia Badaracco <1755071+adriangb@users.noreply.github.com>, Terrence Dorsey <terry@pydantic.dev>, David Montague <david@pydantic.dev> | Data validation using Python type hints                                                                  |
 | [typer](https://github.com/tiangolo/typer)          | [0.9.0](https://pypi.org/project/typer/0.9.0/)     | MIT License                                         | Sebastián Ramírez                                                                                                                                                                                                                                             | Typer, build great CLIs. Easy to code. Based on Python type hints.                                       |
-<!--[[[end]]] (checksum: 171fac69d886b299c11c575a5b781ab9)-->
+<!--[[[end]]] (checksum: 1b3ebf065ee4e743d8b9125a1a1af39c)-->
 
 ### Indirect Dependencies
 
@@ -27,10 +27,10 @@ JSON files with complete license info of: [direct dependencies](direct-dependenc
 |:------------------------------------------------------------------------------------------|:-----------------------------------------------------------|:-----------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------|
 | [annotated-types](https://github.com/annotated-types/annotated-types/blob/main/README.md) | [0.5.0](https://pypi.org/project/annotated-types/0.5.0/)   | MIT License                        | Samuel Colvin <s@muelcolvin.com>, Adrian Garcia Badaracco <1755071+adriangb@users.noreply.github.com>, Zac Hatfield-Dodds <zac@zhd.dev> | Reusable constraint types to use with typing.Annotated                  |
 | [click](https://palletsprojects.com/p/click/)                                             | [8.1.6](https://pypi.org/project/click/8.1.6/)             | BSD License                        | Pallets <contact@palletsprojects.com>                                                                                                   | Composable command line interface toolkit                               |
-| [pydantic_core](https://github.com/pydantic/pydantic-core)                                | [2.10.0](https://pypi.org/project/pydantic_core/2.10.0/)   | MIT License                        | Samuel Colvin <s@muelcolvin.com>                                                                                                        | UNKNOWN                                                                 |
+| [pydantic_core](https://github.com/pydantic/pydantic-core)                                | [2.10.1](https://pypi.org/project/pydantic_core/2.10.1/)   | MIT License                        | Samuel Colvin <s@muelcolvin.com>                                                                                                        | UNKNOWN                                                                 |
 | [setuptools](https://github.com/pypa/setuptools)                                          | [68.2.2](https://pypi.org/project/setuptools/68.2.2/)      | MIT License                        | Python Packaging Authority                                                                                                              | Easily download, build, install, upgrade, and uninstall Python packages |
 | [typing_extensions](https://github.com/python/typing_extensions)                          | [4.7.1](https://pypi.org/project/typing_extensions/4.7.1/) | Python Software Foundation License | "Guido van Rossum, Jukka Lehtosalo, Łukasz Langa, Michael Lee" <levkivskyi@gmail.com>                                                   | Backported and Experimental Type Hints for Python 3.7+                  |
-<!--[[[end]]] (checksum: 94e0bc38dec5daa55e8b31e47bc32fee)-->
+<!--[[[end]]] (checksum: cd95ade9e642912a75079c2419ff2876)-->
 
 ## Dependency Tree(s)
 
@@ -51,13 +51,13 @@ langcodes==3.3.0
 lazr.uri==1.0.6
 └── setuptools [required: Any, installed: 68.2.2]
 msgspec==0.18.2
-pydantic==2.4.0
+pydantic==2.4.1
 ├── annotated-types [required: >=0.4.0, installed: 0.5.0]
-├── pydantic-core [required: ==2.10.0, installed: 2.10.0]
+├── pydantic-core [required: ==2.10.1, installed: 2.10.1]
 │   └── typing-extensions [required: >=4.6.0,!=4.7.0, installed: 4.7.1]
 └── typing-extensions [required: >=4.6.1, installed: 4.7.1]
 typer==0.9.0
 ├── click [required: >=7.1.1,<9.0.0, installed: 8.1.6]
 └── typing-extensions [required: >=3.7.4.3, installed: 4.7.1]
 ````
-<!--[[[end]]] (checksum: 6de34cfe7be65faa2e23bccb09640800)-->
+<!--[[[end]]] (checksum: d7e65b44943a9d83753b63604bef9000)-->
