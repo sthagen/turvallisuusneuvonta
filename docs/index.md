@@ -8,9 +8,9 @@ Security advisory (Finnish: turvallisuusneuvonta) audit tool.
 [![Configuration](badges/configuration-sbom.svg)](third-party/index.html)
 
 [![Version](https://img.shields.io/pypi/v/turvallisuusneuvonta.svg?style=flat)](https://pypi.python.org/pypi/turvallisuusneuvonta/)
-[![Downloads](docs/badges/downloads-per-month.svg)](https://pepy.tech/project/turvallisuusneuvonta)
+[![Downloads](badges/downloads-per-month.svg)](https://pepy.tech/project/turvallisuusneuvonta)
 [![Supported Versions](https://img.shields.io/pypi/pyversions/turvallisuusneuvonta.svg?style=flat)](https://pypi.python.org/pypi/turvallisuusneuvonta/)
-[![Maintenance Status](docs/badges/commits-per-year.svg)](https://git.sr.ht/~sthagen/turvallisuusneuvonta/log)
+[![Maintenance Status](badges/commits-per-year.svg)](https://git.sr.ht/~sthagen/turvallisuusneuvonta/log)
 
 ## Bug Tracker
 
