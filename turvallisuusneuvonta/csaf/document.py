@@ -40,7 +40,6 @@ class Tracking(BaseModel):
         Optional[List[Alias]],
         Field(
             description='Contains a list of alternate names for the same document.',
-            min_length=1,
             title='Aliases',
         ),
     ] = None
@@ -101,7 +100,7 @@ class Tracking(BaseModel):
 
     @classmethod
     @no_type_check
-    @field_validator('revision_history')
+    @field_validator('aliases', 'revision_history')
     def check_len(cls, v):
         if not v:
             raise ValueError('mandatory element present but empty')
