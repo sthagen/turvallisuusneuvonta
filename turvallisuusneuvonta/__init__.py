@@ -1,4 +1,5 @@
 """Security advisory (Finnish: turvallisuusneuvonta) audit tool."""
+
 # [[[fill git_describe()]]]
 __version__ = '2023.6.18+parent.dd252054'
 # [[[end]]] (checksum: ed24f138a6c1f4ed1846f228247c7db7)

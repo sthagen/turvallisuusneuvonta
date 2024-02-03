@@ -1,6 +1,7 @@
+"""CSAF Document meta information model."""
+
 from __future__ import annotations
 
-"""CSAF Document meta information model."""
 from datetime import datetime
 from enum import Enum
 from typing import Annotated, List, Optional, no_type_check
