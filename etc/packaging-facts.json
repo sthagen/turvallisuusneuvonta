@@ -21,6 +21,7 @@
       "last_month": -1,
       "last_week": -1
     },
+    "dynamic": null,
     "home_page": "",
     "keywords": "csaf,developer-tools,validation,verification",
     "license": "",
@@ -37,6 +38,7 @@
       "Source-Code": "https://git.sr.ht/~sthagen/turvallisuusneuvonta",
       "Test-Coverage": "https://codes.dilettant.life/coverage/turvallisuusneuvonta"
     },
+    "provides_extra": null,
     "release_url": "https://pypi.org/project/turvallisuusneuvonta/2023.6.18/",
     "requires_dist": [
       "jmespath (>=1.0.1)",
