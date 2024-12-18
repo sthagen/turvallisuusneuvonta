@@ -7,7 +7,7 @@ from collections.abc import Sequence
 from enum import Enum
 from typing import Annotated, List, Optional, no_type_check
 
-from pydantic import BaseModel, Field, RootModel, field_validator, model_validator
+from pydantic import BaseModel, ConfigDict, Field, RootModel, field_validator, model_validator
 
 from turvallisuusneuvonta.csaf.definitions import (
     AnyUrl,
@@ -101,12 +101,27 @@ class GenericUri(BaseModel):
     uri: Annotated[AnyUrl, Field(description='Contains the identifier itself.', title='URI')]
 
 
+class ModelNumber(
+    RootModel[
+        Annotated[
+            str,
+            Field(
+                description='Contains a full or abbreviated (partial) model number of the component to identify.',
+                min_length=1,
+                title='Model number',
+            ),
+        ]
+    ]
+):
+    pass
+
+
 class SerialNumber(
     RootModel[
         Annotated[
             str,
             Field(
-                description='Contains a part, or a full serial number of the component to identify.',
+                description='Contains a full or abbreviated (partial) serial number of the component to identify.',
                 min_length=1,
                 title='Serial number',
             ),
@@ -122,8 +137,8 @@ class StockKeepingUnit(
             str,
             Field(
                 description=(
-                    'Contains a part, or a full stock keeping unit (SKU) which is used in the ordering process'
-                    ' to identify the component.'
+                    'Contains a full or abbreviated (partial) stock keeping unit (SKU) which is used in'
+                    ' the ordering process to identify the component.'
                 ),
                 min_length=1,
                 title='Stock keeping unit',
@@ -139,6 +154,7 @@ class HelperToIdentifyTheProduct(BaseModel):
     Provides at least one method which aids in identifying the product in an asset database.
     """
 
+    model_config = ConfigDict(protected_namespaces=())
     cpe: Annotated[
         Optional[str],
         Field(
@@ -165,6 +181,15 @@ class HelperToIdentifyTheProduct(BaseModel):
             title='List of hashes',
         ),
     ] = None
+    model_numbers: Annotated[
+        Optional[Sequence[ModelNumber]],
+        Field(
+            alias='model_numbers',
+            description='Contains a list of full or abbreviated (partial) model numbers.',
+            # min_items=1,
+            title='List of model numbers',
+        ),
+    ] = None
     purl: Annotated[
         Optional[AnyUrl],
         Field(
@@ -188,8 +213,9 @@ class HelperToIdentifyTheProduct(BaseModel):
     serial_numbers: Annotated[
         Optional[Sequence[SerialNumber]],
         Field(
-            description='Contains a list of parts, or full serial numbers.',
+            description='Contains a list of full or abbreviated (partial) serial numbers.',
             # min_length=1,
+            # # unique_items=True,
             title='List of serial numbers',
         ),
     ] = None
@@ -470,6 +496,7 @@ class BranchCategory(Enum):
     product_family = 'product_family'
     product_name = 'product_name'
     product_version = 'product_version'
+    product_version_range = 'product_version_range'
     service_pack = 'service_pack'
     specification = 'specification'
     vendor = 'vendor'
