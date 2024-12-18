@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "turvallisuusneuvonta"
-version = "2023.6.18"
+version = "2024.12.18"
 description = "Security advisory (Finnish: turvallisuusneuvonta) audit tool."
 readme = "README.md"
 license = {file = "LICENSE"}
@@ -17,6 +17,7 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.9",
 ]
 keywords = ["csaf", "developer-tools", "validation", "verification"]
