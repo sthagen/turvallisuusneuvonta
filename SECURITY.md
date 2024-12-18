@@ -4,10 +4,10 @@
 
 Versions of turvallisuusneuvonta currently being supported with security updates.
 
-| Version(s)  | Supported |
-|:----------- |:--------- |
-| 2023.6.18   | yes       |
-| < 2023.6.18 | no        |
+| Version(s)   | Supported |
+|:-------------|:----------|
+| 2024.12.18   | yes       |
+| < 2024.12.18 | no        |
 
 ## Reporting a Vulnerability
 
