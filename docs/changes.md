@@ -1,7 +1,16 @@
 # Change History
 
+2024.12.18
+:    Fixed mis-alignm,ent between implementation and upstream CSAF v2.0 OASIS Standard schema
+* Added missing members of upstream CSAF v2.0 OASIS Standard schema
+* Added missing model_numbers of product_identification_helpers member
+* Synchronized CSAF schema in proxy from upstream
+
+## 2023
+
 2023.6.18
-:    * Fixed the CVSS Keywords in Generated CSAF Documents (<https://todo.sr.ht/~sthagen/turvallisuusneuvonta/1>)
+:    Fixed validation failures of an example and CVSS keywords
+* Fixed the CVSS Keywords in Generated CSAF Documents (<https://todo.sr.ht/~sthagen/turvallisuusneuvonta/1>)
 * Fixed validation failures for CVSS of upstream BSI example (<https://todo.sr.ht/~sthagen/turvallisuusneuvonta/2>)
 * Migrated from orjson to msgspec
 * Moved SBOM noise into folder and added SPDX SBOM (derived) in multiple file formats
@@ -9,7 +18,8 @@
 ## 2022
 
 2022.8.9
-:    * Bumped dependencies for development and test
+:    Added documentation and migrated away from GitHub
+* Bumped dependencies for development and test
 * Migrated away from github
   * Moved documentation to https://codes.dilettant.life/docs/turvallisuusneuvonta
   * Moved tracker to https://todo.sr.ht/~sthagen/turvallisuusneuvonta
@@ -17,30 +27,33 @@
 * Added test coverage documentation at https://codes.dilettant.life/coverage/turvallisuusneuvonta
 
 2022.2.14
-:    * Hotfix making mandatory rules (spike) module a package (fixes #11)
+:    Hotfix in mandatory tests and code cleanup
+* Hotfix making mandatory rules (spike) module a package (fixes #11)
 * Removal of topical approach (for now) and code cleanup
 
 2022.2.13
-:    * Experimental implementations for unique as well as defined product and group ids, and translator 
+:    Experimental implementations for unique as well as defined product and group ids, and translator 
 
 2022.2.12
-:    * Category rule test ready
+:    Added property based testing and category rule test
+* Category rule test ready
 * Added property based testing
 
 2022.1.1
-:    * Implemented first additional test cases from specification
+:    Migrated to model implementation for verification
+* Implemented first additional test cases from specification
 * Migrated to model implementation for verification
 
 ## 2021
 
 2021.12.31
-:    * Enhanced the new model implementation
+:    Enhanced the new model implementation
 
 2021.12.19
-:    * Better test coverage (of the new model implementation)
+:    Better test coverage (of the new model implementation)
 
 2021.12.18
-:    * Added pydantic dependency for annotation based model
+:    Added pydantic dependency for annotation based model
 
 2021.12.10
 :    * Added langcodes dependency for language tag validation
