@@ -1,6 +1,6 @@
 {
   "info": {
-    "author": "",
+    "author": null,
     "author_email": "Stefan Hagen <stefan@hagen.link>",
     "bugtrack_url": null,
     "classifiers": [
@@ -10,24 +10,25 @@
       "Programming Language :: Python :: 3.10",
       "Programming Language :: Python :: 3.11",
       "Programming Language :: Python :: 3.12",
+      "Programming Language :: Python :: 3.13",
       "Programming Language :: Python :: 3.9"
     ],
-    "description": "# Turvallisuusneuvonta\n\nSecurity advisory (Finnish: turvallisuusneuvonta) audit tool.\n\n[License: MIT](https://git.sr.ht/~sthagen/turvallisuusneuvonta/tree/default/item/LICENSE)\n\nThird party dependencies are documented in the folder [third-party](docs/third-party/README.md).\n\n[![version](https://img.shields.io/pypi/v/turvallisuusneuvonta.svg?style=flat)](https://pypi.python.org/pypi/turvallisuusneuvonta/)\n[![downloads](https://pepy.tech/badge/turvallisuusneuvonta/month)](https://pepy.tech/project/turvallisuusneuvonta)\n[![wheel](https://img.shields.io/pypi/wheel/turvallisuusneuvonta.svg?style=flat)](https://pypi.python.org/pypi/turvallisuusneuvonta/)\n[![supported-versions](https://img.shields.io/pypi/pyversions/turvallisuusneuvonta.svg?style=flat)](https://pypi.python.org/pypi/turvallisuusneuvonta/)\n[![supported-implementations](https://img.shields.io/pypi/implementation/turvallisuusneuvonta.svg?style=flat)](https://pypi.python.org/pypi/turvallisuusneuvonta/)\n\n## Documentation\n\nUser and developer [documentation of turvallisuusneuvonta](https://codes.dilettant.life/docs/turvallisuusneuvonta).\n\n## Bug Tracker\n\nAny feature requests or bug reports shall go to the [todos of turvallisuusneuvonta](https://todo.sr.ht/~sthagen/turvallisuusneuvonta).\n\n## Primary Source repository\n\nThe main source of `turvallisuusneuvonta` is on a mountain in central Switzerland.\nWe use distributed version control (git).\nThere is no central hub.\nEvery clone can become a new source for the benefit of all.\nThe preferred public clones of `turvallisuusneuvonta` are:\n\n* [on codeberg](https://codeberg.org/sthagen/turvallisuusneuvonta) - a democratic community-driven, non-profit software development platform operated by Codeberg e.V.\n* [at sourcehut](https://git.sr.ht/~sthagen/turvallisuusneuvonta) - a collection of tools useful for software development.\n\n## Contributions\n\nPlease do not submit \"pull requests\" (I found no way to disable that \"feature\" on GitHub).\nIf you like to share small changes under the repositories license please kindly do so by sending a patchset.\nYou can either send such a patchset per email using [git send-email](https://git-send-email.io) or \nif you are a sourcehut user by selecting \"Prepare a patchset\" on the summary page of your fork at [sourcehut](https://git.sr.ht/).\n\n## Status\n\nExperimental.\n\n**Note**: The default branch is `default`.\n",
+    "description": "# Turvallisuusneuvonta\n\nSecurity advisory (Finnish: turvallisuusneuvonta) audit tool.\n\n[![License](https://git.sr.ht/~sthagen/turvallisuusneuvonta/blob/default/docs/badges/license-spdx-mit.svg)](https://git.sr.ht/~sthagen/turvallisuusneuvonta/tree/default/item/LICENSE)\n[![Country of Origin](https://git.sr.ht/~sthagen/turvallisuusneuvonta/blob/default/docs/badges/country-of-origin-name-switzerland-neutral.svg)](https://git.sr.ht/~sthagen/turvallisuusneuvonta/tree/default/item/COUNTRY-OF-ORIGIN)\n[![Export Classification Control Number (ECCN)](https://git.sr.ht/~sthagen/turvallisuusneuvonta/blob/default/docs/badges/export-control-classification-number_eccn-ear99-neutral.svg)](https://git.sr.ht/~sthagen/turvallisuusneuvonta/tree/default/item/EXPORT-CONTROL-CLASSIFICATION-NUMBER)\n[![Configuration](https://git.sr.ht/~sthagen/turvallisuusneuvonta/blob/default/docs/badges/configuration-sbom.svg)](https://git.sr.ht/~sthagen/turvallisuusneuvonta/tree/default/item/docs/third-party/README.md)\n\n[![Version](https://git.sr.ht/~sthagen/turvallisuusneuvonta/blob/default/docs/badges/latest-release.svg)](https://pypi.python.org/pypi/turvallisuusneuvonta/)\n[![Downloads](https://git.sr.ht/~sthagen/turvallisuusneuvonta/blob/default/docs/badges/downloads-per-month.svg)](https://pepy.tech/project/turvallisuusneuvonta)\n[![Python](https://git.sr.ht/~sthagen/turvallisuusneuvonta/blob/default/docs/badges/python-versions.svg)](https://pypi.python.org/pypi/turvallisuusneuvonta/)\n[![Maintenance Status](https://git.sr.ht/~sthagen/turvallisuusneuvonta/blob/default/docs/badges/commits-per-year.svg)](https://git.sr.ht/~sthagen/turvallisuusneuvonta/log)\n\n## Documentation\n\nUser and developer [documentation of turvallisuusneuvonta](https://codes.dilettant.life/docs/turvallisuusneuvonta).\n\n## Bug Tracker\n\nAny feature requests or bug reports shall go to the [todos of turvallisuusneuvonta](https://todo.sr.ht/~sthagen/turvallisuusneuvonta).\n\n## Primary Source repository\n\nThe main source of `turvallisuusneuvonta` is on a mountain in central Switzerland.\nWe use distributed version control (git).\nThere is no central hub.\nEvery clone can become a new source for the benefit of all.\nThe preferred public clone of `turvallisuusneuvonta` is:\n\n* [at sourcehut](https://git.sr.ht/~sthagen/turvallisuusneuvonta) - a collection of tools useful for software development.\n\n## Contributions\n\nPlease do not submit \"pull requests\" (I found no way to disable that \"feature\" on GitHub).\nIf you like to share small changes under the repositories license please kindly do so by sending a patchset.\nYou can either send such a patchset per email using [git send-email](https://git-send-email.io) or \nif you are a sourcehut user by selecting \"Prepare a patchset\" on the summary page of your fork at [sourcehut](https://git.sr.ht/).\n\n## Support\n\nPlease kindly submit issues at https://todo.sr.ht/~sthagen/turvallisuusneuvonta or write plain text email to ~sthagen/turvallisuusneuvonta@lists.sr.ht to submit patches and request support. Thanks.\n\n## Status\n\nExperimental.\n\n**Note**: The default branch is `default`.\n",
     "description_content_type": "text/markdown",
     "docs_url": null,
-    "download_url": "",
+    "download_url": null,
     "downloads": {
       "last_day": -1,
       "last_month": -1,
       "last_week": -1
     },
     "dynamic": null,
-    "home_page": "",
-    "keywords": "csaf,developer-tools,validation,verification",
-    "license": "",
+    "home_page": null,
+    "keywords": "csaf, developer-tools, validation, verification",
+    "license": "MIT License  Copyright (c) 2024 Stefan Hagen  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.  THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. ",
     "license_expression": null,
     "license_files": null,
-    "maintainer": "",
+    "maintainer": null,
     "maintainer_email": "Stefan Hagen <stefan@hagen.link>",
     "name": "turvallisuusneuvonta",
     "package_url": "https://pypi.org/project/turvallisuusneuvonta/",
@@ -40,31 +41,33 @@
       "Source-Code": "https://git.sr.ht/~sthagen/turvallisuusneuvonta",
       "Test-Coverage": "https://codes.dilettant.life/coverage/turvallisuusneuvonta"
     },
-    "provides_extra": null,
-    "release_url": "https://pypi.org/project/turvallisuusneuvonta/2023.6.18/",
+    "provides_extra": [
+      "dev"
+    ],
+    "release_url": "https://pypi.org/project/turvallisuusneuvonta/2024.12.18/",
     "requires_dist": [
-      "jmespath (>=1.0.1)",
-      "langcodes (>=3.3.0)",
-      "lazr.uri (>=1.0.6)",
-      "msgspec (>=0.16.0)",
-      "pydantic (>=1.10.9)",
-      "typer (>=0.9.0)",
-      "black ; extra == 'dev'",
-      "coverage ; extra == 'dev'",
-      "hypothesis ; extra == 'dev'",
-      "mypy ; extra == 'dev'",
-      "pytest ; extra == 'dev'",
-      "pytest-cov ; extra == 'dev'",
-      "pytest-flake8 ; extra == 'dev'",
-      "ruff ; extra == 'dev'"
+      "jmespath>=1.0.1",
+      "langcodes>=3.5.0",
+      "lazr.uri>=1.0.7",
+      "msgspec>=0.18.6",
+      "pydantic>=2.10.3",
+      "typer>=0.15.1",
+      "black; extra == \"dev\"",
+      "coverage; extra == \"dev\"",
+      "hypothesis; extra == \"dev\"",
+      "mypy; extra == \"dev\"",
+      "pytest; extra == \"dev\"",
+      "pytest-cov; extra == \"dev\"",
+      "pytest-flake8; extra == \"dev\"",
+      "ruff; extra == \"dev\""
     ],
     "requires_python": ">=3.9",
     "summary": "Security advisory (Finnish: turvallisuusneuvonta) audit tool.",
-    "version": "2023.6.18",
+    "version": "2024.12.18",
     "yanked": false,
     "yanked_reason": null
   },
-  "last_serial": 18552284,
+  "last_serial": 26581692,
   "releases": {
     "2021.12.10": [
       {
@@ -549,48 +552,92 @@
         "yanked": false,
         "yanked_reason": null
       }
+    ],
+    "2024.12.18": [
+      {
+        "comment_text": "",
+        "digests": {
+          "blake2b_256": "b52e6bbef70d3171f37cbc74b2e5c39a1af4d91a62e96e46a513d7aea5663d52",
+          "md5": "3c471554ce1e7f866f3297fb8e61cb58",
+          "sha256": "3541e964935e4fe87e702b74d0b2082894e47b266ce70a69a5e460cc895a0ab2"
+        },
+        "downloads": -1,
+        "filename": "turvallisuusneuvonta-2024.12.18-py3-none-any.whl",
+        "has_sig": false,
+        "md5_digest": "3c471554ce1e7f866f3297fb8e61cb58",
+        "packagetype": "bdist_wheel",
+        "python_version": "py3",
+        "requires_python": ">=3.9",
+        "size": 38893,
+        "upload_time": "2024-12-18T20:27:17",
+        "upload_time_iso_8601": "2024-12-18T20:27:17.324442Z",
+        "url": "https://files.pythonhosted.org/packages/b5/2e/6bbef70d3171f37cbc74b2e5c39a1af4d91a62e96e46a513d7aea5663d52/turvallisuusneuvonta-2024.12.18-py3-none-any.whl",
+        "yanked": false,
+        "yanked_reason": null
+      },
+      {
+        "comment_text": "",
+        "digests": {
+          "blake2b_256": "89b1e240dfe95be10acb9479b2e78236444e2d5cf064871fe96fdd3c8b430dca",
+          "md5": "e6351cbae86641c9c287ca69982da841",
+          "sha256": "6752c770b11a16bd62a068819a7ba5fcb7ef63af26c4b4ff4f98030e01439478"
+        },
+        "downloads": -1,
+        "filename": "turvallisuusneuvonta-2024.12.18.tar.gz",
+        "has_sig": false,
+        "md5_digest": "e6351cbae86641c9c287ca69982da841",
+        "packagetype": "sdist",
+        "python_version": "source",
+        "requires_python": ">=3.9",
+        "size": 39426,
+        "upload_time": "2024-12-18T20:27:19",
+        "upload_time_iso_8601": "2024-12-18T20:27:19.714109Z",
+        "url": "https://files.pythonhosted.org/packages/89/b1/e240dfe95be10acb9479b2e78236444e2d5cf064871fe96fdd3c8b430dca/turvallisuusneuvonta-2024.12.18.tar.gz",
+        "yanked": false,
+        "yanked_reason": null
+      }
     ]
   },
   "urls": [
     {
       "comment_text": "",
       "digests": {
-        "blake2b_256": "0ac9dcf056330a500654c960d83cec3ed4dae8c594f80037b56872edda0e248f",
-        "md5": "2d4ec2fabd1b1dc5cd9c85c292539bfb",
-        "sha256": "bcee425fbade43258609ff9ed5ee433a0f466ec20d91eafc8a8139287a46d575"
+        "blake2b_256": "b52e6bbef70d3171f37cbc74b2e5c39a1af4d91a62e96e46a513d7aea5663d52",
+        "md5": "3c471554ce1e7f866f3297fb8e61cb58",
+        "sha256": "3541e964935e4fe87e702b74d0b2082894e47b266ce70a69a5e460cc895a0ab2"
       },
       "downloads": -1,
-      "filename": "turvallisuusneuvonta-2023.6.18-py3-none-any.whl",
+      "filename": "turvallisuusneuvonta-2024.12.18-py3-none-any.whl",
       "has_sig": false,
-      "md5_digest": "2d4ec2fabd1b1dc5cd9c85c292539bfb",
+      "md5_digest": "3c471554ce1e7f866f3297fb8e61cb58",
       "packagetype": "bdist_wheel",
       "python_version": "py3",
       "requires_python": ">=3.9",
-      "size": 37209,
-      "upload_time": "2023-06-18T19:15:17",
-      "upload_time_iso_8601": "2023-06-18T19:15:17.414493Z",
-      "url": "https://files.pythonhosted.org/packages/0a/c9/dcf056330a500654c960d83cec3ed4dae8c594f80037b56872edda0e248f/turvallisuusneuvonta-2023.6.18-py3-none-any.whl",
+      "size": 38893,
+      "upload_time": "2024-12-18T20:27:17",
+      "upload_time_iso_8601": "2024-12-18T20:27:17.324442Z",
+      "url": "https://files.pythonhosted.org/packages/b5/2e/6bbef70d3171f37cbc74b2e5c39a1af4d91a62e96e46a513d7aea5663d52/turvallisuusneuvonta-2024.12.18-py3-none-any.whl",
       "yanked": false,
       "yanked_reason": null
     },
     {
       "comment_text": "",
       "digests": {
-        "blake2b_256": "f7c3bf3f66d53aa84e3b0273d3332173833bc399a74ab2e8f1852c773eddbbe2",
-        "md5": "3c08a452df253da16d4ffefafaf4823d",
-        "sha256": "541cf8f7fc274b41e0bfd7cec663d0bfd6f306ecab6ccab234d537bbb367d7a7"
+        "blake2b_256": "89b1e240dfe95be10acb9479b2e78236444e2d5cf064871fe96fdd3c8b430dca",
+        "md5": "e6351cbae86641c9c287ca69982da841",
+        "sha256": "6752c770b11a16bd62a068819a7ba5fcb7ef63af26c4b4ff4f98030e01439478"
       },
       "downloads": -1,
-      "filename": "turvallisuusneuvonta-2023.6.18.tar.gz",
+      "filename": "turvallisuusneuvonta-2024.12.18.tar.gz",
       "has_sig": false,
-      "md5_digest": "3c08a452df253da16d4ffefafaf4823d",
+      "md5_digest": "e6351cbae86641c9c287ca69982da841",
       "packagetype": "sdist",
       "python_version": "source",
       "requires_python": ">=3.9",
-      "size": 37399,
-      "upload_time": "2023-06-18T19:15:18",
-      "upload_time_iso_8601": "2023-06-18T19:15:18.767462Z",
-      "url": "https://files.pythonhosted.org/packages/f7/c3/bf3f66d53aa84e3b0273d3332173833bc399a74ab2e8f1852c773eddbbe2/turvallisuusneuvonta-2023.6.18.tar.gz",
+      "size": 39426,
+      "upload_time": "2024-12-18T20:27:19",
+      "upload_time_iso_8601": "2024-12-18T20:27:19.714109Z",
+      "url": "https://files.pythonhosted.org/packages/89/b1/e240dfe95be10acb9479b2e78236444e2d5cf064871fe96fdd3c8b430dca/turvallisuusneuvonta-2024.12.18.tar.gz",
       "yanked": false,
       "yanked_reason": null
     }
