@@ -87,9 +87,11 @@ def is_valid_unique_group_ids(document: dict) -> bool:
 @no_type_check
 def is_valid_defined_product_ids(document: dict) -> bool:
     """Temporary implementation of rule for defined product ids."""
-    defined_prod_ids = jmespath.search(def_pro_ids.TRIGGER_JMES_PATH, document)
-    if defined_prod_ids is None:
-        defined_prod_ids = []
+    defined_prod_ids = []
+    for path in def_pro_ids.TRIGGER_JMES_PATHS:
+        def_prod_ids = jmespath.search(path, document)
+        if def_prod_ids is not None:
+            defined_prod_ids += def_prod_ids
     known_prod_ids = set(defined_prod_ids)
     for path in def_pro_ids.CONDITION_JMES_PATHS:
         claim_prod_ids = jmespath.search(path, document)
