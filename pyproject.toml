@@ -7,7 +7,8 @@ name = "turvallisuusneuvonta"
 version = "2024.12.18"
 description = "Security advisory (Finnish: turvallisuusneuvonta) audit tool."
 readme = "README.md"
-license = {file = "LICENSE"}
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [{ name = "Stefan Hagen", email = "stefan@hagen.link" }]
 maintainers = [{ name = "Stefan Hagen", email = "stefan@hagen.link" }]
 classifiers = [
@@ -60,7 +61,7 @@ exclude = ["test*", "bin", "sbom"]
 [tool.black]
 line-length = 120
 skip-string-normalization = true
-target-version = [ "py39", "py310", "py311", "py312" ]
+target-version = [ "py39", "py310", "py311", "py312", "py313" ]
 
 [tool.coverage.run]
 branch = true
