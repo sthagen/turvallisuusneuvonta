@@ -3,7 +3,7 @@
     {
       "category": "3.10",
       "date": "2024-12",
-      "downloads": 126
+      "downloads": 16
     },
     {
       "category": "3.10",
@@ -33,12 +33,12 @@
     {
       "category": "3.10",
       "date": "2025-06",
-      "downloads": 160
+      "downloads": 232
     },
     {
       "category": "3.11",
       "date": "2024-12",
-      "downloads": 130
+      "downloads": 16
     },
     {
       "category": "3.11",
@@ -68,12 +68,12 @@
     {
       "category": "3.11",
       "date": "2025-06",
-      "downloads": 159
+      "downloads": 237
     },
     {
       "category": "3.12",
       "date": "2024-12",
-      "downloads": 122
+      "downloads": 16
     },
     {
       "category": "3.12",
@@ -103,7 +103,7 @@
     {
       "category": "3.12",
       "date": "2025-06",
-      "downloads": 160
+      "downloads": 232
     },
     {
       "category": "3.13",
@@ -128,7 +128,7 @@
     {
       "category": "3.8",
       "date": "2024-12",
-      "downloads": 124
+      "downloads": 16
     },
     {
       "category": "3.8",
@@ -158,12 +158,7 @@
     {
       "category": "3.8",
       "date": "2025-06",
-      "downloads": 152
-    },
-    {
-      "category": "3.9",
-      "date": "2024-12",
-      "downloads": 1
+      "downloads": 224
     },
     {
       "category": "3.9",
@@ -198,7 +193,7 @@
     {
       "category": "null",
       "date": "2024-12",
-      "downloads": 185
+      "downloads": 6
     },
     {
       "category": "null",
@@ -228,7 +223,7 @@
     {
       "category": "null",
       "date": "2025-06",
-      "downloads": 22
+      "downloads": 26
     }
   ],
   "package": "turvallisuusneuvonta",
