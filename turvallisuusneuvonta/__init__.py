@@ -1,8 +1,8 @@
 """Security advisory (Finnish: turvallisuusneuvonta) audit tool."""
 
 # [[[fill git_describe()]]]
-__version__ = '2024.12.18+parent.g6d360224'
-# [[[end]]] (checksum: f7d4c146c67f04723ac762bc02afa41e)
+__version__ = '2025.10.2+parent.g1601f0d6'
+# [[[end]]] (checksum: 748a1942d6b6ea62bb989a568186926e)
 __version_info__ = tuple(
     e if '-' not in e else e.split('-')[0] for part in __version__.split('+') for e in part.split('.') if e != 'parent'
 )
