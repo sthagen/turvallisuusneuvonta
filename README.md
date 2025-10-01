@@ -41,6 +41,12 @@ if you are a sourcehut user by selecting "Prepare a patchset" on the summary pag
 
 Please kindly submit issues at https://todo.sr.ht/~sthagen/turvallisuusneuvonta or write plain text email to ~sthagen/turvallisuusneuvonta@lists.sr.ht to submit patches and request support. Thanks.
 
+## Contributors
+
+In alphabetical order:
+
+* Tom Klaver
+
 ## Status
 
 Experimental.
