@@ -1,14 +1,14 @@
 {
   "turvallisuusneuvonta": {
     "format": 3,
-    "coverage_tool_version": "7.6.9",
-    "timestamp": "2024-12-18 20:29:47 +00:00",
+    "coverage_tool_version": "7.10.7",
+    "timestamp": "2025-10-01 23:13:22 +00:00",
     "branch_coverage": true,
     "show_contexts": true,
-    "covered_lines": 1143,
-    "num_statements": 1301,
-    "percent_covered": 82.74760383386581,
-    "percent_covered_display": "82.75",
+    "covered_lines": 1142,
+    "num_statements": 1300,
+    "percent_covered": 82.73657289002557,
+    "percent_covered_display": "82.74",
     "missing_lines": 158,
     "excluded_lines": 0,
     "num_branches": 264,
@@ -43,14 +43,14 @@
       "turvallisuusneuvonta/csaf/vulnerability.py",
       "turvallisuusneuvonta/turvallisuusneuvonta.py"
     ],
-    "blake3": "b44aeb150cdb93f0256e4bf512689ca6d7775782e4d212bfcb936a5984d75adf",
-    "blake2": "59f4c5dbceae9c3e34aece94c8ceea4e0570b1358d8724a5b185d7c79d9f6af7a74a1f307f6c39fc5e070ec0e25762b5cbff785069372b068744a9b9479aaa70",
-    "sha512": "04bb0d5054eeb45c7ce42ba820c6af9212d8d9c4a99a5bf590cb45e48a88344013c7d6d9296099e3096dbde5652f99d80e7a9cde6f98fee38a1fb6e32289ed4d",
-    "sha384": "f305195b0b7fb800a7b9c2f6a006a49530c886bdf2f53d7ae3e06bf82a6fc8bc07f008864ad8b040c7b98830a44aa5d4",
-    "sha256": "fc75865743f6ed58344daee41d64b7f649ab332e499be54fc510d4ac2af8c21d",
-    "sha1": "b869f827253d330ca7a3560e41789a269b356038",
-    "md5": "7eb8568ff297e68785740b49bc1db52d",
+    "blake3": "5419596a1fe14403457414f0d1ade319e779a711480be94c2ffd181c8c5d9d67",
+    "blake2": "2c8a35bd2b569cb203d7aadfbf1f0f48e059066814e43387adc5a5476a6ab8e9b0d7640e10ccc4ebd05f413c67d384585e9337a3bfb04c4ecc7613d053916693",
+    "sha512": "a413cefb75c9e855c421dfe64d543b29d71871dc0c8530f779ea38c7e6c50cdc76d5fc79c81132d19398789a3e9238ae38234478e3a673cc77afab91852ab3e8",
+    "sha384": "dc21aa4068bedc165aa8debb627037aa049a25b28f156c277b0e635a4bea2e489826b8275fc9b1ac8c7443d89d4ffb0e",
+    "sha256": "2b21d5855d7e50f14f6556ff72ed0d9c36a3000333b6693cf0960c248bf7ca81",
+    "sha1": "fc75dd6b1441516eaff504e2e9ea8af15b107c00",
+    "md5": "3114e7f51bc075424d3770176113c557",
     "python_version": "3.12.1",
-    "entropy": 4.784852
+    "entropy": 4.784201
   }
 }
