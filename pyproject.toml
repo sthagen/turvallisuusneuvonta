@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "turvallisuusneuvonta"
-version = "2024.12.18"
+version = "2025.10.2"
 description = "Security advisory (Finnish: turvallisuusneuvonta) audit tool."
 readme = "README.md"
 license = "MIT"
