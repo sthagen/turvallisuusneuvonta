@@ -18,16 +18,17 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Programming Language :: Python :: 3.9",
 ]
 keywords = ["csaf", "developer-tools", "validation", "verification"]
 dependencies = [
     "jmespath >= 1.0.1",
-    "langcodes >= 3.5.0",
+    "langcodes >= 3.5.1",
     "lazr.uri >= 1.0.7",
-    "msgspec >= 0.18.6",
-    "pydantic >= 2.10.3",
-    "typer >= 0.15.1",
+    "msgspec >= 0.20.0",
+    "pydantic >= 2.12.5",
+    "typer >= 0.20.0",
 ]
 requires-python = ">=3.9"
 
@@ -60,7 +61,7 @@ exclude = ["test*", "bin", "sbom"]
 [tool.black]
 line-length = 120
 skip-string-normalization = true
-target-version = [ "py39", "py310", "py311", "py312", "py313" ]
+target-version = [ "py39", "py310", "py311", "py312", "py313", "py314" ]
 
 [tool.coverage.run]
 branch = true
@@ -75,10 +76,8 @@ strict = true
 implicit_reexport = true
 
 [tool.pytest]
-testpaths = "test"
-filterwarnings = "error"
-
-[tool.pytest.ini_options]
+testpaths = ["test"]
+filterwarnings = ["error"]
 asyncio_default_fixture_loop_scope = "function"
 
 [tool.ruff]
